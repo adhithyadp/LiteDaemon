@@ -1,14 +1,14 @@
 [package]
-name = "opentypeless"
-version = "1.1.64"
-description = "AI-powered speech-to-text and text polishing desktop app"
-authors = ["OpenTypeless Contributors"]
+name = "flowlite"
+version = "1.0.0"
+description = "Lightweight AI voice-typing desktop app — the RAM-friendly alternative to Wispr Flow"
+authors = ["FlowLite"]
 license = "MIT"
 edition = "2021"
 rust-version = "1.82"
 
 [lib]
-name = "opentypeless_lib"
+name = "flowlite_lib"
 crate-type = ["staticlib", "cdylib", "rlib"]
 
 [features]

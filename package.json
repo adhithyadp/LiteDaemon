@@ -1,9 +1,9 @@
 {
-  "name": "opentypeless",
+  "name": "flowlite",
   "private": true,
-  "version": "1.1.64",
+  "version": "1.0.0",
   "type": "module",
-  "description": "AI-powered speech-to-text and text polishing desktop app",
+  "description": "Lightweight AI voice-typing desktop app — the RAM-friendly alternative to Wispr Flow",
   "keywords": [
     "speech-to-text",
     "stt",
@@ -14,13 +14,13 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/tover0314-w/opentypeless"
+    "url": "https://github.com/adhithyadp/flowlite"
   },
-  "homepage": "https://www.opentypeless.com",
+  "homepage": "https://www.flowlite.app",
   "bugs": {
-    "url": "https://github.com/tover0314-w/opentypeless/issues"
+    "url": "https://github.com/adhithyadp/flowlite/issues"
   },
-  "author": "OpenTypeless Contributors",
+  "author": "FlowLite",
   "license": "MIT",
   "scripts": {
     "dev": "vite",
