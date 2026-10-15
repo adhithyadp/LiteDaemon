@@ -1,0 +1,115 @@
+name: Release
+
+# Triggers when you push a version tag like v1.0.0
+# How to use: git tag v1.0.0 && git push origin v1.0.0
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+
+# Needed to create GitHub Releases and upload assets
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # ── Windows ──────────────────────────────────────────────────────
+          - platform: windows-latest
+            target: x86_64-pc-windows-msvc
+            label: windows-x64
+            artifact_ext: '.exe'
+
+          # ── macOS Apple Silicon (M1/M2/M3) ───────────────────────────────
+          - platform: macos-latest
+            target: aarch64-apple-darwin
+            label: macos-arm64
+            artifact_ext: '.dmg'
+
+          # ── macOS Intel ───────────────────────────────────────────────────
+          - platform: macos-13
+            target: x86_64-apple-darwin
+            label: macos-x64
+            artifact_ext: '.dmg'
+
+          # ── Linux x64 ─────────────────────────────────────────────────────
+          - platform: ubuntu-22.04
+            target: x86_64-unknown-linux-gnu
+            label: linux-x64
+            artifact_ext: '.AppImage'
+
+    runs-on: ${{ matrix.platform }}
+    timeout-minutes: 60
+
+    steps:
+      # ── Checkout ───────────────────────────────────────────────────────────
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      # ── Node.js ────────────────────────────────────────────────────────────
+      - name: Set up Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      # ── Rust ───────────────────────────────────────────────────────────────
+      - name: Set up Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      - name: Cache Rust build
+        uses: swatinem/rust-cache@9d47c6ad4b02e050fd481d890b2ea34778fd09d6 # v2.7.8
+        with:
+          workspaces: src-tauri -> target
+
+      # ── Linux system dependencies ─────────────────────────────────────────
+      - name: Install Linux dependencies
+        if: matrix.platform == 'ubuntu-22.04'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            cmake \
+            libwebkit2gtk-4.1-dev \
+            libappindicator3-dev \
+            librsvg2-dev \
+            patchelf \
+            libasound2-dev \
+            libxdo-dev
+
+      # ── Prepare linuxdeploy (Linux AppImage packaging) ────────────────────
+      - name: Prepare linuxdeploy wrapper
+        if: matrix.platform == 'ubuntu-22.04'
+        env:
+          XDG_CACHE_HOME: ${{ runner.temp }}/litedaemon-packaging-tools
+        run: ./.github/scripts/prepare-linuxdeploy-wrapper.sh "$(uname -m)"
+
+      # ── Install Node dependencies ──────────────────────────────────────────
+      - name: Install npm dependencies
+        run: npm ci
+
+      # ── Build ──────────────────────────────────────────────────────────────
+      - name: Build LiteDaemon (${{ matrix.label }})
+        env:
+          XDG_CACHE_HOME: ${{ runner.temp }}/litedaemon-packaging-tools
+        run: npm run tauri build -- --target ${{ matrix.target }}
+
+      # ── Upload artifacts to GitHub Release ────────────────────────────────
+      - name: Upload release artifacts
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+          files: |
+            src-tauri/target/${{ matrix.target }}/release/bundle/**/*.exe
+            src-tauri/target/${{ matrix.target }}/release/bundle/**/*.msi
+            src-tauri/target/${{ matrix.target }}/release/bundle/**/*.dmg
+            src-tauri/target/${{ matrix.target }}/release/bundle/**/*.AppImage
+            src-tauri/target/${{ matrix.target }}/release/bundle/**/*.deb
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

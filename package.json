@@ -1,9 +1,9 @@
 {
-  "name": "opentypeless",
+  "name": "LiteDaemon",
   "private": true,
-  "version": "1.1.64",
+  "version": "1.0.0",
   "type": "module",
-  "description": "AI-powered speech-to-text and text polishing desktop app",
+  "description": "Lightweight AI voice-typing desktop app — the RAM-friendly alternative to Wispr Flow",
   "keywords": [
     "speech-to-text",
     "stt",
@@ -14,13 +14,13 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/tover0314-w/opentypeless"
+    "url": "https://github.com/adhithyadp/LiteDaemon"
   },
-  "homepage": "https://www.opentypeless.com",
+  "homepage": "https://www.LiteDaemon.app",
   "bugs": {
-    "url": "https://github.com/tover0314-w/opentypeless/issues"
+    "url": "https://github.com/adhithyadp/LiteDaemon/issues"
   },
-  "author": "OpenTypeless Contributors",
+  "author": "LiteDaemon",
   "license": "MIT",
   "scripts": {
     "dev": "vite",
