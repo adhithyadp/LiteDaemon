@@ -1,11 +1,11 @@
-# FlowLite — Payment System Documentation
+# LiteDaemon — Payment System Documentation
 > For any developer who needs to understand or modify the payment gate.
 
 ---
 
 ## Overview
 
-FlowLite uses **Dodo Payments** for license key management.
+LiteDaemon uses **Dodo Payments** for license key management.
 Users buy a plan on the website → receive a license key by email → enter it in the app → app unlocks.
 
 ---
@@ -38,18 +38,18 @@ useLicenseGate (hook)
 
 | File | Purpose |
 |---|---|
-| `flowlite/payment/licenseStore.ts` | Read/write license key to OS secure storage |
-| `flowlite/payment/dodopayments.ts` | API calls: activate, validate, deactivate |
-| `flowlite/payment/useLicenseGate.ts` | Core logic hook — the brain |
-| `flowlite/payment/LicenseGate.tsx` | UI screen shown to unlicensed users |
-| `flowlite/payment/DeactivateButton.tsx` | "Deactivate this device" button for Settings |
+| `LiteDaemon/payment/licenseStore.ts` | Read/write license key to OS secure storage |
+| `LiteDaemon/payment/dodopayments.ts` | API calls: activate, validate, deactivate |
+| `LiteDaemon/payment/useLicenseGate.ts` | Core logic hook — the brain |
+| `LiteDaemon/payment/LicenseGate.tsx` | UI screen shown to unlicensed users |
+| `LiteDaemon/payment/DeactivateButton.tsx` | "Deactivate this device" button for Settings |
 
 ---
 
 ## The ONE Line in Original Code
 
 `src/App.tsx` has 3 lines added at the top (imports) and one function `GatedMainApp` added at the bottom.
-That's the only touch. All comments in that file are marked `// [FlowLite]` for easy identification.
+That's the only touch. All comments in that file are marked `// [LiteDaemon]` for easy identification.
 
 ---
 

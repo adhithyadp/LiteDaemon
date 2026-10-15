@@ -1,4 +1,4 @@
-// FlowLite Brand Colors
+// LiteDaemon Brand Colors
 // Use these tokens everywhere in our custom UI (payment gate, license screen, etc.)
 // Do NOT use random colors — always reference these.
 

@@ -1,14 +1,14 @@
 /**
- * FlowLite — Deactivate Device Button
+ * LiteDaemon — Deactivate Device Button
  * Shown in the app's Settings page so users can free their license slot.
  * Import this and drop it into the existing Settings component.
  *
  * Usage:
- *   import { DeactivateButton } from '../../flowlite/payment/DeactivateButton'
+ *   import { DeactivateButton } from '../../LiteDaemon/payment/DeactivateButton'
  *   // Then in your settings JSX:
  *   <DeactivateButton onDeactivate={deactivate} isDeactivating={isDeactivating} />
  *
- * File location: /flowlite/payment/DeactivateButton.tsx
+ * File location: /LiteDaemon/payment/DeactivateButton.tsx
  * Phase: 2 — Payment Gate
  */
 
@@ -20,7 +20,7 @@ interface DeactivateButtonProps {
 export function DeactivateButton({ onDeactivate, isDeactivating }: DeactivateButtonProps) {
   const handleClick = () => {
     const confirmed = window.confirm(
-      'Deactivate FlowLite on this device?\n\nYour license key will be freed so you can use it on another computer. You will need to re-enter your key to use FlowLite on this device again.'
+      'Deactivate LiteDaemon on this device?\n\nYour license key will be freed so you can use it on another computer. You will need to re-enter your key to use LiteDaemon on this device again.'
     )
     if (confirmed) onDeactivate()
   }

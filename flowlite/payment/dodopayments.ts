@@ -1,12 +1,12 @@
 /**
- * FlowLite — Dodo Payments API Client
+ * LiteDaemon — Dodo Payments API Client
  * Handles license activation, validation, and deactivation via Dodo Payments public API.
  *
  * These endpoints are PUBLIC — no secret key needed in the client app.
  * Test mode: https://test.dodopayments.com
  * Live mode:  https://live.dodopayments.com
  *
- * File location: /flowlite/payment/dodopayments.ts
+ * File location: /LiteDaemon/payment/dodopayments.ts
  * Phase: 2 — Payment Gate
  */
 
@@ -46,7 +46,7 @@ export interface DeactivateResult {
  * Not perfect anti-piracy but prevents accidental duplicate activations.
  */
 function getMachineId(): string {
-  const key = 'flowlite_machine_id'
+  const key = 'LiteDaemon_machine_id'
   let id = localStorage.getItem(key)
   if (!id) {
     // Generate a random stable ID for this machine
@@ -98,7 +98,7 @@ export async function activateLicense(licenseKey: string): Promise<ActivateResul
       },
       body: JSON.stringify({
         license_key: licenseKey.trim(),
-        name: `FlowLite-${machineId.slice(0, 8)}`, // instance name shown in dashboard
+        name: `LiteDaemon-${machineId.slice(0, 8)}`, // instance name shown in dashboard
       }),
     })
 
@@ -123,7 +123,7 @@ export async function activateLicense(licenseKey: string): Promise<ActivateResul
       planType: detectPlanFromResponse(data),
     }
   } catch (err) {
-    console.error('[FlowLite] License activation error:', err)
+    console.error('[LiteDaemon] License activation error:', err)
     return { success: false, error: 'Could not connect to the licensing server. Check your internet connection.' }
   }
 }
@@ -165,7 +165,7 @@ export async function validateLicense(
     return { valid: true }
   } catch (err) {
     // Network error — let the caller decide based on grace period
-    console.warn('[FlowLite] License validation network error:', err)
+    console.warn('[LiteDaemon] License validation network error:', err)
     return { valid: false, error: 'offline' }
   }
 }
@@ -200,7 +200,7 @@ export async function deactivateLicense(
 
     return { success: true }
   } catch (err) {
-    console.error('[FlowLite] License deactivation error:', err)
+    console.error('[LiteDaemon] License deactivation error:', err)
     return { success: false, error: 'Could not connect to the licensing server.' }
   }
 }

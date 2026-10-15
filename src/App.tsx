@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-// [FlowLite] Payment gate — Phase 2
-import { useLicenseGate } from '../flowlite/payment/useLicenseGate'
-import { LicenseGate } from '../flowlite/payment/LicenseGate'
+// [LiteDaemon] Payment gate — Phase 2
+import { useLicenseGate } from '../LiteDaemon/payment/useLicenseGate'
+import { LicenseGate } from '../LiteDaemon/payment/LicenseGate'
 import i18n from './i18n'
 import { useTauriEvents } from './hooks/useTauriEvents'
 import { useTheme } from './hooks/useTheme'
@@ -240,7 +240,7 @@ function App() {
   return <GatedMainApp />
 }
 
-// [FlowLite] License gate wrapper — Phase 2
+// [LiteDaemon] License gate wrapper — Phase 2
 // This is the ONLY addition to the original App.tsx.
 // GatedMainApp checks the license and either shows LicenseGate or MainApp.
 function GatedMainApp() {

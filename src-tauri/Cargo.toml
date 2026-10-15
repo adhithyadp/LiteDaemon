@@ -1,14 +1,14 @@
 [package]
-name = "flowlite"
+name = "LiteDaemon"
 version = "1.0.0"
 description = "Lightweight AI voice-typing desktop app — the RAM-friendly alternative to Wispr Flow"
-authors = ["FlowLite"]
+authors = ["LiteDaemon"]
 license = "MIT"
 edition = "2021"
 rust-version = "1.82"
 
 [lib]
-name = "flowlite_lib"
+name = "LiteDaemon_lib"
 crate-type = ["staticlib", "cdylib", "rlib"]
 
 [features]

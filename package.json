@@ -1,5 +1,5 @@
 {
-  "name": "flowlite",
+  "name": "LiteDaemon",
   "private": true,
   "version": "1.0.0",
   "type": "module",
@@ -14,13 +14,13 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/adhithyadp/flowlite"
+    "url": "https://github.com/adhithyadp/LiteDaemon"
   },
-  "homepage": "https://www.flowlite.app",
+  "homepage": "https://www.LiteDaemon.app",
   "bugs": {
-    "url": "https://github.com/adhithyadp/flowlite/issues"
+    "url": "https://github.com/adhithyadp/LiteDaemon/issues"
   },
-  "author": "FlowLite",
+  "author": "LiteDaemon",
   "license": "MIT",
   "scripts": {
     "dev": "vite",

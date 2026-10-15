@@ -1,12 +1,12 @@
-# FlowLite — Developer Handoff Guide
+# LiteDaemon — Developer Handoff Guide
 > For any developer, agency, or team picking this up in the future.
 > Last updated: October 2026
 
 ---
 
-## What Is FlowLite?
+## What Is LiteDaemon?
 
-FlowLite is a **commercial fork** of [opentypeless](https://github.com/tover0314-w/opentypeless) — an open-source, lightweight AI voice-typing desktop app (MIT License).
+LiteDaemon is a **commercial fork** of [opentypeless](https://github.com/tover0314-w/opentypeless) — an open-source, lightweight AI voice-typing desktop app (MIT License).
 
 **Our product:** A paid, lightweight alternative to Wispr Flow.
 - Windows + Mac desktop app
@@ -14,14 +14,14 @@ FlowLite is a **commercial fork** of [opentypeless](https://github.com/tover0314
 - Uses ~50MB RAM vs Wispr Flow's ~800MB on Windows
 - Two plans: BYOK (users bring their own OpenAI key) and Cloud (we provide API)
 
-**GitHub:** https://github.com/adhithyadp/flowlite
+**GitHub:** https://github.com/adhithyadp/LiteDaemon
 
 ---
 
 ## THE GOLDEN RULE
 
 > ### Never edit files in `/src/` or `/src-tauri/`
-> ### All our code lives in `/flowlite/` and `/docs/` and `/website/`
+> ### All our code lives in `/LiteDaemon/` and `/docs/` and `/website/`
 
 This keeps our changes separate from the original codebase.
 Pulling upstream updates = zero merge conflicts.
@@ -31,13 +31,13 @@ Pulling upstream updates = zero merge conflicts.
 ## Folder Structure
 
 ```
-flowlite/  (repo root)
+LiteDaemon/  (repo root)
 ├── src/              ← ORIGINAL — do not touch
 ├── src-tauri/        ← ORIGINAL — do not touch
 ├── package.json      ← ORIGINAL — do not touch
 ├── Cargo.toml        ← ORIGINAL — do not touch
 │
-├── flowlite/         ← ALL OUR CUSTOM CODE
+├── LiteDaemon/         ← ALL OUR CUSTOM CODE
 │   ├── payment/      — license key + Dodo Payments integration
 │   ├── branding/     — logo, icons, colors
 │   ├── cloud/        — cloud API proxy connector (Phase 6)
@@ -45,14 +45,14 @@ flowlite/  (repo root)
 │
 ├── docs/             ← ALL OUR DOCUMENTATION
 │   ├── WHAT_WE_CHANGED.md      — every change logged
-│   ├── FLOWLITE_HANDOFF.md     — this file
+│   ├── LiteDaemon_HANDOFF.md     — this file
 │   ├── UPSTREAM_SYNC.md        — how to pull opentypeless updates
 │   ├── PAYMENT_SYSTEM.md       — how payment gate works (added Phase 2)
 │   └── BUILD_AND_RELEASE.md    — how to build + ship (added Phase 3)
 │
 ├── website/          ← MARKETING WEBSITE (added Phase 4)
 │
-└── FLOWLITE_CHANGELOG.md  ← OUR release history
+└── LiteDaemon_CHANGELOG.md  ← OUR release history
 ```
 
 ---
@@ -138,7 +138,7 @@ See `/docs/BUILD_AND_RELEASE.md` for full instructions.
 
 ## For Every New Feature
 1. Branch from `dev`: `git checkout -b feature/your-feature`
-2. Write code only in `/flowlite/` — never in `/src/` or `/src-tauri/`
+2. Write code only in `/LiteDaemon/` — never in `/src/` or `/src-tauri/`
 3. Update `WHAT_WE_CHANGED.md`
-4. Update `FLOWLITE_CHANGELOG.md`
+4. Update `LiteDaemon_CHANGELOG.md`
 5. PR to `dev`, then merge `dev` → `main` for release

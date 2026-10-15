@@ -1,9 +1,9 @@
 /**
- * FlowLite — License Gate Screen
+ * LiteDaemon — License Gate Screen
  * The paywall UI shown when the app has no valid license.
  * Premium, minimal design matching our brand.
  *
- * File location: /flowlite/payment/LicenseGate.tsx
+ * File location: /LiteDaemon/payment/LicenseGate.tsx
  * Phase: 2 — Payment Gate
  */
 
@@ -66,7 +66,7 @@ export function LicenseGate({
         </div>
 
         {/* Headline */}
-        <h1 style={styles.title}>FlowLite</h1>
+        <h1 style={styles.title}>LiteDaemon</h1>
         <p style={styles.subtitle}>
           Lightweight AI voice typing.<br />
           Less RAM. More flow.
@@ -110,7 +110,7 @@ export function LicenseGate({
               <span style={styles.btnSpinner} /> Activating…
             </span>
           ) : (
-            'Activate FlowLite'
+            'Activate LiteDaemon'
           )}
         </button>
 
@@ -119,7 +119,7 @@ export function LicenseGate({
           Don't have a license key?{' '}
           <a
             id="buy-link"
-            href="https://flowlite.app/#pricing"
+            href="https://LiteDaemon.app/#pricing"
             target="_blank"
             rel="noopener noreferrer"
             style={styles.link}
@@ -131,7 +131,7 @@ export function LicenseGate({
         {/* Footer */}
         <p style={styles.footerText}>
           By activating, you agree to our{' '}
-          <a href="https://flowlite.app/terms" target="_blank" rel="noopener noreferrer" style={styles.linkMuted}>
+          <a href="https://LiteDaemon.app/terms" target="_blank" rel="noopener noreferrer" style={styles.linkMuted}>
             Terms of Service
           </a>
         </p>

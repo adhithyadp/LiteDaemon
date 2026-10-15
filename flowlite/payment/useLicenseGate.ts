@@ -1,5 +1,5 @@
 /**
- * FlowLite — License Gate Hook
+ * LiteDaemon — License Gate Hook
  * The core logic that decides whether to show the app or the paywall.
  *
  * Flow:
@@ -10,7 +10,7 @@
  *   5. If valid → let user in
  *   6. If expired/invalid → show activation screen with error
  *
- * File location: /flowlite/payment/useLicenseGate.ts
+ * File location: /LiteDaemon/payment/useLicenseGate.ts
  * Phase: 2 — Payment Gate
  */
 

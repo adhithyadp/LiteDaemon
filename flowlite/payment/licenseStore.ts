@@ -1,17 +1,17 @@
 /**
- * FlowLite — Dodo Payments License Store
+ * LiteDaemon — Dodo Payments License Store
  * Handles saving and reading the license key + instance ID from OS secure storage.
  *
  * Uses Tauri's plugin-store (already in the project) to persist data securely.
  * No sensitive keys are ever logged or exposed to the UI unnecessarily.
  *
- * File location: /flowlite/payment/licenseStore.ts
+ * File location: /LiteDaemon/payment/licenseStore.ts
  * Phase: 2 — Payment Gate
  */
 
 import { load } from '@tauri-apps/plugin-store'
 
-const STORE_FILE = 'flowlite-license.bin'
+const STORE_FILE = 'LiteDaemon-license.bin'
 const KEY_LICENSE     = 'license_key'
 const KEY_INSTANCE    = 'instance_id'
 const KEY_PLAN        = 'plan_type'

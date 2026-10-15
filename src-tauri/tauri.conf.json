@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "FlowLite",
+  "productName": "LiteDaemon",
   "version": "1.0.0",
-  "identifier": "app.flowlite.desktop",
+  "identifier": "xyz.litedaemon.app",
   "build": {
     "beforeDevCommand": "npm run dev",
     "devUrl": "http://localhost:1420",
@@ -14,7 +14,7 @@
     "windows": [
       {
         "label": "main",
-        "title": "FlowLite",
+        "title": "LiteDaemon",
         "width": 900,
         "height": 700,
         "minWidth": 720,
@@ -29,7 +29,7 @@
       },
       {
         "label": "capsule",
-        "title": "FlowLite Capsule",
+        "title": "LiteDaemon Capsule",
         "width": 80,
         "height": 80,
         "resizable": false,
@@ -46,7 +46,7 @@
       },
       {
         "label": "ask",
-        "title": "FlowLite Ask",
+        "title": "LiteDaemon Ask",
         "width": 400,
         "height": 220,
         "minWidth": 360,
@@ -63,19 +63,19 @@
       }
     ],
     "security": {
-      "csp": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://*.flowlite.app https://api.lemonsqueezy.com https://accounts.google.com https://github.com"
+      "csp": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://*.LiteDaemon.app https://api.lemonsqueezy.com https://accounts.google.com https://github.com"
     }
   },
   "plugins": {
     "updater": {
       "endpoints": [
-        "https://github.com/adhithyadp/flowlite/releases/latest/download/latest.json"
+        "https://github.com/adhithyadp/LiteDaemon/releases/latest/download/latest.json"
       ],
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDdBNEFFRjEzN0ZCQTNBMEQKUldRTk9ycC9FKzlLZXVKSFZLNUYxdFZ2Ri9Ya0FRaGsvUEZ1bkJRTDZ6dHZ1emhtZWR6QkprS3kK"
     },
     "deep-link": {
       "desktop": {
-        "schemes": ["flowlite"]
+        "schemes": ["LiteDaemon"]
       }
     }
   },
