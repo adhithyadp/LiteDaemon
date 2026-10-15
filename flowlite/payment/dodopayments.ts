@@ -58,19 +58,23 @@ function getMachineId(): string {
 
 // ─── PLAN DETECTION ──────────────────────────────────────────────────────────
 /**
- * Dodo Payments returns product/variant info in the activation response.
- * We map their product ID back to our plan type.
- *
- * IMPORTANT: Replace these placeholder IDs with your actual Dodo Payments
- * product IDs once you create the products in your dashboard.
+ * Maps Dodo Payments product IDs → our internal plan types.
+ * All 8 IDs confirmed from dashboard on 2026-10-15 (Test Mode).
+ * When switching to Live Mode, create live products and update these IDs.
  */
 const PRODUCT_ID_TO_PLAN: Record<string, PlanType> = {
-  // TODO: Replace with your actual Dodo Payments Product IDs
-  // Format: 'prd_xxxxxxxxxxxx': 'plan_type'
-  'BYOK_INDIA_PRODUCT_ID':   'byok_india',
-  'BYOK_GLOBAL_PRODUCT_ID':  'byok_global',
-  'CLOUD_INDIA_PRODUCT_ID':  'cloud_india',
-  'CLOUD_GLOBAL_PRODUCT_ID': 'cloud_global',
+  // ── BYOK India ──
+  'pdt_0NpmZNAv7xjT2IMRFSuLX': 'byok_india',   // ₹149/month
+  'pdt_0NpmaeMYRWerMp6jfuR19': 'byok_india',   // ₹1,199/year
+  // ── BYOK Global ──
+  'pdt_0NpmbJBA9SlIRXGydh4R2': 'byok_global',  // $3.99/month
+  'pdt_0NpmbvKv5ztEsN7GJtAIR': 'byok_global',  // $35/year
+  // ── Cloud India ──
+  'pdt_0NpmcdSHjMamfCoME1Oo1': 'cloud_india',  // ₹400/month
+  'pdt_0NpmdHPwaRxVrxWLdJPn':  'cloud_india',  // ₹3,849/year
+  // ── Cloud Global ──
+  'pdt_0NpmdjQas1Mx8larIh0gj': 'cloud_global', // $15/month
+  'pdt_0NpmekK7OwYgcXj4h3Eych': 'cloud_global', // $144/year
 }
 
 function detectPlanFromResponse(responseData: unknown): PlanType {
