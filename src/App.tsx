@@ -1,4 +1,7 @@
 import { useEffect, useState } from 'react'
+// [FlowLite] Payment gate — Phase 2
+import { useLicenseGate } from '../flowlite/payment/useLicenseGate'
+import { LicenseGate } from '../flowlite/payment/LicenseGate'
 import i18n from './i18n'
 import { useTauriEvents } from './hooks/useTauriEvents'
 import { useTheme } from './hooks/useTheme'
@@ -234,6 +237,27 @@ function App() {
   // Capsule window loads with #capsule hash — detect synchronously, no race condition
   if (window.location.hash === '#capsule') return <CapsuleApp />
   if (window.location.hash === '#ask') return <AskApp />
+  return <GatedMainApp />
+}
+
+// [FlowLite] License gate wrapper — Phase 2
+// This is the ONLY addition to the original App.tsx.
+// GatedMainApp checks the license and either shows LicenseGate or MainApp.
+function GatedMainApp() {
+  const { status, error, isActivating, activate, resetError } = useLicenseGate()
+
+  if (status === 'checking' || status === 'locked' || status === 'error') {
+    return (
+      <LicenseGate
+        status={status}
+        error={error}
+        isActivating={isActivating}
+        onActivate={activate}
+        onResetError={resetError}
+      />
+    )
+  }
+
   return <MainApp />
 }
 
