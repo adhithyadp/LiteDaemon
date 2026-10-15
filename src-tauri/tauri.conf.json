@@ -63,19 +63,19 @@
       }
     ],
     "security": {
-      "csp": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://*.LiteDaemon.app https://api.lemonsqueezy.com https://accounts.google.com https://github.com"
+      "csp": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://*.litedaemon.xyz https://test.dodopayments.com https://live.dodopayments.com https://accounts.google.com https://github.com"
     }
   },
   "plugins": {
     "updater": {
       "endpoints": [
-        "https://github.com/adhithyadp/LiteDaemon/releases/latest/download/latest.json"
+        "https://github.com/adhithyadp/flowlite/releases/latest/download/latest.json"
       ],
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDdBNEFFRjEzN0ZCQTNBMEQKUldRTk9ycC9FKzlLZXVKSFZLNUYxdFZ2Ri9Ya0FRaGsvUEZ1bkJRTDZ6dHZ1emhtZWR6QkprS3kK"
     },
     "deep-link": {
       "desktop": {
-        "schemes": ["LiteDaemon"]
+        "schemes": ["litedaemon"]
       }
     }
   },
