@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — LiteDaemon</title>
+  <meta name="description" content="Privacy Policy for LiteDaemon voice typing software. We collect minimal data." />
+  <link rel="icon" type="image/png" href="assets/icon.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="legal.css" />
+</head>
+<body>
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <div class="logo-icon">
+          <svg width="16" height="16" viewBox="0 0 36 36" fill="none">
+            <rect x="3"  y="14" width="4" height="8"  rx="2" fill="white"/>
+            <rect x="9"  y="9"  width="4" height="18" rx="2" fill="white"/>
+            <rect x="15" y="5"  width="4" height="26" rx="2" fill="white"/>
+            <rect x="21" y="9"  width="4" height="18" rx="2" fill="white"/>
+            <rect x="27" y="14" width="4" height="8"  rx="2" fill="white"/>
+          </svg>
+        </div>
+        <span>LiteDaemon</span>
+      </a>
+      <a href="/" class="back-link">← Back to Home</a>
+    </div>
+  </nav>
+
+  <div class="legal-page">
+    <div class="legal-header">
+      <div class="legal-tag">Legal</div>
+      <h1>Privacy Policy</h1>
+      <p class="legal-meta">Last updated: October 16, 2026 · Effective: October 16, 2026</p>
+    </div>
+
+    <div class="legal-body">
+
+      <div class="highlight-box">
+        <strong>TL;DR (Plain English):</strong> LiteDaemon is designed to be private-first. BYOK users' audio never touches our servers. Cloud users' audio is processed and immediately deleted — never stored. We don't sell your data. Ever.
+      </div>
+
+      <p>LiteDaemon ("we", "us", "our") is committed to protecting your privacy. This Privacy Policy explains what data we collect, why, and how we use it when you use our website (<strong>litedaemon.xyz</strong>) and desktop application.</p>
+
+      <h2>1. Data We Collect</h2>
+
+      <h3>A. Website (litedaemon.xyz)</h3>
+      <ul>
+        <li><strong>Analytics:</strong> We may collect anonymised page visit data (country, browser, pages visited) to understand how users find us. No personally identifiable information is collected.</li>
+        <li><strong>Contact form / email:</strong> If you email us, we store your email and message to respond to you.</li>
+      </ul>
+
+      <h3>B. Desktop Application — BYOK Plan</h3>
+      <ul>
+        <li><strong>License key:</strong> Stored locally on your device only. Sent to Dodo Payments API to validate your subscription — not stored by us.</li>
+        <li><strong>Machine ID:</strong> A random anonymous ID generated on your device to manage activation slots. Never linked to your identity.</li>
+        <li><strong>Audio data:</strong> <strong>We never receive your audio.</strong> When you dictate, audio is sent directly from your device to OpenAI's API using your own API key. We have zero access.</li>
+        <li><strong>API key:</strong> Your OpenAI API key is stored in your OS's local app storage only. Never transmitted to our servers.</li>
+      </ul>
+
+      <h3>C. Desktop Application — Cloud Plan</h3>
+      <ul>
+        <li><strong>License key:</strong> Same as BYOK — validated with Dodo, stored locally.</li>
+        <li><strong>Audio data:</strong> When you dictate, your audio clip is sent to our secure backend (Cloudflare Worker), forwarded to OpenAI Whisper for transcription, and the text result is returned to you. <strong>The audio is never stored — it is processed in-memory and discarded immediately after transcription.</strong></li>
+        <li><strong>We do not store:</strong> Audio recordings, transcription history, or voice data of any kind.</li>
+      </ul>
+
+      <h3>D. Payment Data</h3>
+      <p>Payments are processed entirely by <strong>Dodo Payments</strong>. We never see or store your card number, UPI ID, or banking details. Dodo Payments is the data controller for payment data. Please review <a href="https://dodopayments.com/privacy" target="_blank">Dodo Payments' Privacy Policy</a>.</p>
+      <p>We receive from Dodo: your email address (to send you your license key) and subscription status.</p>
+
+      <h2>2. How We Use Your Data</h2>
+      <ul>
+        <li>To deliver and validate your license key</li>
+        <li>To process voice transcription (Cloud plan only — in-memory, not stored)</li>
+        <li>To respond to support emails</li>
+        <li>To send important account notifications (e.g., subscription renewal, key delivery)</li>
+        <li>We do <strong>not</strong> use your data for advertising</li>
+        <li>We do <strong>not</strong> sell your data to third parties</li>
+      </ul>
+
+      <h2>3. Data Retention</h2>
+      <ul>
+        <li><strong>Audio data:</strong> Not retained. Processed in memory and discarded immediately.</li>
+        <li><strong>Email address:</strong> Retained as long as your subscription is active + 30 days after cancellation.</li>
+        <li><strong>Support emails:</strong> Retained for 1 year.</li>
+      </ul>
+
+      <h2>4. Third-Party Services</h2>
+      <ul>
+        <li><strong>Dodo Payments</strong> — Payment processing and license key delivery</li>
+        <li><strong>OpenAI</strong> — AI transcription (BYOK: via your key; Cloud: via ours)</li>
+        <li><strong>Cloudflare</strong> — Website hosting and (Cloud plan) API proxy</li>
+      </ul>
+      <p>Each of these has their own privacy policies. We are not responsible for their data practices.</p>
+
+      <h2>5. Your Rights</h2>
+      <p>Depending on your jurisdiction, you may have the right to:</p>
+      <ul>
+        <li>Access the personal data we hold about you</li>
+        <li>Request deletion of your data</li>
+        <li>Opt out of marketing emails</li>
+        <li>Lodge a complaint with your data protection authority</li>
+      </ul>
+      <p>To exercise any right, email us at <a href="mailto:support@litedaemon.xyz">support@litedaemon.xyz</a>.</p>
+
+      <h2>6. Security</h2>
+      <p>We take security seriously. All data in transit is encrypted via HTTPS/TLS. We do not store sensitive data on our own servers. License key validation is handled via Dodo Payments' secure infrastructure.</p>
+
+      <h2>7. Children</h2>
+      <p>LiteDaemon is not intended for children under the age of 13. We do not knowingly collect data from children.</p>
+
+      <h2>8. Changes to This Policy</h2>
+      <p>We may update this policy from time to time. We will notify you by email or in-app notice for significant changes. The "last updated" date at the top will always reflect the current version.</p>
+
+      <h2>9. Contact</h2>
+      <p>For any privacy concerns or data requests:</p>
+      <p><strong>Email:</strong> <a href="mailto:support@litedaemon.xyz">support@litedaemon.xyz</a><br/>
+      <strong>Website:</strong> <a href="https://litedaemon.xyz">litedaemon.xyz</a></p>
+
+    </div>
+  </div>
+
+  <footer class="legal-footer">
+    <p>© 2026 LiteDaemon · <a href="/terms">Terms</a> · <a href="/privacy">Privacy</a> · <a href="/refunds">Refunds</a> · <a href="/contact">Contact</a></p>
+  </footer>
+</body>
+</html>
