@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us — LiteDaemon</title>
+  <meta name="description" content="Contact LiteDaemon support for help with your subscription, license, or technical issues." />
+  <link rel="icon" type="image/png" href="assets/icon.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="legal.css" />
+</head>
+<body>
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <div class="logo-icon">
+          <svg width="16" height="16" viewBox="0 0 36 36" fill="none">
+            <rect x="3"  y="14" width="4" height="8"  rx="2" fill="white"/>
+            <rect x="9"  y="9"  width="4" height="18" rx="2" fill="white"/>
+            <rect x="15" y="5"  width="4" height="26" rx="2" fill="white"/>
+            <rect x="21" y="9"  width="4" height="18" rx="2" fill="white"/>
+            <rect x="27" y="14" width="4" height="8"  rx="2" fill="white"/>
+          </svg>
+        </div>
+        <span>LiteDaemon</span>
+      </a>
+      <a href="/" class="back-link">← Back to Home</a>
+    </div>
+  </nav>
+
+  <div class="legal-page">
+    <div class="legal-header">
+      <div class="legal-tag">Support</div>
+      <h1>Contact Us</h1>
+      <p class="legal-meta">We typically respond within 24 hours on business days.</p>
+    </div>
+
+    <div class="legal-body">
+
+      <!-- Contact Cards -->
+      <div class="contact-cards">
+
+        <div class="contact-card primary-card">
+          <div class="contact-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3D5AFE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+            </svg>
+          </div>
+          <div>
+            <div class="contact-label">Email Support</div>
+            <a href="mailto:support@litedaemon.xyz" class="contact-value">support@litedaemon.xyz</a>
+            <p class="contact-note">For billing, license, or technical issues</p>
+          </div>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
+            </svg>
+          </div>
+          <div>
+            <div class="contact-label">GitHub Issues</div>
+            <a href="https://github.com/adhithyadp/flowlite/issues" target="_blank" class="contact-value">github.com/adhithyadp/flowlite</a>
+            <p class="contact-note">For bug reports and feature requests</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- FAQ -->
+      <h2>Common Questions</h2>
+
+      <div class="faq-list">
+
+        <div class="faq-item" id="faq-1">
+          <button class="faq-q" onclick="toggleFaq('faq-1')">
+            I didn't receive my license key after purchase
+            <span class="faq-arrow">▼</span>
+          </button>
+          <div class="faq-a">
+            <p>Check your spam/junk folder first — Dodo Payments sends the key from their system. If it's not there after 15 minutes, email us at <a href="mailto:support@litedaemon.xyz">support@litedaemon.xyz</a> with your order email or Dodo order ID and we'll resend it immediately.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" id="faq-2">
+          <button class="faq-q" onclick="toggleFaq('faq-2')">
+            My license key says "activation limit reached"
+            <span class="faq-arrow">▼</span>
+          </button>
+          <div class="faq-a">
+            <p>Each key activates up to 2 devices. To free a slot: open LiteDaemon on the old device → Settings → Deactivate Device. If you no longer have access to the old device, email us and we'll reset your activation count.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" id="faq-3">
+          <button class="faq-q" onclick="toggleFaq('faq-3')">
+            How do I cancel my subscription?
+            <span class="faq-arrow">▼</span>
+          </button>
+          <div class="faq-a">
+            <p>Check your original purchase email from Dodo Payments — it contains a link to your customer portal where you can cancel anytime. You can also email us and we'll cancel it for you within 24 hours.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" id="faq-4">
+          <button class="faq-q" onclick="toggleFaq('faq-4')">
+            The app isn't recognising my voice correctly
+            <span class="faq-arrow">▼</span>
+          </button>
+          <div class="faq-a">
+            <p>Ensure your microphone is set as the default input device in Windows/macOS settings. For BYOK users, verify your OpenAI API key has sufficient credits. If the issue persists, file a bug report on GitHub with your OS version and LiteDaemon version.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" id="faq-5">
+          <button class="faq-q" onclick="toggleFaq('faq-5')">
+            I want a refund
+            <span class="faq-arrow">▼</span>
+          </button>
+          <div class="faq-a">
+            <p>We offer a 7-day money-back guarantee. Email <a href="mailto:support@litedaemon.xyz">support@litedaemon.xyz</a> with your order details and we'll process it within 3–5 business days. See our full <a href="/refunds">Refund Policy</a>.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="response-note">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3D5AFE" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span>Average response time: <strong>under 24 hours</strong> on business days (Mon–Sat, IST)</span>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="legal-footer">
+    <p>© 2026 LiteDaemon · <a href="/terms">Terms</a> · <a href="/privacy">Privacy</a> · <a href="/refunds">Refunds</a> · <a href="/contact">Contact</a></p>
+  </footer>
+
+  <script>
+    function toggleFaq(id) {
+      const item = document.getElementById(id)
+      item.classList.toggle('open')
+    }
+  </script>
+</body>
+</html>
