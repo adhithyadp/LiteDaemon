@@ -14,11 +14,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/adhithyadp/LiteDaemon"
+    "url": "https://github.com/adhithyadp/flowlite"
   },
-  "homepage": "https://www.LiteDaemon.app",
+  "homepage": "https://litedaemon.xyz",
   "bugs": {
-    "url": "https://github.com/adhithyadp/LiteDaemon/issues"
+    "url": "https://github.com/adhithyadp/flowlite/issues"
   },
   "author": "LiteDaemon",
   "license": "MIT",
