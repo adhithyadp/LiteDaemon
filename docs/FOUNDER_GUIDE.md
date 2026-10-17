@@ -8,7 +8,7 @@
 
 | What | Link |
 |---|---|
-| GitHub repo | https://github.com/adhithyadp/flowlite |
+| GitHub repo | https://github.com/adhithyadp/LiteDaemon |
 | Website files | `Desktop/project flow/flowlite/website/` |
 | Dodo Payments | https://app.dodopayments.com |
 | Support email | support@litedaemon.xyz |
@@ -73,7 +73,7 @@ App validates key with Dodo → unlocks
 → If it shows "Activation limit reached" — they need to deactivate an old device (tell them: Settings → Deactivate Device)
 
 **"I can't download the app"**
-→ Send them to: https://github.com/adhithyadp/flowlite/releases/latest
+→ Send them to: https://github.com/adhithyadp/LiteDaemon/releases/latest
 
 **"The app is crashing"**
 → Ask your developer to check GitHub Issues

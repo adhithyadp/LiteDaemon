@@ -10,11 +10,11 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/adhithyadp/flowlite/actions/workflows/ci.yml">
-    <img src="https://github.com/adhithyadp/flowlite/actions/workflows/ci.yml/badge.svg" alt="CI" />
+  <a href="https://github.com/adhithyadp/LiteDaemon/actions/workflows/ci.yml">
+    <img src="https://github.com/adhithyadp/LiteDaemon/actions/workflows/ci.yml/badge.svg" alt="CI" />
   </a>
-  <a href="https://github.com/adhithyadp/flowlite/releases">
-    <img src="https://img.shields.io/github/v/release/adhithyadp/flowlite?color=3D5AFE&label=release" alt="Release" />
+  <a href="https://github.com/adhithyadp/LiteDaemon/releases">
+    <img src="https://img.shields.io/github/v/release/adhithyadp/LiteDaemon?color=3D5AFE&label=release" alt="Release" />
   </a>
   <a href="LICENSE">
     <img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT License" />
@@ -26,7 +26,7 @@
 
 <p align="center">
   <a href="https://litedaemon.xyz"><strong>Website</strong></a> ·
-  <a href="https://github.com/adhithyadp/flowlite/releases"><strong>Download</strong></a> ·
+  <a href="https://github.com/adhithyadp/LiteDaemon/releases"><strong>Download</strong></a> ·
   <a href="#quick-start"><strong>Quick Start</strong></a> ·
   <a href="docs/BUILD_AND_RELEASE.md"><strong>Build Guide</strong></a>
 </p>
@@ -61,10 +61,10 @@ LiteDaemon is a **paid commercial fork** of [OpenTypeless](https://github.com/to
 
 | Platform | Download |
 |---|---|
-| Windows | [LiteDaemon-Setup.exe](https://github.com/adhithyadp/flowlite/releases/latest) |
-| macOS (Apple Silicon) | [LiteDaemon-arm64.dmg](https://github.com/adhithyadp/flowlite/releases/latest) |
-| macOS (Intel) | [LiteDaemon-x64.dmg](https://github.com/adhithyadp/flowlite/releases/latest) |
-| Linux | [LiteDaemon.AppImage](https://github.com/adhithyadp/flowlite/releases/latest) |
+| Windows | [LiteDaemon-Setup.exe](https://github.com/adhithyadp/LiteDaemon/releases/latest) |
+| macOS (Apple Silicon) | [LiteDaemon-arm64.dmg](https://github.com/adhithyadp/LiteDaemon/releases/latest) |
+| macOS (Intel) | [LiteDaemon-x64.dmg](https://github.com/adhithyadp/LiteDaemon/releases/latest) |
+| Linux | [LiteDaemon.AppImage](https://github.com/adhithyadp/LiteDaemon/releases/latest) |
 
 ---
 
@@ -83,8 +83,8 @@ LiteDaemon is a **paid commercial fork** of [OpenTypeless](https://github.com/to
 > Requires: [Rust](https://rustup.rs), Node.js 20+
 
 ```bash
-git clone https://github.com/adhithyadp/flowlite.git
-cd flowlite
+git clone https://github.com/adhithyadp/LiteDaemon.git
+cd LiteDaemon
 npm install
 npm run tauri dev
 ```
