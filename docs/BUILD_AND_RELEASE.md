@@ -72,7 +72,7 @@ Use [semantic versioning](https://semver.org/): `vMAJOR.MINOR.PATCH`
 
 ## GitHub Secrets Required
 
-Go to: **GitHub → adhithyadp/flowlite → Settings → Secrets → Actions**
+Go to: **GitHub → adhithyadp/LiteDaemon → Settings → Secrets → Actions**
 
 Add these secrets:
 
@@ -131,4 +131,4 @@ When you release a new version tag, GitHub Actions uploads `latest.json` automat
 Users will see an "Update available" prompt in the app.
 
 The updater endpoint (in `tauri.conf.json`) points to:
-`https://github.com/adhithyadp/flowlite/releases/latest/download/latest.json`
+`https://github.com/adhithyadp/LiteDaemon/releases/latest/download/latest.json`

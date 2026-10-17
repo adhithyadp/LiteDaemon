@@ -48,7 +48,7 @@
 - App icon generated
 
 ### Phase 0 — Foundation (2026-10-15)
-- Forked opentypeless → adhithyadp/flowlite
+- Forked opentypeless → adhithyadp/LiteDaemon
 - Created branch structure: main, dev, upstream
 - Created /flowlite/, /docs/, /website/ folder structure
 - All foundational documentation written

@@ -6,7 +6,7 @@
 
 ## ✅ Already Done (Phases 0–4)
 
-- [x] Fork created: `github.com/adhithyadp/flowlite`
+- [x] Fork created: `github.com/adhithyadp/LiteDaemon`
 - [x] App rebranded to LiteDaemon across all config files
 - [x] License gate built (Dodo Payments)
 - [x] 8 products created in Dodo Payments (Test Mode)
