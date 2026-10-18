@@ -87,7 +87,11 @@ export function LicenseGate({
             type="text"
             placeholder="Enter your license key"
             value={inputKey}
-            onChange={e => setInputKey(e.target.value)}
+            onChange={e => {
+              setInputKey(e.target.value)
+              if (localError) setLocalError(null)
+              if (error) onResetError()
+            }}
             onKeyDown={handleKeyDown}
             disabled={isActivating}
             autoFocus
@@ -119,7 +123,7 @@ export function LicenseGate({
           Don't have a license key?{' '}
           <a
             id="buy-link"
-            href="https://LiteDaemon.app/#pricing"
+            href="https://litedaemon.xyz/#pricing"
             target="_blank"
             rel="noopener noreferrer"
             style={styles.link}
@@ -131,7 +135,7 @@ export function LicenseGate({
         {/* Footer */}
         <p style={styles.footerText}>
           By activating, you agree to our{' '}
-          <a href="https://LiteDaemon.app/terms" target="_blank" rel="noopener noreferrer" style={styles.linkMuted}>
+          <a href="https://litedaemon.xyz/terms" target="_blank" rel="noopener noreferrer" style={styles.linkMuted}>
             Terms of Service
           </a>
         </p>

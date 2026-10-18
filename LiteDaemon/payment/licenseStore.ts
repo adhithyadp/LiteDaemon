@@ -27,7 +27,7 @@ export interface LicenseData {
 }
 
 async function getStore() {
-  return await load(STORE_FILE, { autoSave: true })
+  return await load(STORE_FILE, { autoSave: true, defaults: {} })
 }
 
 /** Save license data after a successful activation */
