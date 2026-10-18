@@ -30,7 +30,7 @@ jobs:
             artifact_ext: '.dmg'
 
           # ── macOS Intel ───────────────────────────────────────────────────
-          - platform: macos-13
+          - platform: macos-latest
             target: x86_64-apple-darwin
             label: macos-x64
             artifact_ext: '.dmg'
@@ -53,8 +53,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
-          node-version: 20
-          cache: 'npm'
+          node-version: 22
 
       # ── Rust ───────────────────────────────────────────────────────────────
       - name: Set up Rust toolchain
@@ -90,7 +89,7 @@ jobs:
 
       # ── Install Node dependencies ──────────────────────────────────────────
       - name: Install npm dependencies
-        run: npm ci
+        run: npm install
 
       # ── Build ──────────────────────────────────────────────────────────────
       - name: Build LiteDaemon (${{ matrix.label }})
