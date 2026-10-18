@@ -6,16 +6,16 @@
 // ─── Dodo Payments checkout URLs ─────────────────────────────────────────────
 // Format: https://test.dodopayments.com/buy/PRODUCT_ID  (test mode)
 // Format: https://live.dodopayments.com/buy/PRODUCT_ID  (live mode)
-const CHECKOUT_BASE = 'https://test.dodopayments.com/buy/'
+const CHECKOUT_BASE = 'https://live.dodopayments.com/buy/'
 
 const PRODUCT_IDS = {
   byok: {
-    india:  { monthly: 'pdt_0NpmZNAv7xjT2IMRFSuLX', annual: 'pdt_0NpmaeMYRWerMp6jfuR19' },
-    global: { monthly: 'pdt_0NpmbJBA9SlIRXGydh4R2', annual: 'pdt_0NpmbvKv5ztEsN7GJtAIR' },
+    india:  { monthly: 'pdt_0Nq1FwtH5b6kZwUUltVpV', annual: 'pdt_0Nq1GZ0tpiOdOzJV3Ai1Y' },
+    global: { monthly: 'pdt_0Nq1I8tfZuKu3QR4Zd8et', annual: 'pdt_0Nq1IWgNwfCebIPUT5z1s' },
   },
   cloud: {
-    india:  { monthly: 'pdt_0NpmcdSHjMamfCoME1Oo1', annual: 'pdt_0NpmdHPwaRxVrxWLdJPn'  },
-    global: { monthly: 'pdt_0NpmdjQas1Mx8larIh0gj', annual: 'pdt_0NpmekK7OwYgcXj4h3Eych' },
+    india:  { monthly: 'pdt_0Nq1H1dHTZzfrQ1tdeYCP', annual: 'pdt_0Nq1Hjj1bZUR5HQ9hgraU' },
+    global: { monthly: 'pdt_0Nq1IsTBvSZVraoe1aXnz', annual: 'pdt_0Nq1JGEZBp3f6bfs9CnE2' },
   },
 }
 
