@@ -38,11 +38,12 @@
 - [x] Add Refund Policy page (`/refunds`)
 - [x] Add Contact & FAQ page (`/contact`)
 
-### First Release — Build the Installers
-- [ ] Install Rust on your machine: https://rustup.rs
-- [ ] Merge `dev` into `main`: `git checkout main && git merge dev && git push`
-- [ ] Tag the first release: `git tag v1.0.0 && git push origin v1.0.0`
-- [ ] Wait ~40 minutes for GitHub Actions to build all installers
+### First Release — Build the Installers (v1.0.0 LIVE)
+- [x] Merge `dev` into `main`: `git checkout main && git merge dev && git push`
+- [x] Tag release: `git tag v1.0.0 && git push origin v1.0.0`
+- [x] GitHub Actions automated multi-OS release pipeline: Windows, macOS (ARM & Intel), Linux
+- [x] Cryptographic auto-updater keys generated and `TAURI_SIGNING_PRIVATE_KEY` secret configured
+- [x] All binaries published live on GitHub Releases (`v1.0.0`)
 - [ ] Download and test the Windows `.exe` on your own PC
 - [ ] Test the Mac `.dmg` on a Mac (if you have one)
 - [ ] Verify the license gate works: launch app, enter a test license key
