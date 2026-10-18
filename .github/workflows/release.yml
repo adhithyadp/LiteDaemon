@@ -95,6 +95,7 @@ jobs:
       - name: Build LiteDaemon (${{ matrix.label }})
         env:
           XDG_CACHE_HOME: ${{ runner.temp }}/litedaemon-packaging-tools
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
         run: npm run tauri build -- --target ${{ matrix.target }}
 
       # ── Upload artifacts to GitHub Release ────────────────────────────────
@@ -110,5 +111,8 @@ jobs:
             src-tauri/target/${{ matrix.target }}/release/bundle/**/*.dmg
             src-tauri/target/${{ matrix.target }}/release/bundle/**/*.AppImage
             src-tauri/target/${{ matrix.target }}/release/bundle/**/*.deb
+            src-tauri/target/${{ matrix.target }}/release/bundle/**/*.sig
+            src-tauri/target/${{ matrix.target }}/release/bundle/**/*.tar.gz
+            src-tauri/target/${{ matrix.target }}/release/bundle/**/*.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
