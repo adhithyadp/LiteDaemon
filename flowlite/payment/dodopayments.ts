@@ -16,7 +16,7 @@ import type { PlanType } from './licenseStore'
 
 // ─── CONFIG ──────────────────────────────────────────────────────────────────
 // Toggle this to false before shipping to production
-const TEST_MODE = true
+const TEST_MODE = false
 const BASE_URL = TEST_MODE
   ? 'https://test.dodopayments.com'
   : 'https://live.dodopayments.com'
@@ -59,22 +59,21 @@ function getMachineId(): string {
 // ─── PLAN DETECTION ──────────────────────────────────────────────────────────
 /**
  * Maps Dodo Payments product IDs → our internal plan types.
- * All 8 IDs confirmed from dashboard on 2026-10-15 (Test Mode).
- * When switching to Live Mode, create live products and update these IDs.
+ * All 8 Live Mode IDs configured from Dodo dashboard.
  */
 const PRODUCT_ID_TO_PLAN: Record<string, PlanType> = {
   // ── BYOK India ──
-  'pdt_0NpmZNAv7xjT2IMRFSuLX': 'byok_india',   // ₹149/month
-  'pdt_0NpmaeMYRWerMp6jfuR19': 'byok_india',   // ₹1,199/year
+  'pdt_0Nq1FwtH5b6kZwUUltVpV': 'byok_india',   // ₹149/month
+  'pdt_0Nq1GZ0tpiOdOzJV3Ai1Y': 'byok_india',   // ₹1,199/year
   // ── BYOK Global ──
-  'pdt_0NpmbJBA9SlIRXGydh4R2': 'byok_global',  // $3.99/month
-  'pdt_0NpmbvKv5ztEsN7GJtAIR': 'byok_global',  // $35/year
+  'pdt_0Nq1I8tfZuKu3QR4Zd8et': 'byok_global',  // $3.99/month
+  'pdt_0Nq1IWgNwfCebIPUT5z1s': 'byok_global',  // $35/year
   // ── Cloud India ──
-  'pdt_0NpmcdSHjMamfCoME1Oo1': 'cloud_india',  // ₹400/month
-  'pdt_0NpmdHPwaRxVrxWLdJPn':  'cloud_india',  // ₹3,849/year
+  'pdt_0Nq1H1dHTZzfrQ1tdeYCP': 'cloud_india',  // ₹400/month
+  'pdt_0Nq1Hjj1bZUR5HQ9hgraU': 'cloud_india',  // ₹3,849/year
   // ── Cloud Global ──
-  'pdt_0NpmdjQas1Mx8larIh0gj': 'cloud_global', // $15/month
-  'pdt_0NpmekK7OwYgcXj4h3Eych': 'cloud_global', // $144/year
+  'pdt_0Nq1IsTBvSZVraoe1aXnz': 'cloud_global', // $15/month
+  'pdt_0Nq1JGEZBp3f6bfs9CnE2': 'cloud_global', // $144/year
 }
 
 function detectPlanFromResponse(responseData: unknown): PlanType {

@@ -21,23 +21,22 @@
 ## 🔲 Before You Can Charge Real Users
 
 ### Dodo Payments — Switch to Live Mode
-- [ ] Create a Dodo Payments Live Mode account / switch to Live Mode
-- [ ] Re-create all 8 products in **Live Mode** (same prices, same settings)
-- [ ] Copy the 8 new Live Mode product IDs → send to developer
-- [ ] Developer updates `PRODUCT_ID_TO_PLAN` in `flowlite/payment/dodopayments.ts`
-- [ ] Developer sets `TEST_MODE = false` in `dodopayments.ts`
-- [ ] Submit Dodo Payments **Product Information Form** for business approval
-  - Your website must be live before submitting
-  - Describe the product clearly: "Desktop voice typing software, license key delivery"
+- [x] Create a Dodo Payments Live Mode account / switch to Live Mode (Approved!)
+- [x] Re-create all 8 products in **Live Mode** (same prices, same settings)
+- [x] Copy the 8 new Live Mode product IDs → send to developer
+- [x] Developer updates `PRODUCT_ID_TO_PLAN` in `flowlite/payment/dodopayments.ts`
+- [x] Developer sets `TEST_MODE = false` in `dodopayments.ts`
+- [x] Submit Dodo Payments **Product Information Form** for business approval (Approved!)
 
 ### Website — Deploy to litedaemon.xyz
-- [ ] Deploy `/website/` folder to Cloudflare Pages or GitHub Pages
-- [ ] Connect `litedaemon.xyz` domain to your hosting
-- [ ] Test the website on mobile + desktop
-- [ ] Test the Dodo checkout links work (buy a test plan yourself first)
-- [ ] Add Terms of Service page (`/terms`)
-- [ ] Add Privacy Policy page (`/privacy`)
-- [ ] Add Refund Policy page (`/refunds`)
+- [x] Deploy `/website/` folder to Cloudflare Pages
+- [x] Connect `litedaemon.xyz` domain to hosting (Active!)
+- [x] Test the website on mobile + desktop
+- [x] Wire live Dodo checkout links
+- [x] Add Terms of Service page (`/terms`)
+- [x] Add Privacy Policy page (`/privacy`)
+- [x] Add Refund Policy page (`/refunds`)
+- [x] Add Contact & FAQ page (`/contact`)
 
 ### First Release — Build the Installers
 - [ ] Install Rust on your machine: https://rustup.rs
