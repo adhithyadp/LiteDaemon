@@ -127,11 +127,11 @@ See `/docs/BUILD_AND_RELEASE.md` for full instructions.
 | Phase | What | Status |
 |---|---|---|
 | 0 | Fork, clone, folder structure | ✅ Done |
-| 1 | Branding (name, icon, logo) | ⏳ |
-| 2 | Payment gate (Dodo Payments) | ⏳ |
-| 3 | Windows + Mac builds + releases | ⏳ |
-| 4 | Marketing website | ⏳ |
-| 5 | Documentation (ongoing) | 🔄 |
+| 1 | Branding (name, icon, logo) | ✅ Done |
+| 2 | Payment gate (Dodo Payments Live Mode) | ✅ Done |
+| 3 | Windows + Mac + Linux releases (v1.0.0) | ✅ Done |
+| 4 | Marketing website (litedaemon.xyz) | ✅ Done |
+| 5 | Documentation & isolation architecture | ✅ Done |
 | 6 | Cloud backend | ⏳ Post-launch |
 
 ---

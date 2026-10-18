@@ -55,5 +55,19 @@
 
 ---
 
-## [v1.0.0] — Coming Soon 🚀
-*First public release — launch version*
+## [v1.0.0] — 2026-10-19 🚀
+*First official public production release — live multi-OS launch*
+
+### Published Installers & Binaries:
+- **Windows:** `LiteDaemon_1.0.0_x64-setup.exe` & `LiteDaemon_1.0.0_x64_en-US.msi`
+- **macOS Apple Silicon (M1/M2/M3/M4):** `LiteDaemon_1.0.0_aarch64.dmg`
+- **macOS Intel (x64):** `LiteDaemon_1.0.0_x64.dmg`
+- **Linux:** `LiteDaemon_1.0.0_amd64.AppImage`, `.deb`, & `.rpm`
+- **Auto-Updater:** Digital cryptographic signatures (`.sig`) generated with dedicated LiteDaemon keypair
+
+### Features Included:
+- **Commercial License Gate:** Dodo Payments live mode integration with 7-day offline grace period
+- **Live Products Configured:** All 8 live monthly & annual plans (India & Global)
+- **Official Branding:** LiteDaemon visual identity, RGBA 32-bit icons across all desktop formats
+- **Isolated Architecture:** Zero merge conflicts with upstream OpenTypeless base
+- **Marketing Site:** Deployed to `https://litedaemon.xyz` with legal policies (Terms, Privacy, Refunds, Contact)
