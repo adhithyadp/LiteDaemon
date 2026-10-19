@@ -4,9 +4,9 @@
  */
 
 // ─── Dodo Payments checkout URLs ─────────────────────────────────────────────
-// Format: https://test.dodopayments.com/buy/PRODUCT_ID  (test mode)
-// Format: https://live.dodopayments.com/buy/PRODUCT_ID  (live mode)
-const CHECKOUT_BASE = 'https://live.dodopayments.com/buy/'
+// Format: https://test.checkout.dodopayments.com/buy/PRODUCT_ID  (test mode)
+// Format: https://checkout.dodopayments.com/buy/PRODUCT_ID       (live mode)
+const CHECKOUT_BASE = 'https://checkout.dodopayments.com/buy/'
 
 const PRODUCT_IDS = {
   byok: {
