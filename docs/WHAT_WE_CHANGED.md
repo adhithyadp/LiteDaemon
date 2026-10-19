@@ -92,6 +92,62 @@
 **Why:** Phase 0 setup — establishing clean folder structure before any feature work
 **Phase:** 0 — Foundation
 
+### 2026-10-18/19 — Phase 2: Commercial Payment Gate & Live Licensing
+
+#### `src/App.tsx` — MINIMAL HOOK
+**What:** Added 3 imports from `../LiteDaemon/payment/` and wrapped root app with `GatedMainApp` component, marked `// [LiteDaemon]`.
+**Why:** Integrates license key requirement on launch with zero modification to inner app features.
+**Phase:** 2 — Payment Gate
+
+#### `LiteDaemon/payment/dodopayments.ts` — LIVE MODE
+**What:** Wired all 8 live product IDs (`pdt_0Nq1...`), set `TEST_MODE = false`, implemented license activate, validate, and deactivate endpoints.
+**Why:** Production Dodo Payments billing for India and Global customers.
+**Phase:** 2 — Payment Gate
+
+#### `LiteDaemon/payment/licenseStore.ts` & `useLicenseGate.ts`
+**What:** Secure device license storage and 7-day offline grace period logic.
+**Why:** Ensures users can voice-type while travelling or without internet for up to 7 days.
+**Phase:** 2 — Payment Gate
+
 ---
 
-*No original files have been modified. All additions are new files in new folders.*
+### 2026-10-18/19 — Phase 3: Automated Multi-OS Release Pipeline
+
+#### `src-tauri/src/main.rs` — MODIFIED
+**What:** Updated `opentypeless_lib::run()` to `LiteDaemon_lib::run()`.
+**Why:** Matches renamed Rust crate from Phase 1.
+**Phase:** 3 — Release Pipeline
+
+#### `src-tauri/icons/` & `LiteDaemon/branding/icons/` — MODIFIED
+**What:** Re-encoded all PNG icons (32x32, 128x128, 128x128@2x, icon.png) as true 32-bit RGBA.
+**Why:** Tauri bundler on macOS and Linux requires strict 32-bit RGBA color mode.
+**Phase:** 3 — Release Pipeline
+
+#### `src-tauri/tauri.conf.json` & `.github/workflows/release.yml` — MODIFIED
+**What:** Generated dedicated LiteDaemon Minisign keypair. Placed public key in `tauri.conf.json` and passed `TAURI_SIGNING_PRIVATE_KEY` secret in `release.yml`. Included `.sig` digital signatures in release artifacts.
+**Why:** Cryptographically signs release packages for the auto-updater.
+**Phase:** 3 — Release Pipeline
+
+#### **Deliverable: v1.0.0 Production Release Published**
+- Windows: `LiteDaemon_1.0.0_x64-setup.exe` & `LiteDaemon_1.0.0_x64_en-US.msi`
+- macOS: `LiteDaemon_1.0.0_aarch64.dmg` (Apple Silicon) & `LiteDaemon_1.0.0_x64.dmg` (Intel)
+- Linux: `LiteDaemon_1.0.0_amd64.AppImage`, `.deb`, `.rpm`
+- Signatures: `.sig` for all binaries attached to GitHub release.
+
+---
+
+### 2026-10-18/19 — Phase 4: Marketing Website & Legal Compliance
+
+#### `website/` — COMPLETE WEBSITE
+**What:** Created high-performance landing page with live pricing toggles (India vs Global, Monthly vs Annual), direct installer downloads, authentic Apple vector logo, balanced 3-platform card layout, and cache buster (`script.js?v=1.0.1`).
+**Why:** Public storefront deployed to `https://litedaemon.xyz`.
+**Phase:** 4 — Marketing Website
+
+#### `website/terms.html`, `privacy.html`, `refunds.html`, `contact.html` — ADDED
+**What:** Complete legal compliance pages and customer contact FAQ.
+**Why:** Required for Dodo Payments merchant live verification and consumer protection.
+**Phase:** 4 — Marketing Website
+
+---
+
+*Upstream codebase remains 100% cleanly isolated. Only the single documented wrapper in App.tsx bridges proprietary code to the core app.*

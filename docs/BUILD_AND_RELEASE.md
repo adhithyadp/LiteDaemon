@@ -59,32 +59,31 @@ Use [semantic versioning](https://semver.org/): `vMAJOR.MINOR.PATCH`
 
 ---
 
-## Before First Release — Checklist
+## Release Preparation Status (v1.0.0 Live)
 
-- [ ] Rust installed on your machine: https://rustup.rs
-- [ ] Switch Dodo Payments to Live Mode (create live products, update IDs in `dodopayments.ts`, set `TEST_MODE = false`)
-- [ ] Apple Developer account for Mac code signing (~$99/year) — without this, Mac users get a warning
-- [ ] Set GitHub Actions secrets (see below)
-- [ ] Website is live (Phase 4)
-- [ ] Dodo Payments business approved
+- [x] Switch Dodo Payments to Live Mode (all 8 products created, `TEST_MODE = false` configured)
+- [x] Dodo Payments business verification approved
+- [x] Website is live with legal compliance pages (`https://litedaemon.xyz`)
+- [x] Set GitHub Actions release signing secret (`TAURI_SIGNING_PRIVATE_KEY`)
+- [x] Multi-OS automated pipeline executed: Windows, macOS (ARM & Intel), Linux published
+- [ ] Mac code signing via Apple Developer ID (optional for v1.0.0, recommended by v1.1.0)
 
 ---
 
-## GitHub Secrets Required
+## GitHub Secrets
 
 Go to: **GitHub → adhithyadp/LiteDaemon → Settings → Secrets → Actions**
 
-Add these secrets:
+| Secret Name | Status | What It Is | Purpose |
+|---|---|---|---|
+| `TAURI_SIGNING_PRIVATE_KEY` | ✅ **Configured** | Minisign private signing key | Signs update packages (`.sig`) for built-in auto-updater |
+| `APPLE_CERTIFICATE` | Optional (v1.1.0) | Mac Developer ID certificate (base64) | Apple code signing |
+| `APPLE_CERTIFICATE_PASSWORD` | Optional (v1.1.0) | Certificate password | Decrypts signing certificate |
+| `APPLE_ID` | Optional (v1.1.0) | Apple ID email | App notarization |
+| `APPLE_PASSWORD` | Optional (v1.1.0) | App-specific password | Authenticates notarytool |
+| `APPLE_TEAM_ID` | Optional (v1.1.0) | Apple Team ID | Identifies developer organization |
 
-| Secret Name | What It Is | Where to Get |
-|---|---|---|
-| `APPLE_CERTIFICATE` | Mac code signing certificate (base64) | Apple Developer account |
-| `APPLE_CERTIFICATE_PASSWORD` | Password for the certificate | You set it when creating |
-| `APPLE_ID` | Your Apple ID email | Your Apple account |
-| `APPLE_PASSWORD` | App-specific password | appleid.apple.com → Security |
-| `APPLE_TEAM_ID` | Apple Team ID | developer.apple.com |
-
-> **For v1.0.0 launch, you can skip Apple signing.** Mac users will see a warning the first time. To dismiss it, they right-click the app → Open. This is fine for early users. Add signing before v1.1.0.
+> **Note for v1.0.0 Mac users:** Without Apple Developer notarization, macOS displays an initial unverified developer notice. Users can open it by right-clicking `LiteDaemon.app` → **Open**, or by clicking "Open Anyway" in System Settings > Privacy & Security. Full Apple Developer ID notarization will be attached in v1.1.0.
 
 ---
 
