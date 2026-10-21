@@ -196,6 +196,18 @@
 **Why:** Rebrands Settings > About page header and GitHub source link to LiteDaemon.
 **Phase:** 5 — Production Patch v1.0.1
 
+#### `LiteDaemon/ui/LiteDaemonUpgrade.tsx` — NEW FILE & `src/App.tsx` — ROUTER SWAP
+**What:** 
+- Created dedicated LiteDaemon Upgrade & Subscription Management screen:
+  * Reads and displays active license key and status from OS secure storage (`licenseStore.ts`).
+  * Direct action button opening Dodo Payments customer portal (`https://customer.dodopayments.com`) for invoice downloads, payment method updates, and subscription management.
+  * Interactive spring-animated toggles for Region (India ₹ vs Global $) and Billing Cycle (Monthly vs Annual with 25% savings).
+  * Direct upgrade cards for LiteDaemon Cloud (managed Whisper without API keys) and LiteDaemon Annual BYOK, wired to all 8 live Dodo Payments checkout links via `@tauri-apps/plugin-opener`.
+  * Styled natively using LiteDaemon Jelly design system (`jelly-card`, `bg-accent`, Framer Motion spring physics).
+- Swapped route in `src/App.tsx` (`{route === 'upgrade' && <LiteDaemonUpgrade />}`) bypassing upstream OpenTypeless SaaS billing page.
+**Why:** Replaces upstream third-party Stripe billing with LiteDaemon's real Dodo Payments checkout and subscription portal while maintaining 100% zero merge conflicts with upstream codebase.
+**Phase:** 5 — Production Patch v1.0.1
+
 ---
 
 *Upstream codebase remains 100% cleanly isolated. Only the single documented wrapper in App.tsx bridges proprietary code to the core app.*
