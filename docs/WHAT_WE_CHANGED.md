@@ -174,6 +174,13 @@
 - **Client App Activation:** Key `e4b40066-0e21-4e65-b63d-b1e13bbd124e` entered into `LiteDaemon_1.0.1_x64-setup.exe` on Windows; verified and unlocked to `MainApp`.
 - **Phase:** 5 — Production Patch v1.0.1
 
+#### `LiteDaemon/branding/initBranding.ts` — NEW FILE & `src/App.tsx` — HOOK
+**What:** 
+- Created `initLiteDaemonBranding()` to dynamically inject `app.name: 'LiteDaemon'` and `home.welcome: 'Welcome to LiteDaemon'` into `i18next` at runtime across all 10 supported UI languages, while maintaining the tagline `'AI Voice Input'`.
+- Hooked invocation in `src/App.tsx` within the marked `// [LiteDaemon]` comment block.
+**Why:** Rebrands sidebar title and Home dashboard welcome card to LiteDaemon with 100% zero merge conflicts (upstream translation files in `src/i18n/locales/` remain completely untouched on disk).
+**Phase:** 5 — Production Patch v1.0.1
+
 ---
 
 *Upstream codebase remains 100% cleanly isolated. Only the single documented wrapper in App.tsx bridges proprietary code to the core app.*

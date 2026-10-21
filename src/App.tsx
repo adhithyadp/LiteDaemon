@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react'
-// [LiteDaemon] Payment gate — Phase 2
+// [LiteDaemon] Integration — Payment Gate & In-Memory Branding
 import { useLicenseGate } from '../LiteDaemon/payment/useLicenseGate'
 import { LicenseGate } from '../LiteDaemon/payment/LicenseGate'
+import { initLiteDaemonBranding } from '../LiteDaemon/branding/initBranding'
+
+initLiteDaemonBranding()
 import i18n from './i18n'
 import { useTauriEvents } from './hooks/useTauriEvents'
 import { useTheme } from './hooks/useTheme'
