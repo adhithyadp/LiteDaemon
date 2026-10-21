@@ -59,14 +59,16 @@ Use [semantic versioning](https://semver.org/): `vMAJOR.MINOR.PATCH`
 
 ---
 
-## Release Preparation Status (v1.0.0 Live)
+## Release Status (v1.0.1 Live & Verified)
 
 - [x] Switch Dodo Payments to Live Mode (all 8 products created, `TEST_MODE = false` configured)
 - [x] Dodo Payments business verification approved
 - [x] Website is live with legal compliance pages (`https://litedaemon.xyz`)
 - [x] Set GitHub Actions release signing secret (`TAURI_SIGNING_PRIVATE_KEY`)
-- [x] Multi-OS automated pipeline executed: Windows, macOS (ARM & Intel), Linux published
-- [ ] Mac code signing via Apple Developer ID (optional for v1.0.0, recommended by v1.1.0)
+- [x] Multi-OS automated pipeline executed: Windows, macOS (Intel & Apple Silicon), Linux published
+- [x] End-to-end real transaction and app unlock verified on Windows (`v1.0.1_x64-setup.exe`)
+- [ ] Mac code signing via Apple Developer ID (optional for v1.0.1, recommended by v1.1.0)
+- [ ] Planned UI patch (v1.0.2): Rebrand sidebar logo to LiteDaemon and decouple upstream SaaS Upgrade/Account tabs
 
 ---
 

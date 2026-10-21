@@ -150,4 +150,31 @@
 
 ---
 
+### 2026-10-21/22 — Phase 5: Production Patch v1.0.1 & Live Payment Verification
+
+#### `LiteDaemon/payment/dodopayments.ts` — MODIFIED
+**What:** 
+- Corrected Dodo Payments licensing API endpoint paths by removing the invalid `/v1` prefix (`POST https://live.dodopayments.com/licenses/activate`).
+- Updated `activateLicense` parser to extract instance IDs directly from Dodo Payments' root response object (`data.id`).
+**Why:** Dodo Payments public licensing schema differs from the merchant core API; fixes 403 endpoint rejected errors during license key activation.
+**Phase:** 5 — Production Patch v1.0.1
+
+#### `website/script.js` & `website/index.html` — MODIFIED
+**What:** 
+- Updated checkout URLs to use `https://checkout.dodopayments.com/buy/{product_id}`.
+- Added version cache-buster query parameter `<script src="script.js?v=1.0.1"></script>`.
+- Updated all platform copy from "Windows & Mac" to "Windows, Mac & Linux" across hero title, feature cards, and pricing plan lists.
+**Why:** Fixes Cloudflare Pages browser caching, resolves 403 edge blocks on hosted checkouts, and accurately advertises full Linux support.
+**Phase:** 5 — Production Patch v1.0.1
+
+#### **Milestone: End-to-End Live Transaction & App Unlock Verified**
+- **Live GPay UPI Payment:** Successfully processed on `litedaemon.xyz` for ₹149 (India BYOK Monthly).
+- **Transaction ID:** `pay_0NqEXWw0l9WFs6PTcStPe` | **Invoice:** `inv_0NqEXWw0l9WFs6Pi3x64Z`.
+- **Merchant Balance:** Credited to Dodo Payments balance.
+- **Client App Activation:** Key `e4b40066-0e21-4e65-b63d-b1e13bbd124e` entered into `LiteDaemon_1.0.1_x64-setup.exe` on Windows; verified and unlocked to `MainApp`.
+- **Phase:** 5 — Production Patch v1.0.1
+
+---
+
 *Upstream codebase remains 100% cleanly isolated. Only the single documented wrapper in App.tsx bridges proprietary code to the core app.*
+
