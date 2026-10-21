@@ -181,6 +181,21 @@
 **Why:** Rebrands sidebar title and Home dashboard welcome card to LiteDaemon with 100% zero merge conflicts (upstream translation files in `src/i18n/locales/` remain completely untouched on disk).
 **Phase:** 5 — Production Patch v1.0.1
 
+#### `LiteDaemon/branding/initBranding.ts` — MODIFIED
+**What:** 
+- Injected `settings.storedLocally` across all 10 languages: *"Stored locally on your device. Never sent to LiteDaemon servers."* (replaces OpenTypeless server notice in Speech Recognition and AI Polish panes).
+**Why:** Completely removes upstream branding leaks from settings panes at runtime with 0 merge conflicts.
+**Phase:** 5 — Production Patch v1.0.1
+
+#### `src/lib/constants.ts` — MODIFIED
+**What:** 
+- `APP_NAME`: `OpenTypeless` → `LiteDaemon`
+- `APP_VERSION`: `v1.1.61` → `v1.0.1`
+- `APP_REPO_URL`: `tover0314-w/opentypeless` → `https://github.com/adhithyadp/LiteDaemon`
+- `APP_LICENSE_URL`: points to LiteDaemon repository license
+**Why:** Rebrands Settings > About page header and GitHub source link to LiteDaemon.
+**Phase:** 5 — Production Patch v1.0.1
+
 ---
 
 *Upstream codebase remains 100% cleanly isolated. Only the single documented wrapper in App.tsx bridges proprietary code to the core app.*
