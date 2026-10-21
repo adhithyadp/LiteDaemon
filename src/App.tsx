@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
-// [LiteDaemon] Integration — Payment Gate & In-Memory Branding
+// [LiteDaemon] Integration — Payment Gate, In-Memory Branding & Upgrade UI
 import { useLicenseGate } from '../LiteDaemon/payment/useLicenseGate'
 import { LicenseGate } from '../LiteDaemon/payment/LicenseGate'
 import { initLiteDaemonBranding } from '../LiteDaemon/branding/initBranding'
+import { LiteDaemonUpgrade } from '../LiteDaemon/ui/LiteDaemonUpgrade'
 
 initLiteDaemonBranding()
 import i18n from './i18n'
@@ -30,7 +31,7 @@ import { History } from './components/History'
 import { Onboarding } from './components/Onboarding'
 import { MainLayout } from './components/MainLayout'
 import { HomePage } from './components/HomePage'
-import { UpgradePage } from './components/UpgradePage'
+// [LiteDaemon] Bypassed upstream UpgradePage in favor of LiteDaemonUpgrade
 import { AccountPage } from './components/AccountPage'
 import { AskPanel } from './components/AskPanel'
 import { ToastContainer } from './components/Toast'
@@ -228,7 +229,7 @@ function MainApp() {
       {route === 'home' && <HomePage />}
       {route === 'settings' && <Settings />}
       {route === 'history' && <History />}
-      {route === 'upgrade' && <UpgradePage />}
+      {route === 'upgrade' && <LiteDaemonUpgrade />}
       {route === 'account' && <AccountPage />}
       <UpdatePrompt />
       <ToastContainer />
