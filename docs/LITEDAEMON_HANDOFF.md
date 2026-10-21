@@ -9,7 +9,7 @@
 LiteDaemon is a **commercial fork** of [opentypeless](https://github.com/tover0314-w/opentypeless) — an open-source, lightweight AI voice-typing desktop app (MIT License).
 
 **Our product:** A paid, lightweight alternative to Wispr Flow.
-- Windows + Mac desktop app
+- Windows, Mac & Linux desktop app
 - Press a hotkey → speak → AI-polished text appears anywhere you type
 - Uses ~50MB RAM vs Wispr Flow's ~800MB on Windows
 - Two plans: BYOK (users bring their own OpenAI key) and Cloud (we provide API)
@@ -131,8 +131,9 @@ See `/docs/BUILD_AND_RELEASE.md` for full instructions.
 | 2 | Payment gate (Dodo Payments Live Mode) | ✅ Done |
 | 3 | Windows + Mac + Linux releases (v1.0.0) | ✅ Done |
 | 4 | Marketing website (litedaemon.xyz) | ✅ Done |
-| 5 | Documentation & isolation architecture | ✅ Done |
-| 6 | Cloud backend | ⏳ Post-launch |
+| 5 | Production Patch v1.0.1 & Live Payment Verification | ✅ Done |
+| 6 | Cloud backend & Managed Proxy | ⏳ Planned |
+
 
 ---
 
