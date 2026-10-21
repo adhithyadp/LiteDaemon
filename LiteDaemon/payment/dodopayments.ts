@@ -93,7 +93,7 @@ export async function activateLicense(licenseKey: string): Promise<ActivateResul
   try {
     const machineId = getMachineId()
 
-    const response = await fetch(`${BASE_URL}/v1/licenses/activate`, {
+    const response = await fetch(`${BASE_URL}/licenses/activate`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -112,13 +112,12 @@ export async function activateLicense(licenseKey: string): Promise<ActivateResul
       return { success: false, error: errMsg }
     }
 
-    const activated = data?.activated as boolean
-    if (!activated) {
-      return { success: false, error: (data?.message as string) ?? 'License key is invalid or already activated on another device.' }
+    // Dodo Payments returns { id: "lki_...", license_key_id: "...", name: "..." }
+    const instanceId = (data?.id as string) || ((data?.instance as Record<string, unknown>)?.id as string)
+    if (!instanceId) {
+      const errMsg = (data?.message as string) || 'License activation failed. Please verify your license key.'
+      return { success: false, error: errMsg }
     }
-
-    const instance = data?.instance as Record<string, unknown>
-    const instanceId = instance?.id as string
 
     return {
       success: true,
@@ -140,7 +139,7 @@ export async function validateLicense(
   instanceId: string,
 ): Promise<ValidateResult> {
   try {
-    const response = await fetch(`${BASE_URL}/v1/licenses/validate`, {
+    const response = await fetch(`${BASE_URL}/licenses/validate`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -158,7 +157,7 @@ export async function validateLicense(
       return { valid: false, error: (data?.message as string) ?? 'Validation failed' }
     }
 
-    const valid = data?.valid as boolean
+    const valid = Boolean(data?.valid)
     const status = (data?.license_key as Record<string, unknown>)?.status as string
 
     if (!valid || status === 'expired' || status === 'disabled') {
@@ -183,7 +182,7 @@ export async function deactivateLicense(
   instanceId: string,
 ): Promise<DeactivateResult> {
   try {
-    const response = await fetch(`${BASE_URL}/v1/licenses/deactivate`, {
+    const response = await fetch(`${BASE_URL}/licenses/deactivate`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

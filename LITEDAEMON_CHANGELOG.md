@@ -55,6 +55,16 @@
 
 ---
 
+## [v1.0.1] — 2026-10-21 🛠️
+*Production Patch Release — Dodo Payments License Activation Fix*
+
+### Fixes & Improvements:
+- **Licensing Endpoints:** Removed invalid `/v1` prefix from `activate`, `validate`, and `deactivate` API requests (`https://live.dodopayments.com/licenses/activate`).
+- **Response Handling:** Updated `activateLicense` parser to extract instance IDs directly from Dodo Payments' root response object (`data.id`).
+- **Direct Downloads:** Updated website release links to point directly to `v1.0.1` binary downloads.
+
+---
+
 ## [v1.0.0] — 2026-10-19 🚀
 *First official public production release — live multi-OS launch*
 
