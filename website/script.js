@@ -34,9 +34,36 @@ const PRICES = {
   },
 }
 
-// ─── State ────────────────────────────────────────────────────────────────────
-let region  = 'india'   // 'india' | 'global'
+// ─── Auto-Detect Region (India vs Global) ────────────────────────────────────
+function detectRegion() {
+  try {
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone.toLowerCase()
+    if (tz.includes('calcutta') || tz.includes('kolkata') || tz.includes('india') || tz.includes('ist')) {
+      return 'india'
+    }
+    const languages = navigator.languages || [navigator.language]
+    if (languages.some(l => l.toLowerCase().endsWith('-in') || l.toLowerCase() === 'hi')) {
+      return 'india'
+    }
+  } catch (e) {}
+  return 'global'
+}
+
+let region  = detectRegion()   // 'india' | 'global'
 let billing = 'monthly' // 'monthly' | 'annual'
+
+// Fast country verification
+fetch('https://api.country.is/')
+  .then(res => res.json())
+  .then(data => {
+    if (data && data.country === 'IN') {
+      window.setRegion('india')
+    } else if (data && data.country) {
+      window.setRegion('global')
+    }
+  })
+  .catch(() => {})
+
 
 // ─── NAV scroll effect ────────────────────────────────────────────────────────
 const nav = document.getElementById('nav')
@@ -97,7 +124,7 @@ function updatePricing() {
 }
 
 // Init
-updatePricing()
+window.setRegion(region)
 
 // ─── Scroll Reveal ────────────────────────────────────────────────────────────
 const revealEls = document.querySelectorAll(
