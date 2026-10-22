@@ -1,7 +1,7 @@
 {
   "name": "LiteDaemon",
   "private": true,
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "module",
   "description": "Lightweight AI voice-typing desktop app — the RAM-friendly alternative to Wispr Flow",
   "keywords": [
