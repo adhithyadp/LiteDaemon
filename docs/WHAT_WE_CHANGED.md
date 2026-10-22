@@ -208,7 +208,39 @@
 **Why:** Replaces upstream third-party Stripe billing with LiteDaemon's real Dodo Payments checkout and subscription portal while maintaining 100% zero merge conflicts with upstream codebase.
 **Phase:** 5 — Production Patch v1.0.1
 
+#### `src/components/History/index.tsx` — VERIFIED
+**What:** 
+- Conducted full branding and code audit of the History tab.
+- Confirmed zero upstream OpenTypeless branding leaks or external cloud calls; history records, playback, searching, and deletion are strictly local.
+**Why:** Verification that History tab requires 0 modifications, preserving 100% clean upstream isolation.
+**Phase:** 5 — Production Patch v1.0.1
+
+#### Phase 6: Modern SaaS Account Tab with Supabase Auth — IMPLEMENTED
+**What:** 
+- Set up live Supabase project connection (`https://nlfbtfwcsvoaliuvfwya.supabase.co`).
+- Executed PostgreSQL schema creation via Supabase Management API:
+  * Created `public.profiles` table linked to `auth.users(id)` with cascade deletion (`email`, `plan`, `status`, timestamps).
+  * Enabled Row Level Security (RLS) with self-read and self-update policies.
+  * Added automated `public.handle_new_user()` trigger to immediately provision a profile row on signup.
+- Created `LiteDaemon/auth/supabaseClient.ts` configuring `@supabase/supabase-js` client with session auto-refresh.
+- Created `LiteDaemon/auth/useSupabaseAuth.ts` with Zustand store managing session persistence, profile sync, login, registration, password recovery, and logout.
+- Created `LiteDaemon/ui/LiteDaemonAccount.tsx` utilizing LiteDaemon Jelly design system:
+  * Logged out state: Sign In vs Sign Up tabs, email and password inputs with eye visibility toggle, password confirmation check, and password reset trigger.
+  * Logged in state: User profile card, email display, Pro Member badge (Sparkles icon) vs Free BYOK badge, Dodo customer self-serve billing portal integration (`https://customer.dodopayments.com`), and Sign Out action.
+- Swapped route in `src/App.tsx` (`{route === 'account' && <LiteDaemonAccount />}`) cleanly bypassing upstream OpenTypeless cloud dependency.
+- Removed startup license key barrier (`GatedMainApp`) from `src/App.tsx`: App now boots directly into `MainApp`, allowing users to open and use LiteDaemon immediately without entering a 32-character key at launch.
+- Created and deployed live Supabase Edge Function `dodo-webhook` (`https://nlfbtfwcsvoaliuvfwya.supabase.co/functions/v1/dodo-webhook`):
+  * Listens for Dodo Payments events (`payment.succeeded`, `subscription.active`, `subscription.renewed`, `subscription.cancelled`).
+  * Automatically updates the user's `profiles` record in Supabase to `plan: 'pro'` upon payment.
+  * Verified end-to-end with mock test event returning HTTP 200 OK.
+  * Tracked in repo under `supabase/functions/dodo-webhook/index.ts`.
+**Why:** Completes the modern SaaS (Wispr Flow style) architecture. Replaces legacy stopgap license key model with automated email-based Pro entitlements and zero-barrier app launching.
+**Phase:** 6 — Modern SaaS Auth & Cloud Transition
+
 ---
 
 *Upstream codebase remains 100% cleanly isolated. Only the single documented wrapper in App.tsx bridges proprietary code to the core app.*
+
+
+
 

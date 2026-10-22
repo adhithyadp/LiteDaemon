@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react'
-// [LiteDaemon] Integration — Payment Gate, In-Memory Branding & Upgrade UI
-import { useLicenseGate } from '../LiteDaemon/payment/useLicenseGate'
-import { LicenseGate } from '../LiteDaemon/payment/LicenseGate'
+// [LiteDaemon] Integration — In-Memory Branding, Native Upgrade & Account UI
 import { initLiteDaemonBranding } from '../LiteDaemon/branding/initBranding'
 import { LiteDaemonUpgrade } from '../LiteDaemon/ui/LiteDaemonUpgrade'
+import { LiteDaemonAccount } from '../LiteDaemon/ui/LiteDaemonAccount'
 
 initLiteDaemonBranding()
 import i18n from './i18n'
@@ -31,8 +30,7 @@ import { History } from './components/History'
 import { Onboarding } from './components/Onboarding'
 import { MainLayout } from './components/MainLayout'
 import { HomePage } from './components/HomePage'
-// [LiteDaemon] Bypassed upstream UpgradePage in favor of LiteDaemonUpgrade
-import { AccountPage } from './components/AccountPage'
+// [LiteDaemon] Bypassed upstream UpgradePage & AccountPage in favor of LiteDaemon custom UI
 import { AskPanel } from './components/AskPanel'
 import { ToastContainer } from './components/Toast'
 import { UpdatePrompt } from './components/UpdatePrompt'
@@ -230,7 +228,7 @@ function MainApp() {
       {route === 'settings' && <Settings />}
       {route === 'history' && <History />}
       {route === 'upgrade' && <LiteDaemonUpgrade />}
-      {route === 'account' && <AccountPage />}
+      {route === 'account' && <LiteDaemonAccount />}
       <UpdatePrompt />
       <ToastContainer />
     </MainLayout>
@@ -241,27 +239,6 @@ function App() {
   // Capsule window loads with #capsule hash — detect synchronously, no race condition
   if (window.location.hash === '#capsule') return <CapsuleApp />
   if (window.location.hash === '#ask') return <AskApp />
-  return <GatedMainApp />
-}
-
-// [LiteDaemon] License gate wrapper — Phase 2
-// This is the ONLY addition to the original App.tsx.
-// GatedMainApp checks the license and either shows LicenseGate or MainApp.
-function GatedMainApp() {
-  const { status, error, isActivating, activate, resetError } = useLicenseGate()
-
-  if (status === 'checking' || status === 'locked' || status === 'error') {
-    return (
-      <LicenseGate
-        status={status}
-        error={error}
-        isActivating={isActivating}
-        onActivate={activate}
-        onResetError={resetError}
-      />
-    )
-  }
-
   return <MainApp />
 }
 
