@@ -32,41 +32,46 @@ Pulling upstream updates = zero merge conflicts.
 
 ```
 LiteDaemon/  (repo root)
-├── src/              ← ORIGINAL — do not touch
+├── src/              ← ORIGINAL — do not touch (except minimal wrappers)
 ├── src-tauri/        ← ORIGINAL — do not touch
-├── package.json      ← ORIGINAL — do not touch
-├── Cargo.toml        ← ORIGINAL — do not touch
+├── package.json      ← LiteDaemon metadata
+├── Cargo.toml        ← LiteDaemon crate config
 │
-├── LiteDaemon/         ← ALL OUR CUSTOM CODE
-│   ├── payment/      — license key + Dodo Payments integration (migrating to Supabase)
+├── LiteDaemon/         ← ALL OUR CUSTOM CODE (Zero-Conflict Isolation)
+│   ├── auth/         — Supabase Auth client, Zustand store, OAuth deep link listener
+│   ├── payment/      — Dodo Payments product IDs and checkout router
 │   ├── branding/     — runtime i18n dynamic branding, logo, icons, colors
-│   ├── ui/           — custom screens (LiteDaemonUpgrade, etc.)
-│   ├── cloud/        — cloud API proxy connector (Phase 6)
+│   ├── ui/           — custom Jelly screens (Upgrade, Account, OnboardingAccount)
+│   ├── cloud/        — cloud API proxy connector (Future Phase 8)
 │   └── config/       — our env vars and build config
 │
 ├── docs/             ← ALL OUR DOCUMENTATION
 │   ├── WHAT_WE_CHANGED.md      — every change logged
-│   ├── LiteDaemon_HANDOFF.md     — this file
+│   ├── LITEDAEMON_HANDOFF.md   — this file
 │   ├── UPSTREAM_SYNC.md        — how to pull opentypeless updates
-│   ├── PAYMENT_SYSTEM.md       — how payment gate works
+│   ├── PAYMENT_SYSTEM.md       — how payment & subscription work
 │   └── BUILD_AND_RELEASE.md    — how to build + ship
 │
-├── website/          ← MARKETING WEBSITE
+├── website/          ← MARKETING WEBSITE & OAUTH BRIDGE
+│   ├── auth-callback.html      — Google OAuth bridge for deep-linking
+│   └── ...
 │
-└── LiteDaemon_CHANGELOG.md  ← OUR release history
+└── LITEDAEMON_CHANGELOG.md  ← OUR release history
 ```
 
 ---
 
-## UI Tabs Status & Architecture
+## UI Tabs & Onboarding Status & Architecture
 
-| Tab | Status | Implementation Details |
+| Screen / Tab | Status | Implementation Details |
 |---|---|---|
+| **Onboarding Wizard** | ✅ Overhauled | Account setup step wrapped via `src/components/Onboarding/AccountStep.tsx` (5 lines) to `LiteDaemon/ui/LiteDaemonOnboardingAccount.tsx`. Powered by **Supabase Auth** (Google 1-Click + Email/Password sign-in/up). Eliminates upstream "Failed to fetch" error. Automatically unlocks "Next" button on sign-in. Preserves all subsequent BYOK steps (STT, LLM, Permissions, Quick Test, Done). |
 | **Home Tab** | ✅ Rebranded | Dynamic runtime injection via `LiteDaemon/branding/initBranding.ts`. Sets `app.name = 'LiteDaemon'`, `app.tagline = 'AI Voice Input'`, and `home.welcome = 'Welcome to LiteDaemon'` across 10 languages with 0 disk merge conflicts. |
-| **Settings Tab** | ✅ Rebranded | `settings.storedLocally` privacy notice overridden to *"Never sent to LiteDaemon servers"* across 10 languages. `src/lib/constants.ts` updated to `APP_NAME = 'LiteDaemon'`, `v1.0.1`, and LiteDaemon GitHub repository links. |
+| **Settings Tab** | ✅ Rebranded | `settings.storedLocally` privacy notice overridden to *"Never sent to LiteDaemon servers"* across 10 languages. `src/lib/constants.ts` updated to `APP_NAME = 'LiteDaemon'`, `v1.0.5`, and LiteDaemon GitHub repository links. |
 | **History Tab** | ✅ Verified Clean | Audited `src/components/History/index.tsx`. 100% clean of upstream branding leaks. Operates completely offline/locally without external API calls. |
-| **Upgrade Tab** | ✅ Replaced | Swapped with `LiteDaemon/ui/LiteDaemonUpgrade.tsx`. Native Jelly card design, Dodo Payments customer portal integration, India (₹) vs Global ($) toggles, and direct live checkout links for all 8 products. |
-| **Account Tab** | ✅ Implemented | Swapped with `LiteDaemon/ui/LiteDaemonAccount.tsx` powered by **Supabase Auth**. Native Jelly UI, Email & Password sign-in/sign-up, password reset, instant Pro Member badge, and Dodo self-serve billing portal integration. Automated Pro activation via live Supabase Edge Function `dodo-webhook`. Startup license key gate removed from `App.tsx` (opens directly into app). |
+| **Upgrade Tab** | ✅ Replaced | Swapped with `LiteDaemon/ui/LiteDaemonUpgrade.tsx`. Native Jelly card design, Wispr Flow auto-detected localized geo-pricing (INR ₹ vs USD $ based on timezone and country lookup), direct Dodo checkout links, Dodo Payments customer portal integration, and full removal of legacy license keys and copy buttons. |
+| **Account Tab** | ✅ Implemented | Swapped with `LiteDaemon/ui/LiteDaemonAccount.tsx` powered by **Supabase Auth**. Google OAuth + Email/Password sign-in/up, interactive OAuth completion bridge (`litedaemon.xyz/auth-callback`), native window foreground refocusing via `@tauri-apps/api/webviewWindow`, Pro Member badge, and Dodo self-serve billing portal integration. Automated Pro activation via live Supabase Edge Function `dodo-webhook`. Startup license key gate removed (app launches immediately). |
+
 
 ---
 
@@ -148,7 +153,9 @@ See `/docs/BUILD_AND_RELEASE.md` for full instructions.
 | 4 | Marketing website (litedaemon.xyz) | ✅ Done |
 | 5 | Production Patch v1.0.1, Live Verification & Tab Overhauls | ✅ Done |
 | 6 | Account Tab SaaS Migration (Supabase Auth + Dodo Webhooks) | ✅ Done |
-| 7 | Cloud backend & Managed Proxy (Whisper without user API keys) | ⏳ Planned |
+| 7 | Production Release v1.0.5: Onboarding Wizard Overhaul, 100% Brand Scrub across 10 Locales, Google OAuth Bridge, Wispr Flow Geo-Pricing | ✅ Done |
+| 8 | Cloud backend & Managed Proxy (Whisper without user API keys) | ⏳ Planned |
+
 
 ---
 

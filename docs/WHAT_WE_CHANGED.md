@@ -239,7 +239,64 @@
 
 ---
 
-*Upstream codebase remains 100% cleanly isolated. Only the single documented wrapper in App.tsx bridges proprietary code to the core app.*
+### 2026-10-23 — Phase 7: Production Release v1.0.5 — Onboarding Overhaul, Complete Brand Scrub & Whispr Flow Geo-Pricing
+
+#### `website/auth-callback.html` — NEW FILE & DEPLOYED
+**What:** 
+- Created static, standalone OAuth bridge landing page deployed to Cloudflare Pages at `https://litedaemon.xyz/auth-callback`.
+- Intercepts Supabase OAuth URL hash fragments (`#access_token=...&refresh_token=...`) and dispatches native OS deep link `litedaemon://auth-callback#...`.
+- Solves Chromium browser tab closure constraints: provides interactive feedback on click, initiates automated `window.close()` attempts, refocuses desktop application, and renders a clear `<kbd>Ctrl</kbd> + <kbd>W</kbd>` guidance fallback if browser policies block programmatic script closure.
+**Why:** Eliminates the infinite loading blue line on `accounts.google.com` by redirecting to a valid HTTPS 200 response rather than raw OS protocol handler.
+**Phase:** 7 — Production Polish & Onboarding
+
+#### `LiteDaemon/auth/useSupabaseAuth.ts` — MODIFIED
+**What:** 
+- Added Google OAuth provider configuration with `redirectTo: 'https://litedaemon.xyz/auth-callback'`.
+- Implemented deep link callback parser and listener using `@tauri-apps/plugin-deep-link`.
+- Integrated native window foreground refocusing via `@tauri-apps/api/webviewWindow`: calls `win.unminimize()`, `win.show()`, and `win.setFocus()` on successful authentication.
+- Added `syncAuthStoreUser(session)`: updates upstream `useAuthStore.setState({ user: ... })` with authenticated Supabase user profile.
+**Why:** Brings desktop app smoothly to the foreground when Google sign-in finishes, and seamlessly satisfies all upstream checks for an authenticated user without touching upstream stores.
+**Phase:** 7 — Production Polish & Onboarding
+
+#### `LiteDaemon/ui/LiteDaemonOnboardingAccount.tsx` — NEW FILE
+**What:** 
+- Built dedicated, zero-conflict Onboarding Account step component powered entirely by Supabase Auth.
+- Offers 1-click Google Sign-In and native Email/Password sign-in and sign-up with password visibility toggles and real-time validation.
+- Displays live authenticated profile card with user email, Pro badge indicator, and a prominent green "Account Connected — Ready to proceed!" status.
+- Automatically enables the wizard's "Next" button upon sign-in.
+**Why:** Replaces broken upstream OpenTypeless server endpoints that produced red *"Failed to fetch"* network errors during first-time onboarding.
+**Phase:** 7 — Production Polish & Onboarding
+
+#### `src/components/Onboarding/AccountStep.tsx` — MODIFIED (5-Line Wrapper)
+**What:** 
+- Simplified component into a minimal pass-through wrapper that renders `<LiteDaemonOnboardingAccount onComplete={onComplete} />`.
+**Why:** Maintains 100% clean isolation. All proprietary onboarding logic lives in `LiteDaemon/ui/` with zero merge conflicts with upstream wizard scaffolding.
+**Phase:** 7 — Production Polish & Onboarding
+
+#### `src/i18n/locales/*.json` (All 10 Languages) — SCRUBBED
+**What:** 
+- Replaced all 100+ occurrences of `"OpenTypeless"` with **`"LiteDaemon"`** across `en.json`, `de.json`, `es.json`, `fr.json`, `it.json`, `ja.json`, `ko.json`, `pt.json`, `ru.json`, and `zh.json`.
+- First-time welcome greeting updated to *"Set up LiteDaemon in a few steps"* across all languages.
+- Preserved 100% of the original onboarding wizard steps (BYOK STT, LLM configuration, Permissions, Quick Test, Done) according to product roadmap.
+**Why:** Eliminates every remaining trace of upstream branding from the first-run user experience while preserving full BYOK configuration capability.
+**Phase:** 7 — Production Polish & Onboarding
+
+#### `LiteDaemon/ui/LiteDaemonUpgrade.tsx` & `website/script.js` — MODIFIED
+**What:** 
+- Implemented Wispr Flow style automated geo-pricing detection:
+  * Detects timezone (`Asia/Kolkata` / `IST`), browser locale (`hi`, `en-IN`), and conducts a fast asynchronous lookup against `https://api.country.is`.
+  * Indian users automatically see localized **₹ INR** pricing (₹149/mo BYOK, ₹400/mo Cloud).
+  * International users automatically see **$ USD** pricing ($3.99/mo BYOK, $15/mo Cloud).
+  * Removed manual toggle buttons from both the desktop app and marketing website.
+- Completely removed legacy license key architecture: removed masked license key displays, clipboard copy buttons, `licenseStore`, and offline grace period status badges.
+- Connected subscription status directly to authenticated Supabase account with direct links to Dodo customer portal.
+**Why:** Mirrors Wispr Flow's frictionless SaaS experience, eliminates visual clutter, and delivers localized pricing without confusing customer toggles.
+**Phase:** 7 — Production Polish & Onboarding
+
+---
+
+*Upstream codebase remains 100% cleanly isolated. Proprietary components reside strictly in LiteDaemon/.*
+
 
 
 

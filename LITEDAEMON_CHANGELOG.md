@@ -4,7 +4,46 @@
 
 ---
 
-## [v1.0.2] — 2026-10-23 🚀
+## [v1.0.5] — 2026-10-23 🚀
+*Major Update: Onboarding Wizard Revamp, Complete Brand Scrub & Whispr Flow Auto-Detected Geo-Pricing*
+
+### Features & Improvements:
+- **Onboarding Wizard Revamp (`LiteDaemonOnboardingAccount.tsx`):**
+  - Replaced broken OpenTypeless backend in onboarding with live **Supabase Auth** (Google OAuth + Email/Password sign-in/up).
+  - Fixed red *"Failed to fetch"* error on account setup.
+  - Added live signed-in confirmation card with instant **Next** button unlocking.
+  - Maintained full BYOK configuration steps (STT, LLM, Permissions, Quick Test, Done).
+  - Zero-conflict isolation: isolated in `LiteDaemon/ui/` with a 5-line wrapper in `src/components/Onboarding/AccountStep.tsx`.
+- **Complete Branding Cleanliness (100% Scrub):**
+  - Replaced all 100 occurrences of `"OpenTypeless"` with **`"LiteDaemon"`** across all 10 language translation files (`en.json`, `de.json`, `es.json`, `fr.json`, `it.json`, `ja.json`, `ko.json`, `pt.json`, `ru.json`, `zh.json`).
+  - Welcome screen now correctly greets users with *"Set up LiteDaemon in a few steps"*.
+- **Whispr Flow Style Auto-Detected Geo-Pricing:**
+  - Automatically detects user location (Timezone + Locale + fast IP check) and dynamically displays **₹ INR** for Indian users and **$ USD** for international users.
+  - Eliminated manual switcher clutter from both the desktop app (`LiteDaemonUpgrade.tsx`) and the landing page (`litedaemon.xyz`).
+- **Legacy License Key Architecture Completely Removed:**
+  - Removed masked license keys, copy buttons, `licenseStore`, and offline grace period badges.
+  - Linked active subscription status directly to the authenticated Supabase user profile.
+- **Interactive OAuth Completion Bridge:**
+  - Added active feedback, cursor styling, and scale animations to `auth-callback.html`.
+  - Dispatches deep link to immediately bring LiteDaemon into the foreground in Windows upon authentication.
+
+---
+
+## [v1.0.4] — 2026-10-23
+*Fix: Google OAuth Browser Completion Bridge*
+- **Auth Callback Bridge Page (`website/auth-callback.html`):** Deployed glassmorphic callback completion page to `https://litedaemon.xyz/auth-callback`.
+- **Eliminated Frozen Google Tabs:** Google OAuth now redirects to HTTPS bridge instead of raw protocol, closing the consent screen and eliminating infinite loading animations.
+
+---
+
+## [v1.0.3] — 2026-10-23
+*Fix: Supabase Deep Link Callback Routing*
+- **Deep Link Handler:** Connected `litedaemon://` protocol scheme directly to `handleSupabaseCallback` in `useSupabaseAuth.ts`.
+- **Google OAuth Scopes:** Explicitly configured email and profile scopes for seamless Supabase user provisioning.
+
+---
+
+## [v1.0.2] — 2026-10-23
 *Major Update: Full UI Tab Rebrand, Native Supabase Auth & Wispr Flow Architecture*
 
 ### Features & Improvements:
