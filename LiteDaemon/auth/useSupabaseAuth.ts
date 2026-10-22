@@ -271,6 +271,13 @@ export async function handleSupabaseCallback(rawUrl: string): Promise<boolean> {
       })
       if (!error && data.session) {
         await useSupabaseAuth.getState().initialize()
+        try {
+          const { getCurrentWebviewWindow } = await import('@tauri-apps/api/webviewWindow')
+          const win = getCurrentWebviewWindow()
+          await win.unminimize()
+          await win.show()
+          await win.setFocus()
+        } catch (e) {}
         return true
       }
     }
@@ -280,6 +287,13 @@ export async function handleSupabaseCallback(rawUrl: string): Promise<boolean> {
       const { data, error } = await supabase.auth.exchangeCodeForSession(code)
       if (!error && data.session) {
         await useSupabaseAuth.getState().initialize()
+        try {
+          const { getCurrentWebviewWindow } = await import('@tauri-apps/api/webviewWindow')
+          const win = getCurrentWebviewWindow()
+          await win.unminimize()
+          await win.show()
+          await win.setFocus()
+        } catch (e) {}
         return true
       }
     }

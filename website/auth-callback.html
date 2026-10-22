@@ -120,15 +120,39 @@
       font-size: 15px;
       font-weight: 600;
       border-radius: 14px;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      font-family: inherit;
       text-decoration: none;
-      transition: all 0.2s ease;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
       box-shadow: 0 4px 16px rgba(61, 90, 254, 0.25);
+      user-select: none;
     }
 
     .btn:hover {
       background: var(--blue-deep);
       transform: translateY(-1px);
       box-shadow: 0 6px 20px rgba(61, 90, 254, 0.35);
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+      box-shadow: 0 2px 8px rgba(61, 90, 254, 0.2);
+    }
+
+    kbd {
+      display: inline-block;
+      padding: 2px 6px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1.4;
+      color: var(--gray-900);
+      background-color: #F3F4F6;
+      border: 1px solid #D1D5DB;
+      border-radius: 6px;
+      box-shadow: inset 0 -1px 0 #9CA3AF;
     }
 
     .notice {
@@ -152,7 +176,7 @@
     <p class="desc" id="status-desc">Connecting to LiteDaemon desktop app…</p>
 
     <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 10px;">
-      <button class="btn" id="action-btn" onclick="attemptClose()">Close Tab</button>
+      <button class="btn" id="action-btn" onclick="handleButtonClick()">Close Tab & Open LiteDaemon</button>
       <a href="#" id="open-app-link" style="color: var(--gray-600); font-size: 14px; text-decoration: underline; display: none;">Didn't open? Click here to launch LiteDaemon</a>
     </div>
 
@@ -160,12 +184,34 @@
   </div>
 
   <script>
-    function attemptClose() {
-      try {
-        window.close();
-        window.open('', '_self', '');
-        window.close();
-      } catch(e) {}
+    var deepLink = '';
+
+    function handleButtonClick() {
+      var btn = document.getElementById('action-btn');
+      btn.style.transform = 'scale(0.96)';
+      btn.textContent = 'Launching LiteDaemon…';
+
+      // 1. Attempt all browser tab closing methods
+      try { window.opener = window; window.close(); } catch(e) {}
+      try { window.open('', '_self', ''); window.close(); } catch(e) {}
+      try { window.close(); } catch(e) {}
+      try { self.close(); } catch(e) {}
+
+      // 2. Bring LiteDaemon to the foreground in Windows via protocol
+      if (deepLink) {
+        window.location.href = deepLink;
+      }
+
+      // 3. Clear interactive state update
+      setTimeout(function() {
+        btn.style.transform = 'none';
+        btn.style.background = '#10B981'; // Emerald green success
+        btn.style.boxShadow = '0 4px 16px rgba(16, 185, 129, 0.3)';
+        btn.textContent = '✓ Returned to LiteDaemon';
+
+        var desc = document.getElementById('status-desc');
+        desc.innerHTML = 'LiteDaemon is open on your desktop.<br/><span style="display:inline-block; margin-top:8px; font-size:13px; color:var(--gray-600);">Browser blocked auto-closing — press <kbd>Ctrl</kbd> + <kbd>W</kbd> to close this tab.</span>';
+      }, 350);
     }
 
     (function() {
@@ -173,7 +219,7 @@
       var search = window.location.search || '';
 
       // Construct deep link URL with tokens
-      var deepLink = 'litedaemon://auth/callback' + hash;
+      deepLink = 'litedaemon://auth/callback' + hash;
       if (search) {
         deepLink += (hash ? '&' : '?') + search.replace(/^\?/, '');
       }
@@ -183,15 +229,19 @@
 
       // Automatically forward tokens to LiteDaemon
       setTimeout(function() {
-        window.location.href = deepLink;
+        if (deepLink) {
+          window.location.href = deepLink;
+        }
       }, 250);
 
       // Attempt to close tab and update UI
       setTimeout(function() {
         document.getElementById('status-title').textContent = "You're All Set!";
-        document.getElementById('status-desc').textContent = "LiteDaemon is now signed in. You can close this tab.";
+        document.getElementById('status-desc').innerHTML = 'LiteDaemon is now signed in.<br/><span style="font-size:13px; color:var(--gray-600);">Click below or press <kbd>Ctrl</kbd> + <kbd>W</kbd> to close.</span>';
         openLink.style.display = 'inline-block';
-        attemptClose();
+
+        try { window.close(); } catch(e) {}
+        try { window.open('', '_self', ''); window.close(); } catch(e) {}
       }, 1000);
     })();
   </script>
