@@ -4,16 +4,18 @@
 
 ---
 
-## [Unreleased] — In Development
+## [v1.0.2] — 2026-10-23 🚀
+*Major Update: Full UI Tab Rebrand, Native Supabase Auth & Wispr Flow Architecture*
 
-### Tabs Overhaul & UI Rebrand (2026-10-22)
-- **Home Tab:** Injected `app.name: 'LiteDaemon'` and `home.welcome: 'Welcome to LiteDaemon'` dynamically into i18next across all 10 supported UI languages at runtime via `initBranding.ts`. Upstream language files stay 100% untouched on disk.
-- **Settings Tab:** Rebranded privacy statement `settings.storedLocally` across all 10 languages (*"Stored locally on your device. Never sent to LiteDaemon servers"*). Updated `src/lib/constants.ts` to LiteDaemon metadata and repository URLs.
-- **Upgrade Tab:** Replaced upstream SaaS subscription page with `LiteDaemonUpgrade.tsx` featuring LiteDaemon Jelly aesthetics, interactive region switcher (India ₹ / Global $), billing cycle switcher (Monthly / Annual), direct checkout for all 8 Dodo products, and customer self-serve billing portal integration.
-- **Account Tab:** Replaced with `LiteDaemonAccount.tsx` powered by Supabase Auth (Email & Password login/registration, password reset, instant Pro Member status).
-- **Startup License Gate Removed:** Removed `GatedMainApp` startup license key popup from `src/App.tsx`; app now opens directly for immediate use (true Wispr Flow model).
-- **Dodo Webhook Live:** Deployed live Supabase Edge Function `dodo-webhook` to automatically upgrade paid users to Pro upon successful payment.
-
+### Features & Improvements:
+- **Wispr Flow Model Transition:** Removed startup license key lock screen (`GatedMainApp`); users can launch and use the app immediately without barrier.
+- **Native Account Tab:** Completely redesigned with LiteDaemon Jelly aesthetics and powered by Supabase Auth (Email/Password registration and login, password recovery, instant Pro Member badge, and Dodo self-serve billing portal).
+- **Google Sign-In:** Configured full Google OAuth support with desktop deep linking (`litedaemon://auth/callback`).
+- **Automated Pro Activation:** Live Supabase Edge Function `dodo-webhook` handles Dodo Payments events to automatically upgrade paid users without manual license entry.
+- **Home Tab Rebrand:** Dynamic runtime i18n brand injection for app name and welcome message across all 10 supported UI languages.
+- **Settings Tab Rebrand:** Privacy statement updated across 10 languages (*"Never sent to LiteDaemon servers"*), repository URLs and metadata updated to LiteDaemon.
+- **Native Upgrade Screen:** Swapped upstream Stripe page with `LiteDaemonUpgrade.tsx` wired to all 8 live Dodo Payments checkout links with India (₹) vs Global ($) and Monthly vs Annual billing toggles.
+- **Landing Page Updated:** Removed license key footer note and updated feature bullet points to "2 devices per account".
 
 ---
 
