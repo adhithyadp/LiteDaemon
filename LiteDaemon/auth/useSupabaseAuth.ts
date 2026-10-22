@@ -163,6 +163,11 @@ export const useSupabaseAuth = create<SupabaseAuthState>((set, get) => ({
         options: {
           redirectTo: 'litedaemon://auth/callback',
           skipBrowserRedirect: true,
+          scopes: 'email profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile',
+          queryParams: {
+            access_type: 'offline',
+            prompt: 'consent',
+          },
         },
       })
 
@@ -215,6 +220,15 @@ async function handleSupabaseCallback(rawUrl: string): Promise<boolean> {
 
     const hashParams = new URLSearchParams(url.hash.replace(/^#/, ''))
     const searchParams = url.searchParams
+
+    const errorParam = searchParams.get('error') || hashParams.get('error')
+    const errorDesc = searchParams.get('error_description') || hashParams.get('error_description')
+    if (errorParam) {
+      const decodedDesc = errorDesc ? decodeURIComponent(errorDesc.replace(/\+/g, ' ')) : errorParam
+      console.error('Supabase OAuth callback returned error:', errorParam, decodedDesc)
+      useSupabaseAuth.setState({ error: decodedDesc, loading: false })
+      return false
+    }
 
     const accessToken = hashParams.get('access_token') || searchParams.get('access_token')
     const refreshToken = hashParams.get('refresh_token') || searchParams.get('refresh_token')
