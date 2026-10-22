@@ -1,6 +1,6 @@
-{
+﻿{
   "app": {
-    "name": "OpenTypeless",
+    "name": "LiteDaemon",
     "tagline": "AI Voice Input"
   },
   "nav": {
@@ -53,7 +53,7 @@
     "output_wayland_clipboard_copy_only": "Copied to clipboard. Paste manually on Wayland."
   },
   "cloudRecovery": {
-    "title": "OpenTypeless Cloud is temporarily unavailable",
+    "title": "LiteDaemon Cloud is temporarily unavailable",
     "sttBody": "Cloud speech is unavailable. Audio was not resent.",
     "llmBody": "AI polishing is unavailable. The original text was kept.",
     "tryAgain": "Try again",
@@ -61,7 +61,7 @@
     "openLlmSettings": "Settings"
   },
   "home": {
-    "welcome": "Welcome to OpenTypeless",
+    "welcome": "Welcome to LiteDaemon",
     "description": "Use {{hotkey}} to start voice recording. Your speech will be transcribed and optionally polished by AI.",
     "totalRecordings": "Total Recordings",
     "today": "Today",
@@ -127,11 +127,11 @@
     },
     "steps": {
       "welcome": "Welcome",
-      "welcomeSub": "Set up OpenTypeless in a few steps",
+      "welcomeSub": "Set up LiteDaemon in a few steps",
       "signIn": "Sign In",
       "signInSub": "Connect your account to get started",
       "chooseMode": "Choose Mode",
-      "chooseModeSub": "Select how you want to use OpenTypeless",
+      "chooseModeSub": "Select how you want to use LiteDaemon",
       "speechRecognition": "Speech Recognition",
       "speechRecognitionSub": "Configure your STT service",
       "aiPolish": "AI Polish",
@@ -196,7 +196,7 @@
       "appWritingModesSub": "Edit default email, chat, document, and other writing modes in Scenes."
     },
     "permissions": {
-      "subtitle": "OpenTypeless asks for access only when a feature needs it.",
+      "subtitle": "LiteDaemon asks for access only when a feature needs it.",
       "microphone": "Microphone",
       "microphoneDesc": "Capture your voice.",
       "textOutput": "Text output",
@@ -358,7 +358,7 @@
     "test": "Test",
     "connectionSuccess": "Connection successful",
     "connectionFailed": "Connection failed",
-    "storedLocally": "Stored locally on your device. Never sent to OpenTypeless servers.",
+    "storedLocally": "Stored locally on your device. Never sent to LiteDaemon servers.",
     "credentialSaveFailed": "Could not save API key to OS vault. {{details}}",
     "sttLanguage": "Language",
     "model": "Model",
@@ -856,7 +856,7 @@
       "unknownUpstream": "The custom server’s limit is unknown; a conservative default is used.",
       "unknownProvider": "This provider is not yet recognized; a safe fallback is used.",
       "productSafety": "A conservative app limit for this streaming provider.",
-      "managedCapability": "Set automatically for OpenTypeless Cloud.",
+      "managedCapability": "Set automatically for LiteDaemon Cloud.",
       "encoderFallback": "The managed audio encoder was unavailable, so this session used the shorter local WAV-safe limit.",
       "managedFallback": "Cloud capability is unavailable or stale, so the safe 30-second limit is used."
     }
@@ -873,7 +873,7 @@
       "siliconflow": "SiliconFlow",
       "appleSpeech": "Apple Speech (Local)",
       "customWhisper": "Local / Custom Whisper",
-      "cloud": "OpenTypeless Cloud"
+      "cloud": "LiteDaemon Cloud"
     },
     "llm": {
       "zhipu": "Zhipu",
@@ -888,7 +888,7 @@
       "claude": "Claude",
       "ollama": "Ollama (Local)",
       "openrouter": "OpenRouter",
-      "cloud": "OpenTypeless Cloud"
+      "cloud": "LiteDaemon Cloud"
     }
   }
 }

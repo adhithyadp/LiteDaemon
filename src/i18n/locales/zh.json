@@ -1,6 +1,6 @@
-{
+﻿{
   "app": {
-    "name": "OpenTypeless",
+    "name": "LiteDaemon",
     "tagline": "AI 语音输入"
   },
   "nav": {
@@ -53,7 +53,7 @@
     "output_wayland_clipboard_copy_only": "已复制到剪贴板。Wayland 下需要手动粘贴。"
   },
   "cloudRecovery": {
-    "title": "OpenTypeless 云服务暂时不可用",
+    "title": "LiteDaemon 云服务暂时不可用",
     "sttBody": "云端语音暂不可用，录音未自动重发。",
     "llmBody": "AI 润色暂不可用，原文已保留。",
     "tryAgain": "重试",
@@ -61,7 +61,7 @@
     "openLlmSettings": "设置"
   },
   "home": {
-    "welcome": "欢迎使用 OpenTypeless",
+    "welcome": "欢迎使用 LiteDaemon",
     "description": "使用 {{hotkey}} 开始语音录制。语音将被转录并可选择由 AI 润色。",
     "totalRecordings": "总录音数",
     "today": "今日",
@@ -127,11 +127,11 @@
     },
     "steps": {
       "welcome": "欢迎",
-      "welcomeSub": "几步完成 OpenTypeless 设置",
+      "welcomeSub": "几步完成 LiteDaemon 设置",
       "signIn": "登录",
       "signInSub": "连接你的账户以开始使用",
       "chooseMode": "选择模式",
-      "chooseModeSub": "选择你想如何使用 OpenTypeless",
+      "chooseModeSub": "选择你想如何使用 LiteDaemon",
       "speechRecognition": "语音识别",
       "speechRecognitionSub": "配置你的 STT 服务",
       "aiPolish": "AI 润色",
@@ -196,7 +196,7 @@
       "appWritingModesSub": "在 Scenes 里编辑邮件、聊天、文档等默认写法。"
     },
     "permissions": {
-      "subtitle": "OpenTypeless 只会在功能需要时请求权限。",
+      "subtitle": "LiteDaemon 只会在功能需要时请求权限。",
       "microphone": "麦克风",
       "microphoneDesc": "用于录下你的语音。",
       "textOutput": "文本输出",
@@ -358,7 +358,7 @@
     "test": "测试",
     "connectionSuccess": "连接成功",
     "connectionFailed": "连接失败",
-    "storedLocally": "存储在本地设备上。绝不会发送到 OpenTypeless 服务器。",
+    "storedLocally": "存储在本地设备上。绝不会发送到 LiteDaemon 服务器。",
     "credentialSaveFailed": "无法保存 API Key 到系统凭据库。{{details}}",
     "sttLanguage": "语言",
     "model": "模型",
@@ -856,7 +856,7 @@
       "unknownUpstream": "自定义服务的限制未知，因此使用保守的默认值。",
       "unknownProvider": "暂未识别此服务商，因此使用安全的回退值。",
       "productSafety": "这是应用为流式语音服务设置的保守安全上限。",
-      "managedCapability": "已根据 OpenTypeless 云端服务自动设置。",
+      "managedCapability": "已根据 LiteDaemon 云端服务自动设置。",
       "encoderFallback": "托管音频编码器不可用，本次录音已使用较短的本地 WAV 安全上限。",
       "managedFallback": "云端能力信息不可用或已过期，因此使用安全的 30 秒限制。"
     }
@@ -873,7 +873,7 @@
       "siliconflow": "硅基流动 SiliconFlow",
       "appleSpeech": "Apple Speech（本地）",
       "customWhisper": "本地 / 自定义 Whisper",
-      "cloud": "OpenTypeless 云服务"
+      "cloud": "LiteDaemon 云服务"
     },
     "llm": {
       "zhipu": "智谱",
@@ -888,7 +888,7 @@
       "claude": "Claude",
       "ollama": "Ollama (本地)",
       "openrouter": "OpenRouter",
-      "cloud": "OpenTypeless 云服务"
+      "cloud": "LiteDaemon 云服务"
     }
   }
 }

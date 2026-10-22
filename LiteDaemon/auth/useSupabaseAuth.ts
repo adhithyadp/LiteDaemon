@@ -22,6 +22,21 @@ interface SupabaseAuthState {
 
 let deepLinkInitialized = false
 
+function syncAuthStoreUser(user: User | null) {
+  if (user) {
+    useAuthStore.setState({
+      user: {
+        id: user.id,
+        email: user.email ?? '',
+        name: user.user_metadata?.full_name ?? null,
+        emailVerified: !!user.email_confirmed_at,
+      },
+    })
+  } else {
+    useAuthStore.setState({ user: null })
+  }
+}
+
 export const useSupabaseAuth = create<SupabaseAuthState>((set, get) => ({
   user: null,
   profile: null,
@@ -37,8 +52,10 @@ export const useSupabaseAuth = create<SupabaseAuthState>((set, get) => ({
 
       if (session?.user) {
         set({ user: session.user })
+        syncAuthStoreUser(session.user)
         await get().refreshProfile()
       } else {
+        syncAuthStoreUser(null)
         set({ user: null, profile: null, loading: false })
       }
 
@@ -46,8 +63,10 @@ export const useSupabaseAuth = create<SupabaseAuthState>((set, get) => ({
       supabase.auth.onAuthStateChange(async (_event, session) => {
         if (session?.user) {
           set({ user: session.user })
+          syncAuthStoreUser(session.user)
           await get().refreshProfile()
         } else {
+          syncAuthStoreUser(null)
           set({ user: null, profile: null, loading: false })
         }
       })
