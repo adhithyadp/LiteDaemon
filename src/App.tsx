@@ -4,6 +4,7 @@ import { useLicenseGate } from '../LiteDaemon/payment/useLicenseGate'
 import { LicenseGate } from '../LiteDaemon/payment/LicenseGate'
 import { initLiteDaemonBranding } from '../LiteDaemon/branding/initBranding'
 import { LiteDaemonUpgrade } from '../LiteDaemon/ui/LiteDaemonUpgrade'
+import { LiteDaemonAccount } from '../LiteDaemon/ui/LiteDaemonAccount'
 
 initLiteDaemonBranding()
 import i18n from './i18n'
@@ -31,8 +32,7 @@ import { History } from './components/History'
 import { Onboarding } from './components/Onboarding'
 import { MainLayout } from './components/MainLayout'
 import { HomePage } from './components/HomePage'
-// [LiteDaemon] Bypassed upstream UpgradePage in favor of LiteDaemonUpgrade
-import { AccountPage } from './components/AccountPage'
+// [LiteDaemon] Bypassed upstream UpgradePage & AccountPage in favor of LiteDaemon custom UI
 import { AskPanel } from './components/AskPanel'
 import { ToastContainer } from './components/Toast'
 import { UpdatePrompt } from './components/UpdatePrompt'
@@ -230,7 +230,7 @@ function MainApp() {
       {route === 'settings' && <Settings />}
       {route === 'history' && <History />}
       {route === 'upgrade' && <LiteDaemonUpgrade />}
-      {route === 'account' && <AccountPage />}
+      {route === 'account' && <LiteDaemonAccount />}
       <UpdatePrompt />
       <ToastContainer />
     </MainLayout>
