@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Authentication Successful — LiteDaemon</title>
+  <link rel="icon" type="image/png" href="assets/icon.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --blue: #3D5AFE;
+      --blue-deep: #2541E8;
+      --blue-pale: #EEF1FF;
+      --gray-900: #0F0F1A;
+      --gray-600: #4B5563;
+      --gray-400: #9CA3AF;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
+      background: radial-gradient(circle at 50% 20%, #F5F7FF 0%, #FFFFFF 100%);
+      color: var(--gray-900);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      overflow: hidden;
+    }
+
+    .card {
+      background: #FFFFFF;
+      border: 1px solid rgba(61, 90, 254, 0.12);
+      border-radius: 24px;
+      padding: 48px 36px;
+      max-width: 440px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 16px 48px rgba(61, 90, 254, 0.08), 0 2px 8px rgba(0, 0, 0, 0.03);
+      position: relative;
+      animation: fadeInScale 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes fadeInScale {
+      from { opacity: 0; transform: scale(0.95) translateY(10px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .icon-wrap {
+      width: 76px;
+      height: 76px;
+      margin: 0 auto 24px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, #EEF1FF 0%, #E0E7FF 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .check-svg {
+      width: 36px;
+      height: 36px;
+      stroke: var(--blue);
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+      stroke-dasharray: 50;
+      stroke-dashoffset: 50;
+      animation: drawCheck 0.6s cubic-bezier(0.65, 0, 0.45, 1) 0.2s forwards;
+    }
+
+    @keyframes drawCheck {
+      to { stroke-dashoffset: 0; }
+    }
+
+    .pulse-ring {
+      position: absolute;
+      inset: -6px;
+      border-radius: 28px;
+      border: 2px solid var(--blue);
+      opacity: 0;
+      animation: pulse 1.8s ease-out 0.4s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.95); opacity: 0.6; }
+      100% { transform: scale(1.18); opacity: 0; }
+    }
+
+    h1 {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+      color: var(--gray-900);
+    }
+
+    p.desc {
+      font-size: 15px;
+      color: var(--gray-600);
+      line-height: 1.5;
+      margin-bottom: 28px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 14px 24px;
+      background: var(--blue);
+      color: #FFFFFF;
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 14px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 16px rgba(61, 90, 254, 0.25);
+    }
+
+    .btn:hover {
+      background: var(--blue-deep);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(61, 90, 254, 0.35);
+    }
+
+    .notice {
+      margin-top: 20px;
+      font-size: 13px;
+      color: var(--gray-400);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="icon-wrap">
+      <div class="pulse-ring"></div>
+      <svg class="check-svg" viewBox="0 0 24 24">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+    </div>
+
+    <h1 id="status-title">Authentication Successful</h1>
+    <p class="desc" id="status-desc">Opening LiteDaemon desktop app…</p>
+
+    <a href="#" class="btn" id="open-app-btn">Open LiteDaemon</a>
+
+    <p class="notice" id="close-notice">You can safely close this browser window.</p>
+  </div>
+
+  <script>
+    (function() {
+      var hash = window.location.hash || '';
+      var search = window.location.search || '';
+
+      // Construct deep link URL with tokens
+      var deepLink = 'litedaemon://auth/callback' + hash;
+      if (search) {
+        deepLink += (hash ? '&' : '?') + search.replace(/^\?/, '');
+      }
+
+      var btn = document.getElementById('open-app-btn');
+      btn.href = deepLink;
+
+      // Automatically forward to LiteDaemon
+      setTimeout(function() {
+        window.location.href = deepLink;
+      }, 350);
+
+      // Update screen text after brief timeout
+      setTimeout(function() {
+        document.getElementById('status-title').textContent = "You're All Set!";
+        document.getElementById('status-desc').textContent = "LiteDaemon has been opened on your desktop.";
+        try { window.close(); } catch(e) {}
+      }, 2200);
+    })();
+  </script>
+
+</body>
+</html>
