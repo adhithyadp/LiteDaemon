@@ -149,14 +149,25 @@
     </div>
 
     <h1 id="status-title">Authentication Successful</h1>
-    <p class="desc" id="status-desc">Opening LiteDaemon desktop app…</p>
+    <p class="desc" id="status-desc">Connecting to LiteDaemon desktop app…</p>
 
-    <a href="#" class="btn" id="open-app-btn">Open LiteDaemon</a>
+    <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 10px;">
+      <button class="btn" id="action-btn" onclick="attemptClose()">Close Tab</button>
+      <a href="#" id="open-app-link" style="color: var(--gray-600); font-size: 14px; text-decoration: underline; display: none;">Didn't open? Click here to launch LiteDaemon</a>
+    </div>
 
     <p class="notice" id="close-notice">You can safely close this browser window.</p>
   </div>
 
   <script>
+    function attemptClose() {
+      try {
+        window.close();
+        window.open('', '_self', '');
+        window.close();
+      } catch(e) {}
+    }
+
     (function() {
       var hash = window.location.hash || '';
       var search = window.location.search || '';
@@ -167,20 +178,21 @@
         deepLink += (hash ? '&' : '?') + search.replace(/^\?/, '');
       }
 
-      var btn = document.getElementById('open-app-btn');
-      btn.href = deepLink;
+      var openLink = document.getElementById('open-app-link');
+      openLink.href = deepLink;
 
-      // Automatically forward to LiteDaemon
+      // Automatically forward tokens to LiteDaemon
       setTimeout(function() {
         window.location.href = deepLink;
-      }, 350);
+      }, 250);
 
-      // Update screen text after brief timeout
+      // Attempt to close tab and update UI
       setTimeout(function() {
         document.getElementById('status-title').textContent = "You're All Set!";
-        document.getElementById('status-desc').textContent = "LiteDaemon has been opened on your desktop.";
-        try { window.close(); } catch(e) {}
-      }, 2200);
+        document.getElementById('status-desc').textContent = "LiteDaemon is now signed in. You can close this tab.";
+        openLink.style.display = 'inline-block';
+        attemptClose();
+      }, 1000);
     })();
   </script>
 
