@@ -228,12 +228,19 @@
   * Logged out state: Sign In vs Sign Up tabs, email and password inputs with eye visibility toggle, password confirmation check, and password reset trigger.
   * Logged in state: User profile card, email display, Pro Member badge (Sparkles icon) vs Free BYOK badge, Dodo customer self-serve billing portal integration (`https://customer.dodopayments.com`), and Sign Out action.
 - Swapped route in `src/App.tsx` (`{route === 'account' && <LiteDaemonAccount />}`) cleanly bypassing upstream OpenTypeless cloud dependency.
-**Why:** Replaces legacy stopgap license key model with modern Wispr Flow experience (Email/Password login + instant Pro activation). Upstream translation files and components remain 100% clean and isolated.
+- Removed startup license key barrier (`GatedMainApp`) from `src/App.tsx`: App now boots directly into `MainApp`, allowing users to open and use LiteDaemon immediately without entering a 32-character key at launch.
+- Created and deployed live Supabase Edge Function `dodo-webhook` (`https://nlfbtfwcsvoaliuvfwya.supabase.co/functions/v1/dodo-webhook`):
+  * Listens for Dodo Payments events (`payment.succeeded`, `subscription.active`, `subscription.renewed`, `subscription.cancelled`).
+  * Automatically updates the user's `profiles` record in Supabase to `plan: 'pro'` upon payment.
+  * Verified end-to-end with mock test event returning HTTP 200 OK.
+  * Tracked in repo under `supabase/functions/dodo-webhook/index.ts`.
+**Why:** Completes the modern SaaS (Wispr Flow style) architecture. Replaces legacy stopgap license key model with automated email-based Pro entitlements and zero-barrier app launching.
 **Phase:** 6 — Modern SaaS Auth & Cloud Transition
 
 ---
 
 *Upstream codebase remains 100% cleanly isolated. Only the single documented wrapper in App.tsx bridges proprietary code to the core app.*
+
 
 
 

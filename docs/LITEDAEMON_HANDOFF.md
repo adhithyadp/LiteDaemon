@@ -66,7 +66,7 @@ LiteDaemon/  (repo root)
 | **Settings Tab** | ✅ Rebranded | `settings.storedLocally` privacy notice overridden to *"Never sent to LiteDaemon servers"* across 10 languages. `src/lib/constants.ts` updated to `APP_NAME = 'LiteDaemon'`, `v1.0.1`, and LiteDaemon GitHub repository links. |
 | **History Tab** | ✅ Verified Clean | Audited `src/components/History/index.tsx`. 100% clean of upstream branding leaks. Operates completely offline/locally without external API calls. |
 | **Upgrade Tab** | ✅ Replaced | Swapped with `LiteDaemon/ui/LiteDaemonUpgrade.tsx`. Native Jelly card design, Dodo Payments customer portal integration, India (₹) vs Global ($) toggles, and direct live checkout links for all 8 products. |
-| **Account Tab** | ✅ Implemented | Swapped with `LiteDaemon/ui/LiteDaemonAccount.tsx` powered by **Supabase Auth**. Native Jelly UI, Email & Password sign-in/sign-up, password reset, instant Pro Member badge, and Dodo self-serve billing portal integration. |
+| **Account Tab** | ✅ Implemented | Swapped with `LiteDaemon/ui/LiteDaemonAccount.tsx` powered by **Supabase Auth**. Native Jelly UI, Email & Password sign-in/sign-up, password reset, instant Pro Member badge, and Dodo self-serve billing portal integration. Automated Pro activation via live Supabase Edge Function `dodo-webhook`. Startup license key gate removed from `App.tsx` (opens directly into app). |
 
 ---
 
