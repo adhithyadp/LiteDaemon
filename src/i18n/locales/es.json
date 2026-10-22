@@ -1,6 +1,6 @@
-{
+﻿{
   "app": {
-    "name": "OpenTypeless",
+    "name": "LiteDaemon",
     "tagline": "Entrada de voz con IA"
   },
   "nav": {
@@ -53,7 +53,7 @@
     "output_wayland_clipboard_copy_only": "Copiado al portapapeles. Pega manualmente en Wayland."
   },
   "cloudRecovery": {
-    "title": "OpenTypeless Cloud no está disponible temporalmente",
+    "title": "LiteDaemon Cloud no está disponible temporalmente",
     "sttBody": "Voz en la nube no disponible. El audio no se reenvió.",
     "llmBody": "Pulido con IA no disponible. Se conservó el texto original.",
     "tryAgain": "Reintentar",
@@ -61,7 +61,7 @@
     "openLlmSettings": "Ajustes"
   },
   "home": {
-    "welcome": "Bienvenido a OpenTypeless",
+    "welcome": "Bienvenido a LiteDaemon",
     "description": "Mantén presionado {{hotkey}} para iniciar la grabación de voz. Tu habla será transcrita y opcionalmente pulida por IA.",
     "totalRecordings": "Grabaciones totales",
     "today": "Hoy",
@@ -127,11 +127,11 @@
     },
     "steps": {
       "welcome": "Bienvenido",
-      "welcomeSub": "Configura OpenTypeless en unos pocos pasos",
+      "welcomeSub": "Configura LiteDaemon en unos pocos pasos",
       "signIn": "Iniciar sesión",
       "signInSub": "Conecta tu cuenta para comenzar",
       "chooseMode": "Elegir modo",
-      "chooseModeSub": "Selecciona cómo quieres usar OpenTypeless",
+      "chooseModeSub": "Selecciona cómo quieres usar LiteDaemon",
       "speechRecognition": "Reconocimiento de voz",
       "speechRecognitionSub": "Configura tu servicio STT",
       "aiPolish": "Pulido con IA",
@@ -196,7 +196,7 @@
       "appWritingModesSub": "Edita en Escenas los modos predeterminados para email, chat, documentos y otros formatos."
     },
     "permissions": {
-      "subtitle": "OpenTypeless solo pide acceso cuando una función lo necesita.",
+      "subtitle": "LiteDaemon solo pide acceso cuando una función lo necesita.",
       "microphone": "Micrófono",
       "microphoneDesc": "Captura tu voz.",
       "textOutput": "Salida de texto",
@@ -360,7 +360,7 @@
     "test": "Probar",
     "connectionSuccess": "Conexión exitosa",
     "connectionFailed": "Error de conexión",
-    "storedLocally": "Almacenada localmente en tu dispositivo. Nunca se envía a los servidores de OpenTypeless.",
+    "storedLocally": "Almacenada localmente en tu dispositivo. Nunca se envía a los servidores de LiteDaemon.",
     "credentialSaveFailed": "No se pudo guardar la clave API en la bóveda del sistema. {{details}}",
     "sttLanguage": "Idioma",
     "model": "Modelo",
@@ -856,7 +856,7 @@
       "unknownUpstream": "Se desconoce el límite del servidor personalizado; se usa un valor prudente.",
       "unknownProvider": "Este proveedor aún no se reconoce; se usa un límite seguro.",
       "productSafety": "Un límite prudente de la aplicación para este proveedor de streaming.",
-      "managedCapability": "Configurado automáticamente para OpenTypeless Cloud.",
+      "managedCapability": "Configurado automáticamente para LiteDaemon Cloud.",
       "encoderFallback": "El codificador de audio gestionado no estaba disponible; esta sesión usó el límite WAV local más corto.",
       "managedFallback": "La capacidad Cloud no está disponible o está obsoleta; se usa el límite seguro de 30 segundos."
     }
@@ -873,7 +873,7 @@
       "siliconflow": "SiliconFlow",
       "appleSpeech": "Apple Speech (local)",
       "customWhisper": "Whisper local / personalizado",
-      "cloud": "Nube de OpenTypeless"
+      "cloud": "Nube de LiteDaemon"
     },
     "llm": {
       "zhipu": "Zhipu",
@@ -888,7 +888,7 @@
       "claude": "Claude",
       "ollama": "Ollama (local)",
       "openrouter": "OpenRouter",
-      "cloud": "Nube de OpenTypeless"
+      "cloud": "Nube de LiteDaemon"
     }
   }
 }
