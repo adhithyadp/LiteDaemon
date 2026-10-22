@@ -208,7 +208,27 @@
 **Why:** Replaces upstream third-party Stripe billing with LiteDaemon's real Dodo Payments checkout and subscription portal while maintaining 100% zero merge conflicts with upstream codebase.
 **Phase:** 5 — Production Patch v1.0.1
 
+#### `src/components/History/index.tsx` — VERIFIED
+**What:** 
+- Conducted full branding and code audit of the History tab.
+- Confirmed zero upstream OpenTypeless branding leaks or external cloud calls; history records, playback, searching, and deletion are strictly local.
+**Why:** Verification that History tab requires 0 modifications, preserving 100% clean upstream isolation.
+**Phase:** 5 — Production Patch v1.0.1
+
+#### Account Tab Architecture — ARCHITECTURAL DECISION & ROADMAP
+**What:** 
+- Audited upstream `src/components/AccountPage/index.tsx` and underlying stores (`authStore.ts`). Identified that upstream relies on private, closed-source backend servers (`opentypeless.com`).
+- Decided to transition away from the initial stopgap license key model (`LiteDaemon-license.bin`, license activation APIs) to the modern SaaS user experience (matching Wispr Flow).
+- Planned migration to **Supabase Auth** (free-tier PostgreSQL + Auth) coupled with **Dodo Payments webhooks**:
+  * User signs up / logs in directly with Email/Password or Google in the app.
+  * Successful Dodo Payments checkouts trigger webhooks updating user records to `pro`.
+  * Desktop client verifies entitlement directly against Supabase.
+  * 100% eliminates cumbersome license key copy-pasting, local key files, and device activation limits.
+**Why:** Modernizes UX to industry standard (Wispr Flow style), establishes cloud user accounts for future multi-device sync, and prevents reverse engineering of client-side license checks.
+**Phase:** 6 — Modern SaaS Auth & Cloud Transition
+
 ---
 
 *Upstream codebase remains 100% cleanly isolated. Only the single documented wrapper in App.tsx bridges proprietary code to the core app.*
+
 

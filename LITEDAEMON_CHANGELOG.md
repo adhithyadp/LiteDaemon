@@ -6,10 +6,12 @@
 
 ## [Unreleased] — In Development
 
-### Phase 5 — Documentation (2026-10-15)
-- Wrote new README.md (LiteDaemon branded, replaces OpenTypeless README)
-- Created docs/GO_LIVE_CHECKLIST.md — complete launch checklist
-- Updated LITEDAEMON_CHANGELOG.md (this file) with all phases
+### Tabs Overhaul & UI Rebrand (2026-10-22)
+- **Home Tab:** Injected `app.name: 'LiteDaemon'` and `home.welcome: 'Welcome to LiteDaemon'` dynamically into i18next across all 10 supported UI languages at runtime via `initBranding.ts`. Upstream language files stay 100% untouched on disk.
+- **Settings Tab:** Rebranded privacy statement `settings.storedLocally` across all 10 languages (*"Stored locally on your device. Never sent to LiteDaemon servers"*). Updated `src/lib/constants.ts` to LiteDaemon metadata and repository URLs.
+- **History Tab:** Completed branding audit; confirmed zero upstream leaks and 100% local operation.
+- **Upgrade Tab:** Replaced upstream SaaS subscription page with `LiteDaemonUpgrade.tsx` featuring LiteDaemon Jelly aesthetics, interactive region switcher (India ₹ / Global $), billing cycle switcher (Monthly / Annual), direct checkout for all 8 Dodo products, and customer self-serve billing portal integration.
+- **Account Tab (Planned):** Architecting transition from stopgap license keys to modern SaaS (Wispr Flow style) with Supabase Auth + Dodo Payments webhooks.
 
 ---
 

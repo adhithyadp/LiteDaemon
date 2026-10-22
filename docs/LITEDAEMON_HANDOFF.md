@@ -1,6 +1,6 @@
 # LiteDaemon — Developer Handoff Guide
 > For any developer, agency, or team picking this up in the future.
-> Last updated: October 2026
+> Last updated: October 22, 2026
 
 ---
 
@@ -38,8 +38,9 @@ LiteDaemon/  (repo root)
 ├── Cargo.toml        ← ORIGINAL — do not touch
 │
 ├── LiteDaemon/         ← ALL OUR CUSTOM CODE
-│   ├── payment/      — license key + Dodo Payments integration
-│   ├── branding/     — logo, icons, colors
+│   ├── payment/      — license key + Dodo Payments integration (migrating to Supabase)
+│   ├── branding/     — runtime i18n dynamic branding, logo, icons, colors
+│   ├── ui/           — custom screens (LiteDaemonUpgrade, etc.)
 │   ├── cloud/        — cloud API proxy connector (Phase 6)
 │   └── config/       — our env vars and build config
 │
@@ -47,13 +48,25 @@ LiteDaemon/  (repo root)
 │   ├── WHAT_WE_CHANGED.md      — every change logged
 │   ├── LiteDaemon_HANDOFF.md     — this file
 │   ├── UPSTREAM_SYNC.md        — how to pull opentypeless updates
-│   ├── PAYMENT_SYSTEM.md       — how payment gate works (added Phase 2)
-│   └── BUILD_AND_RELEASE.md    — how to build + ship (added Phase 3)
+│   ├── PAYMENT_SYSTEM.md       — how payment gate works
+│   └── BUILD_AND_RELEASE.md    — how to build + ship
 │
-├── website/          ← MARKETING WEBSITE (added Phase 4)
+├── website/          ← MARKETING WEBSITE
 │
 └── LiteDaemon_CHANGELOG.md  ← OUR release history
 ```
+
+---
+
+## UI Tabs Status & Architecture
+
+| Tab | Status | Implementation Details |
+|---|---|---|
+| **Home Tab** | ✅ Rebranded | Dynamic runtime injection via `LiteDaemon/branding/initBranding.ts`. Sets `app.name = 'LiteDaemon'`, `app.tagline = 'AI Voice Input'`, and `home.welcome = 'Welcome to LiteDaemon'` across 10 languages with 0 disk merge conflicts. |
+| **Settings Tab** | ✅ Rebranded | `settings.storedLocally` privacy notice overridden to *"Never sent to LiteDaemon servers"* across 10 languages. `src/lib/constants.ts` updated to `APP_NAME = 'LiteDaemon'`, `v1.0.1`, and LiteDaemon GitHub repository links. |
+| **History Tab** | ✅ Verified Clean | Audited `src/components/History/index.tsx`. 100% clean of upstream branding leaks. Operates completely offline/locally without external API calls. |
+| **Upgrade Tab** | ✅ Replaced | Swapped with `LiteDaemon/ui/LiteDaemonUpgrade.tsx`. Native Jelly card design, Dodo Payments customer portal integration, India (₹) vs Global ($) toggles, and direct live checkout links for all 8 products. |
+| **Account Tab** | ⏳ In Progress | Migrating from legacy stopgap license key model to modern SaaS (Wispr Flow) model using **Supabase Auth** + **Dodo Payments webhooks**. Enables seamless Email/Password + Google login with automated Pro activation upon payment. |
 
 ---
 
@@ -75,6 +88,7 @@ LiteDaemon/  (repo root)
 | Desktop framework | Tauri 2 (Rust) |
 | Frontend | React + TypeScript + Vite |
 | Styling | Tailwind CSS |
+| Auth & User DB | Supabase (Auth + PostgreSQL) |
 | Payment | Dodo Payments |
 | Auto-update | Tauri Updater (built-in) |
 | Cloud backend | Cloudflare Workers (Phase 6) |
@@ -103,9 +117,10 @@ git merge upstream/main
 
 | Service | Purpose |
 |---|---|
-| GitHub — adhithyadp | Source code |
-| Dodo Payments | Payment processing |
-| Cloudflare | Cloud backend (Phase 6) |
+| GitHub — adhithyadp | Source code & Releases |
+| Dodo Payments | Merchant payment processing & Customer billing portal |
+| Supabase | User authentication & Cloud subscription state |
+| Cloudflare | Marketing website hosting & Cloud proxy workers |
 | Apple Developer | Mac code signing |
 
 ---
@@ -131,9 +146,9 @@ See `/docs/BUILD_AND_RELEASE.md` for full instructions.
 | 2 | Payment gate (Dodo Payments Live Mode) | ✅ Done |
 | 3 | Windows + Mac + Linux releases (v1.0.0) | ✅ Done |
 | 4 | Marketing website (litedaemon.xyz) | ✅ Done |
-| 5 | Production Patch v1.0.1 & Live Payment Verification | ✅ Done |
-| 6 | Cloud backend & Managed Proxy | ⏳ Planned |
-
+| 5 | Production Patch v1.0.1, Live Verification & Tab Overhauls | ✅ Done |
+| 6 | Account Tab SaaS Migration (Supabase Auth + Dodo Webhooks) | ⏳ In Progress |
+| 7 | Cloud backend & Managed Proxy (Whisper without user API keys) | ⏳ Planned |
 
 ---
 
@@ -143,3 +158,4 @@ See `/docs/BUILD_AND_RELEASE.md` for full instructions.
 3. Update `WHAT_WE_CHANGED.md`
 4. Update `LiteDaemon_CHANGELOG.md`
 5. PR to `dev`, then merge `dev` → `main` for release
+
