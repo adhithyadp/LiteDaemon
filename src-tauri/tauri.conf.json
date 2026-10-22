@@ -63,7 +63,7 @@
       }
     ],
     "security": {
-      "csp": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://*.litedaemon.xyz https://test.dodopayments.com https://live.dodopayments.com https://accounts.google.com https://github.com"
+      "csp": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://*.supabase.co https://*.litedaemon.xyz https://test.dodopayments.com https://live.dodopayments.com https://accounts.google.com https://github.com"
     }
   },
   "plugins": {
