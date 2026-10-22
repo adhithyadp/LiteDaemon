@@ -211,7 +211,7 @@ export const useSupabaseAuth = create<SupabaseAuthState>((set, get) => ({
   },
 }))
 
-async function handleSupabaseCallback(rawUrl: string): Promise<boolean> {
+export async function handleSupabaseCallback(rawUrl: string): Promise<boolean> {
   try {
     const url = new URL(rawUrl)
     if (url.protocol !== 'litedaemon:' && url.protocol !== 'opentypeless:') {

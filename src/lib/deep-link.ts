@@ -1,6 +1,7 @@
 import { onOpenUrl } from '@tauri-apps/plugin-deep-link'
 import { useAuthStore } from '../stores/authStore'
 import { API_BASE_URL } from './constants'
+import { handleSupabaseCallback } from '../../LiteDaemon/auth/useSupabaseAuth'
 
 /** Pending OAuth state for CSRF validation. */
 let pendingOAuthState: string | null = null
@@ -73,6 +74,11 @@ export async function handleDeepLinkUrl(rawUrl: string): Promise<boolean> {
     url = new URL(rawUrl)
   } catch {
     return false
+  }
+
+  // Forward LiteDaemon deep links (Google OAuth callbacks, etc.)
+  if (url.protocol === 'litedaemon:' || rawUrl.startsWith('litedaemon:')) {
+    return await handleSupabaseCallback(rawUrl)
   }
 
   // Only accept our custom scheme
