@@ -66,7 +66,7 @@ LiteDaemon/  (repo root)
 | **Settings Tab** | ✅ Rebranded | `settings.storedLocally` privacy notice overridden to *"Never sent to LiteDaemon servers"* across 10 languages. `src/lib/constants.ts` updated to `APP_NAME = 'LiteDaemon'`, `v1.0.1`, and LiteDaemon GitHub repository links. |
 | **History Tab** | ✅ Verified Clean | Audited `src/components/History/index.tsx`. 100% clean of upstream branding leaks. Operates completely offline/locally without external API calls. |
 | **Upgrade Tab** | ✅ Replaced | Swapped with `LiteDaemon/ui/LiteDaemonUpgrade.tsx`. Native Jelly card design, Dodo Payments customer portal integration, India (₹) vs Global ($) toggles, and direct live checkout links for all 8 products. |
-| **Account Tab** | ⏳ In Progress | Migrating from legacy stopgap license key model to modern SaaS (Wispr Flow) model using **Supabase Auth** + **Dodo Payments webhooks**. Enables seamless Email/Password + Google login with automated Pro activation upon payment. |
+| **Account Tab** | ✅ Implemented | Swapped with `LiteDaemon/ui/LiteDaemonAccount.tsx` powered by **Supabase Auth**. Native Jelly UI, Email & Password sign-in/sign-up, password reset, instant Pro Member badge, and Dodo self-serve billing portal integration. |
 
 ---
 
@@ -147,7 +147,7 @@ See `/docs/BUILD_AND_RELEASE.md` for full instructions.
 | 3 | Windows + Mac + Linux releases (v1.0.0) | ✅ Done |
 | 4 | Marketing website (litedaemon.xyz) | ✅ Done |
 | 5 | Production Patch v1.0.1, Live Verification & Tab Overhauls | ✅ Done |
-| 6 | Account Tab SaaS Migration (Supabase Auth + Dodo Webhooks) | ⏳ In Progress |
+| 6 | Account Tab SaaS Migration (Supabase Auth + Dodo Webhooks) | ✅ Done |
 | 7 | Cloud backend & Managed Proxy (Whisper without user API keys) | ⏳ Planned |
 
 ---

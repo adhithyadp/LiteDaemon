@@ -215,20 +215,25 @@
 **Why:** Verification that History tab requires 0 modifications, preserving 100% clean upstream isolation.
 **Phase:** 5 — Production Patch v1.0.1
 
-#### Account Tab Architecture — ARCHITECTURAL DECISION & ROADMAP
+#### Phase 6: Modern SaaS Account Tab with Supabase Auth — IMPLEMENTED
 **What:** 
-- Audited upstream `src/components/AccountPage/index.tsx` and underlying stores (`authStore.ts`). Identified that upstream relies on private, closed-source backend servers (`opentypeless.com`).
-- Decided to transition away from the initial stopgap license key model (`LiteDaemon-license.bin`, license activation APIs) to the modern SaaS user experience (matching Wispr Flow).
-- Planned migration to **Supabase Auth** (free-tier PostgreSQL + Auth) coupled with **Dodo Payments webhooks**:
-  * User signs up / logs in directly with Email/Password or Google in the app.
-  * Successful Dodo Payments checkouts trigger webhooks updating user records to `pro`.
-  * Desktop client verifies entitlement directly against Supabase.
-  * 100% eliminates cumbersome license key copy-pasting, local key files, and device activation limits.
-**Why:** Modernizes UX to industry standard (Wispr Flow style), establishes cloud user accounts for future multi-device sync, and prevents reverse engineering of client-side license checks.
+- Set up live Supabase project connection (`https://nlfbtfwcsvoaliuvfwya.supabase.co`).
+- Executed PostgreSQL schema creation via Supabase Management API:
+  * Created `public.profiles` table linked to `auth.users(id)` with cascade deletion (`email`, `plan`, `status`, timestamps).
+  * Enabled Row Level Security (RLS) with self-read and self-update policies.
+  * Added automated `public.handle_new_user()` trigger to immediately provision a profile row on signup.
+- Created `LiteDaemon/auth/supabaseClient.ts` configuring `@supabase/supabase-js` client with session auto-refresh.
+- Created `LiteDaemon/auth/useSupabaseAuth.ts` with Zustand store managing session persistence, profile sync, login, registration, password recovery, and logout.
+- Created `LiteDaemon/ui/LiteDaemonAccount.tsx` utilizing LiteDaemon Jelly design system:
+  * Logged out state: Sign In vs Sign Up tabs, email and password inputs with eye visibility toggle, password confirmation check, and password reset trigger.
+  * Logged in state: User profile card, email display, Pro Member badge (Sparkles icon) vs Free BYOK badge, Dodo customer self-serve billing portal integration (`https://customer.dodopayments.com`), and Sign Out action.
+- Swapped route in `src/App.tsx` (`{route === 'account' && <LiteDaemonAccount />}`) cleanly bypassing upstream OpenTypeless cloud dependency.
+**Why:** Replaces legacy stopgap license key model with modern Wispr Flow experience (Email/Password login + instant Pro activation). Upstream translation files and components remain 100% clean and isolated.
 **Phase:** 6 — Modern SaaS Auth & Cloud Transition
 
 ---
 
 *Upstream codebase remains 100% cleanly isolated. Only the single documented wrapper in App.tsx bridges proprietary code to the core app.*
+
 
 
