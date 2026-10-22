@@ -3,6 +3,7 @@ import { supabase, UserProfile } from './supabaseClient'
 import type { User } from '@supabase/supabase-js'
 import { openUrl } from '@tauri-apps/plugin-opener'
 import { onOpenUrl } from '@tauri-apps/plugin-deep-link'
+import { useAuthStore } from '../../src/stores/authStore'
 
 interface SupabaseAuthState {
   user: User | null
@@ -96,11 +97,35 @@ export const useSupabaseAuth = create<SupabaseAuthState>((set, get) => ({
           created_at: new Date().toISOString(),
           updated_at: new Date().toISOString(),
         }
+        useAuthStore.setState({
+          plan: 'free',
+          source: 'free',
+          subscriptionStatus: null,
+          licenseStatus: null,
+        })
         set({ profile: fallbackProfile, loading: false })
         return
       }
 
-      set({ profile: data as UserProfile, loading: false })
+      const prof = data as UserProfile
+      if (prof?.plan === 'pro' || prof?.plan === 'lifetime') {
+        useAuthStore.setState({
+          plan: 'pro',
+          source: 'stripe',
+          subscriptionStatus: 'active',
+          licenseStatus: 'active',
+          cloudWordsLimit: 99999999,
+        })
+      } else {
+        useAuthStore.setState({
+          plan: 'free',
+          source: 'free',
+          subscriptionStatus: null,
+          licenseStatus: null,
+        })
+      }
+
+      set({ profile: prof, loading: false })
     } catch (e) {
       console.error('Error fetching profile:', e)
       set({ loading: false })
@@ -193,6 +218,12 @@ export const useSupabaseAuth = create<SupabaseAuthState>((set, get) => ({
     try {
       await supabase.auth.signOut()
     } finally {
+      useAuthStore.setState({
+        plan: 'free',
+        source: 'free',
+        subscriptionStatus: null,
+        licenseStatus: null,
+      })
       set({ user: null, profile: null, loading: false, error: null })
     }
   },
