@@ -161,7 +161,7 @@ export const useSupabaseAuth = create<SupabaseAuthState>((set, get) => ({
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: 'https://litedaemon.xyz/auth-callback.html',
+          redirectTo: 'https://litedaemon.xyz/auth-callback',
           skipBrowserRedirect: true,
           scopes: 'email profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile',
           queryParams: {
