@@ -1,6 +1,8 @@
 import { create } from 'zustand'
 import { supabase, UserProfile } from './supabaseClient'
 import type { User } from '@supabase/supabase-js'
+import { openUrl } from '@tauri-apps/plugin-opener'
+import { onOpenUrl } from '@tauri-apps/plugin-deep-link'
 
 interface SupabaseAuthState {
   user: User | null
@@ -11,10 +13,13 @@ interface SupabaseAuthState {
   initialize: () => Promise<void>
   signIn: (email: string, password: string) => Promise<{ success: boolean; error?: string }>
   signUp: (email: string, password: string) => Promise<{ success: boolean; error?: string }>
+  signInWithGoogle: () => Promise<{ success: boolean; error?: string }>
   signOut: () => Promise<void>
   refreshProfile: () => Promise<void>
   resetPassword: (email: string) => Promise<{ success: boolean; error?: string }>
 }
+
+let deepLinkInitialized = false
 
 export const useSupabaseAuth = create<SupabaseAuthState>((set, get) => ({
   user: null,
@@ -45,6 +50,20 @@ export const useSupabaseAuth = create<SupabaseAuthState>((set, get) => ({
           set({ user: null, profile: null, loading: false })
         }
       })
+
+      // Setup deep link listener for Google OAuth callbacks
+      if (!deepLinkInitialized) {
+        deepLinkInitialized = true
+        try {
+          await onOpenUrl(async (urls) => {
+            for (const rawUrl of urls) {
+              await handleSupabaseCallback(rawUrl)
+            }
+          })
+        } catch {
+          // deep-link plugin not available in plain web browser mode
+        }
+      }
     } catch (e) {
       set({
         error: e instanceof Error ? e.message : 'Failed to initialize session',
@@ -136,6 +155,34 @@ export const useSupabaseAuth = create<SupabaseAuthState>((set, get) => ({
     }
   },
 
+  signInWithGoogle: async () => {
+    set({ loading: true, error: null })
+    try {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: 'litedaemon://auth/callback',
+          skipBrowserRedirect: true,
+        },
+      })
+
+      if (error) {
+        set({ error: error.message, loading: false })
+        return { success: false, error: error.message }
+      }
+
+      if (data?.url) {
+        await openUrl(data.url)
+      }
+      set({ loading: false })
+      return { success: true }
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : 'Google sign in failed'
+      set({ error: msg, loading: false })
+      return { success: false, error: msg }
+    }
+  },
+
   signOut: async () => {
     set({ loading: true })
     try {
@@ -158,3 +205,41 @@ export const useSupabaseAuth = create<SupabaseAuthState>((set, get) => ({
     }
   },
 }))
+
+async function handleSupabaseCallback(rawUrl: string): Promise<boolean> {
+  try {
+    const url = new URL(rawUrl)
+    if (url.protocol !== 'litedaemon:' && url.protocol !== 'opentypeless:') {
+      return false
+    }
+
+    const hashParams = new URLSearchParams(url.hash.replace(/^#/, ''))
+    const searchParams = url.searchParams
+
+    const accessToken = hashParams.get('access_token') || searchParams.get('access_token')
+    const refreshToken = hashParams.get('refresh_token') || searchParams.get('refresh_token')
+
+    if (accessToken && refreshToken) {
+      const { data, error } = await supabase.auth.setSession({
+        access_token: accessToken,
+        refresh_token: refreshToken,
+      })
+      if (!error && data.session) {
+        await useSupabaseAuth.getState().initialize()
+        return true
+      }
+    }
+
+    const code = searchParams.get('code')
+    if (code) {
+      const { data, error } = await supabase.auth.exchangeCodeForSession(code)
+      if (!error && data.session) {
+        await useSupabaseAuth.getState().initialize()
+        return true
+      }
+    }
+  } catch (err) {
+    console.error('Error handling deep link callback:', err)
+  }
+  return false
+}
