@@ -2,9 +2,7 @@
 // Handles Dodo Payments webhooks to automatically upgrade user accounts to Pro
 
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL") || "https://nlfbtfwcsvoaliuvfwya.supabase.co"
-const SERVICE_KEY =
-  Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ||
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5sZmJ0Zndjc3ZvYWxpdXZmd3lhIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc5MjY4NDcyNywiZXhwIjoyMTA4MjYwNzI3fQ.0JfbVNam3uxwmZXsyb__oCuWgMRJPjoDe3nAgJcAoZw"
+const SERVICE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || ""
 
 Deno.serve(async (req) => {
   if (req.method !== "POST") {
