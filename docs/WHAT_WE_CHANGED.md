@@ -293,9 +293,25 @@
 **Why:** Mirrors Wispr Flow's frictionless SaaS experience, eliminates visual clutter, and delivers localized pricing without confusing customer toggles.
 **Phase:** 7 — Production Polish & Onboarding
 
+#### `supabase/functions/dodo-webhook/index.ts` — SECURITY HARDENING
+**What:** 
+- Purged hardcoded fallback secret key string from `index.ts`.
+- Edge Function now securely and purely reads `Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")` natively injected by the Supabase Edge runtime in the cloud.
+**Why:** Eliminates secret exposure in version control and resolves GitGuardian automated security alert.
+**Phase:** 7 — Security Hardening & Key Modernization
+
+#### `LiteDaemon/auth/supabaseClient.ts` & Supabase Cloud Project — KEY MODERNIZATION
+**What:** 
+- Revoked legacy HS256 JWT key (`9a0e0104-215b-4825-94f3-15ed7e95c4e4`) via Supabase Management API, permanently invalidating the leaked legacy key (confirmed HTTP 401 Unauthorized rejection).
+- Migrated `SUPABASE_ANON_KEY` to Supabase modern publishable key (`sb_publishable_XU1Zdv6f9QbpYDn6XNJj8Q_OrytlJmk`).
+- Verified client auth and user sessions continue functioning with 100% operational status on active ES256 asymmetric signing keys.
+**Why:** Modernizes API credential management, completely neutralizes leaked credentials, and transitions app to zero-downtime key rotation architecture.
+**Phase:** 7 — Security Hardening & Key Modernization
+
 ---
 
 *Upstream codebase remains 100% cleanly isolated. Proprietary components reside strictly in LiteDaemon/.*
+
 
 
 
