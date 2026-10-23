@@ -26,6 +26,10 @@
 - **Interactive OAuth Completion Bridge:**
   - Added active feedback, cursor styling, and scale animations to `auth-callback.html`.
   - Dispatches deep link to immediately bring LiteDaemon into the foreground in Windows upon authentication.
+- **Security Hardening & Key Modernization:**
+  - Revoked legacy HS256 JWT key in Supabase cloud, completely neutralizing exposed legacy service role token (confirmed 401 Unauthorized rejection).
+  - Migrated desktop client (`supabaseClient.ts`) to modern publishable key (`sb_publishable_...`).
+  - Purged hardcoded fallback secret strings from `dodo-webhook` edge function.
 
 ---
 
