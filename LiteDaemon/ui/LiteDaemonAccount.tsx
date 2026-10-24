@@ -32,6 +32,7 @@ export function LiteDaemonAccount() {
     resetPassword,
   } = useSupabaseAuth()
   const { navigate } = useRoute()
+  const { isCloudPro: isPro } = useLiteDaemonUsage()
 
   const [tab, setTab] = useState<'signin' | 'signup'>('signin')
   const [email, setEmail] = useState('')
@@ -141,7 +142,6 @@ export function LiteDaemonAccount() {
   // LOGGED IN STATE
   // -------------------------------------------------------------
   if (user) {
-    const { isCloudPro: isPro } = useLiteDaemonUsage()
     const memberSince = user.created_at
       ? new Date(user.created_at).toLocaleDateString(undefined, {
           year: 'numeric',
