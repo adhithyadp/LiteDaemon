@@ -17,6 +17,7 @@ import {
 import { openUrl } from '@tauri-apps/plugin-opener'
 import { useSupabaseAuth } from '../auth/useSupabaseAuth'
 import { useRoute } from '../../src/lib/router'
+import { LiteDaemonUsageBar } from './LiteDaemonUsageBar'
 
 export function LiteDaemonAccount() {
   const {
@@ -179,8 +180,8 @@ export function LiteDaemonAccount() {
                     Pro Member
                   </span>
                 ) : (
-                  <span className="inline-flex items-center gap-1 rounded-full bg-neutral-500/10 px-2.5 py-0.5 text-[11px] font-medium text-text-secondary border border-border">
-                    Free (BYOK)
+                   <span className="inline-flex items-center gap-1 rounded-full bg-neutral-500/10 px-2.5 py-0.5 text-[11px] font-medium text-text-secondary border border-border">
+                    Free
                   </span>
                 )}
                 <span className="text-[12px] text-text-tertiary">• Joined {memberSince}</span>
@@ -212,6 +213,11 @@ export function LiteDaemonAccount() {
                 Cloud Authenticated
               </span>
             </div>
+          </div>
+
+          {/* Usage Bar — shown for free users only */}
+          <div className="mt-4">
+            <LiteDaemonUsageBar />
           </div>
 
           {/* Action Callouts */}

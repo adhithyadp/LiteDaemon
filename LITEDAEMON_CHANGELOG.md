@@ -4,6 +4,77 @@
 
 ---
 
+## [v1.0.6] — 2026-10-24 ☁️
+*Major Update: Cloud Service Infrastructure — Free Tier + Pro Cloud Dictation*
+
+### What's New:
+- **Cloud Service Backend (Supabase):**
+  - Created `user_plans` table — tracks whether each Pro user is on `byok` or `cloud` plan type, with RLS.
+  - Created `usage_tracking` table — tracks weekly word usage per user (resets every Monday UTC), with RLS.
+  - Added `upsert_usage()` SQL function — atomically increments usage count after each dictation, returns new week total.
+  - Migration file: `supabase/migrations/001_cloud_service_tables.sql`.
+
+- **Updated `dodo-webhook` Edge Function:**
+  - All 8 Dodo product IDs now mapped to `byok` or `cloud` plan type.
+  - On every payment event: updates `profiles` table (existing) **and** upserts `user_plans` (new).
+  - Future subscribers automatically get the correct cloud experience from day one.
+
+- **New `cloud-proxy` Supabase Edge Function:**
+  - Validates Supabase JWT on every request — no unauthenticated access possible.
+  - Free users: enforced 1,000 words/week limit (checked before and after STT to prevent overrun).
+  - Cloud Pro users: unlimited dictation, no rate limit.
+  - STT: **Deepgram Nova-3** pre-recorded REST API — same model as BYOK users, best-in-class accuracy.
+  - Polish: **OpenAI GPT-4o-mini** — fast, affordable, Wispr Flow-quality output.
+  - Uses the same system prompt style as the upstream LLM polish (fidelity, cleanup, list formatting, multi-language).
+  - Graceful degradation: if polish fails, returns raw transcript rather than erroring.
+  - Usage tracked via `upsert_usage()` after every successful request.
+
+- **`LiteDaemon/cloud/usageStore.ts` — Client-Side Usage Store:**
+  - Zustand store that fetches plan type + weekly usage from Supabase on sign-in.
+  - Exposes: `planType`, `wordsUsedThisWeek`, `weeklyLimit`, `isLimitReached`, `usagePercent`, `isCloudPro`, `isByokPro`, `isFree`.
+  - `recordUsage()` — optimistic local update after each dictation (from proxy response).
+  - Free tier: **1,000 words/week** (resets every Monday UTC).
+  - Auto-initializes after sign-in, resets on sign-out — wired into `useSupabaseAuth`.
+
+- **`LiteDaemon/cloud/cloudDictation.ts` — Cloud Dictation Client:**
+  - `runCloudDictation(req)` — accepts WAV audio `Uint8Array`, returns `{ transcript, polished, words_used, week_total }`.
+  - Audio sent as raw HTTP body; metadata (language, polish style, selected text, sample rate) sent as headers.
+  - JWT retrieved automatically from active Supabase session — no manual token handling.
+  - Pre-flight local usage check before any network call (fast path for limit-hit users).
+  - Full error handling: 60s timeout, network failure, free tier limit, auth expiry — all typed as `CloudDictationError`.
+  - `getCloudDictationAvailability()` — pre-flight check returning `'cloud_pro' | 'free_available' | 'free_limit' | 'byok' | 'signed_out'`.
+
+- **`LiteDaemon/ui/LiteDaemonUsageBar.tsx` — Usage Indicator UI:**
+  - `<LiteDaemonUsageBarCompact />` — inline animated fill bar: "847 / 1,000 words used this week".
+    - Blue 0–74%, amber warning at 75%+, red at 100%.
+    - "Upgrade →" CTA appears at 75%+. "Resets [date]" always visible.
+  - `<LiteDaemonLimitBanner />` — full glassmorphic red card shown when limit is hit, with "Upgrade to Pro" button.
+  - `<LiteDaemonUsageBar />` — smart wrapper: shows compact or banner automatically. Renders nothing for Pro users.
+  - Wired into `LiteDaemonAccount.tsx` — visible in the Account tab below subscription info.
+
+### Architecture Notes:
+- **Zero merge conflicts with upstream** — all new code lives in `LiteDaemon/cloud/` and `LiteDaemon/ui/`.
+- Only minimal wiring touches our own files (`useSupabaseAuth.ts`, `LiteDaemonAccount.tsx`) — not upstream `src/`.
+- Cloud service is **fully live** — Deepgram + OpenAI keys set and smoke tested ✅
+  - Unauthenticated requests → 401 ✅
+  - Invalid JWT → 401 ✅
+  - Valid signed-in users → STT + Polish pipeline active ✅
+
+### Files Changed:
+| File | Change |
+|---|---|
+| `supabase/migrations/001_cloud_service_tables.sql` | Added — DB migration |
+| `supabase/functions/dodo-webhook/index.ts` | Updated — plan_type recording |
+| `supabase/functions/cloud-proxy/index.ts` | Added — cloud STT+Polish proxy |
+| `LiteDaemon/cloud/usageStore.ts` | Added — client usage state |
+| `LiteDaemon/cloud/cloudDictation.ts` | Added — cloud audio client |
+| `LiteDaemon/cloud/PLANNED.md` | Updated — live build status |
+| `LiteDaemon/ui/LiteDaemonUsageBar.tsx` | Added — usage indicator UI |
+| `LiteDaemon/ui/LiteDaemonAccount.tsx` | Updated — usage bar wired in |
+| `LiteDaemon/auth/useSupabaseAuth.ts` | Updated — usage store auto-init |
+
+---
+
 ## [v1.0.5] — 2026-10-23 🚀
 *Major Update: Onboarding Wizard Revamp, Complete Brand Scrub & Whispr Flow Auto-Detected Geo-Pricing*
 
