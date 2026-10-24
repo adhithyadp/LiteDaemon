@@ -119,7 +119,7 @@ export function LiteDaemonUpgrade() {
           <p className="mt-1 text-[13px] text-text-secondary leading-5">
             {isPro
               ? 'Your LiteDaemon Pro membership is active. Manage billing and features.'
-              : 'Pick the plan that fits your typing flow. Instant cloud setup, zero friction.'}
+              : 'BYOK is always free. Upgrade to Cloud for managed dictation — no API keys needed.'}
           </p>
         </div>
 
@@ -131,7 +131,7 @@ export function LiteDaemonUpgrade() {
         ) : (
           <div className="flex items-center gap-1.5 shrink-0 bg-bg-secondary border border-border text-text-tertiary px-3 py-1 rounded-full text-[12px] font-medium">
             <span className="w-2 h-2 rounded-full bg-neutral-400" />
-            <span>Free Starter</span>
+            <span>Free</span>
           </div>
         )}
       </header>
@@ -325,23 +325,13 @@ export function LiteDaemonUpgrade() {
               </div>
 
               <div className="mt-3 mb-2 flex items-baseline gap-1">
-                <span className="text-[26px] font-bold text-text-primary">
-                  {region === 'india'
-                    ? cycle === 'monthly'
-                      ? '₹149'
-                      : '₹1,199'
-                    : cycle === 'monthly'
-                      ? '$3.99'
-                      : '$35'}
-                </span>
-                <span className="text-[12px] text-text-secondary">
-                  / {cycle === 'monthly' ? 'month' : 'year'}
-                </span>
+                <span className="text-[26px] font-bold text-text-primary">Free</span>
+                <span className="text-[12px] text-text-secondary">forever</span>
               </div>
 
               <p className="text-[12px] text-text-secondary leading-relaxed mb-4">
-                Bring your own API keys. Maximum flexibility and privacy using your favorite AI
-                providers.
+                Bring your own API keys. Full power, full privacy — you pay your AI provider
+                directly at cost price, we charge nothing.
               </p>
 
               <ul className="space-y-2 mb-5 text-[12px] text-text-secondary">
@@ -364,16 +354,9 @@ export function LiteDaemonUpgrade() {
               </ul>
             </div>
 
-            <motion.button
-              onClick={() => handleCheckout(CHECKOUT_URLS.byok[region][cycle])}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scaleX: 1.04, scaleY: 0.96 }}
-              transition={spring.jellyGentle}
-              className="w-full py-2.5 px-4 rounded-full bg-bg-tertiary hover:bg-bg-secondary text-text-primary border border-border text-[13px] font-medium flex items-center justify-center gap-2 cursor-pointer transition-colors"
-            >
-              <span>{isPro ? 'Switch to BYOK' : 'Get BYOK Plan'}</span>
-              <ArrowRight size={14} />
-            </motion.button>
+            <div className="w-full py-2.5 px-4 rounded-full border border-border text-text-secondary text-[13px] font-medium flex items-center justify-center gap-2">
+              <span>✓ Your current plan — always free</span>
+            </div>
           </div>
         </div>
       </div>
