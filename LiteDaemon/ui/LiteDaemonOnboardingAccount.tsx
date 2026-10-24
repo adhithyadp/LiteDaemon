@@ -11,6 +11,7 @@ export function LiteDaemonOnboardingAccount() {
   const { t } = useTranslation()
   const { user, loading, error, initialize, signIn, signUp, signInWithGoogle } =
     useSupabaseAuth()
+  const { isCloudPro: isPro } = useLiteDaemonUsage()
 
   const [tab, setTab] = useState<Tab>('signin')
   const [email, setEmail] = useState('')
@@ -81,8 +82,6 @@ export function LiteDaemonOnboardingAccount() {
 
   // ── Post-login confirmation ──
   if (user) {
-    const { isCloudPro: isPro } = useLiteDaemonUsage()
-
     return (
       <div className="max-w-[320px] mx-auto flex flex-col items-center gap-5 py-4 animate-in fade-in duration-300">
         <motion.div

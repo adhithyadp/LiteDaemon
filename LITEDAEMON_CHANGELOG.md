@@ -39,6 +39,7 @@
   - **`LiteDaemonUpgrade.tsx`:** BYOK card shows "Free forever" with "✓ Your current plan — always free". Cloud card shows localized auto-detected pricing (₹400/mo or $15/mo) with "Upgrade to Cloud".
   - **`LiteDaemonAccount.tsx`:** Updated to show "Cloud Pro" badge for subscribers and "Free (BYOK)" badge for free users, with relevant upgrade CTAs.
   - **`LiteDaemonOnboardingAccount.tsx`:** Onboarding wizard reflects free BYOK vs active Cloud Pro accounts.
+  - **React Error #310 Fix:** Fixed conditional hook invocation (`useLiteDaemonUsage`) in both `LiteDaemonAccount.tsx` and `LiteDaemonOnboardingAccount.tsx` that crashed the app when logging in via Google during onboarding.
 
 ### Architecture Notes:
 - **Zero merge conflicts with upstream** — all new code lives in `LiteDaemon/cloud/` and `LiteDaemon/ui/`.
