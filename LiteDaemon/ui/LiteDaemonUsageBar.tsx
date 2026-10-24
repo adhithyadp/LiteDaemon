@@ -29,11 +29,6 @@ function UsageFillBar({ percent, isWarning, isDanger }: {
   isDanger: boolean
 }) {
   const trackColor = 'rgba(255,255,255,0.06)'
-  const fillColor = isDanger
-    ? '#EF4444'
-    : isWarning
-    ? '#F59E0B'
-    : '#3D5AFE'
 
   return (
     <div
@@ -74,7 +69,6 @@ function UsageFillBar({ percent, isWarning, isDanger }: {
 
 export function LiteDaemonUsageBarCompact() {
   const {
-    isFree,
     isCloudPro,
     isByokPro,
     wordsUsedThisWeek,
