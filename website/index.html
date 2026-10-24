@@ -4,11 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="google-site-verification" content="AL-vBaCh9vKacLd3aJvFJI77iKqB41gNWmAQIyVPbmI" />
-  <title>LiteDaemon — Lightweight AI Voice Typing for Windows, Mac & Linux</title>
-  <meta name="description" content="LiteDaemon is the RAM-friendly AI voice typing app. Speak, and your words appear anywhere — using just 50MB of RAM. No subscription bloat. Starts at ₹149/month." />
-  <meta name="keywords" content="AI voice typing, speech to text, whispr flow alternative, lightweight dictation, voice input, Windows Mac Linux" />
-  <meta property="og:title" content="LiteDaemon — Lightweight AI Voice Typing" />
-  <meta property="og:description" content="Speak. It types. Uses 50MB RAM. Not 800MB." />
+  <title>LiteDaemon — Ultra-Lightweight AI Voice Typing for Windows, Mac & Linux</title>
+  <meta name="description" content="LiteDaemon is the high-performance AI voice typing desktop app using just ~50MB RAM. Free forever with your own API keys, or upgrade to Cloud Pro for zero setup." />
+  <meta name="keywords" content="AI voice typing, speech to text, wispr flow alternative, superwhisper alternative, lightweight dictation, deepgram nova 3, gpt-4o-mini, Windows Mac Linux" />
+  <meta property="og:title" content="LiteDaemon — Ultra-Lightweight AI Voice Typing" />
+  <meta property="og:description" content="Speak anywhere. AI formats and polishes your words. Uses ~50MB RAM, not 800MB." />
   <meta property="og:image" content="assets/hero.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/png" href="assets/icon.jpg" />
@@ -33,13 +33,18 @@
           </svg>
         </div>
         <span class="logo-text">LiteDaemon</span>
+        <span class="nav-version-badge">v1.0.6</span>
       </a>
       <div class="nav-links">
         <a href="#features" id="nav-features">Features</a>
+        <a href="#comparison" id="nav-compare">Benchmark</a>
         <a href="#pricing" id="nav-pricing">Pricing</a>
         <a href="#download" id="nav-download">Download</a>
       </div>
-      <a href="#pricing" class="nav-cta" id="nav-cta-btn">Get Started</a>
+      <div class="nav-actions">
+        <a href="#pricing" class="nav-link-subtle">Cloud Pro</a>
+        <a href="#download" class="nav-cta" id="nav-cta-btn">Download Free</a>
+      </div>
     </div>
   </nav>
 
@@ -51,7 +56,7 @@
     <div class="hero-inner">
       <div class="hero-badge" id="hero-badge">
         <span class="badge-dot"></span>
-        Lightweight · Fast · Private
+        v1.0.6 Release · Ultra Low ~50MB RAM · Wispr Flow Alternative
       </div>
 
       <h1 class="hero-title" id="hero-title">
@@ -60,41 +65,46 @@
       </h1>
 
       <p class="hero-subtitle" id="hero-subtitle">
-        Speak anywhere. AI polishes it instantly.<br/>
-        Uses <strong>50MB RAM</strong> — not 800MB like the others.
+        Press a hotkey and speak anywhere. AI formats, punctuates, and polishes your words in real time.<br/>
+        Native Rust & React architecture using only <strong>~50MB RAM</strong> — not 800MB like Electron apps.
       </p>
 
       <div class="hero-actions" id="hero-actions">
         <a href="#download" class="btn-primary" id="hero-download-btn">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Download Free Trial
+          Download Free (v1.0.6)
         </a>
-        <a href="#pricing" class="btn-ghost" id="hero-pricing-btn">View Pricing →</a>
+        <a href="#pricing" class="btn-ghost" id="hero-pricing-btn">Explore Cloud Pro →</a>
       </div>
 
       <div class="hero-proof" id="hero-proof">
         <div class="proof-item">
           <span class="proof-num">50<span class="proof-unit">MB</span></span>
-          <span class="proof-label">RAM usage</span>
+          <span class="proof-label">RAM footprint</span>
         </div>
         <div class="proof-divider"></div>
         <div class="proof-item">
           <span class="proof-num">100<span class="proof-unit">+</span></span>
-          <span class="proof-label">Languages</span>
+          <span class="proof-label">Languages supported</span>
         </div>
         <div class="proof-divider"></div>
         <div class="proof-item">
-          <span class="proof-num">3<span class="proof-unit">×</span></span>
-          <span class="proof-label">Lighter than rivals</span>
+          <span class="proof-num">16<span class="proof-unit">×</span></span>
+          <span class="proof-label">Lighter than Wispr Flow</span>
+        </div>
+        <div class="proof-divider"></div>
+        <div class="proof-item">
+          <span class="proof-num">100<span class="proof-unit">%</span></span>
+          <span class="proof-label">Private with BYOK</span>
         </div>
       </div>
 
       <div class="hero-visual" id="hero-visual">
         <div class="hero-visual-card">
-          <img src="assets/hero.jpg" alt="LiteDaemon waveform" class="hero-img" />
+          <img src="assets/hero.jpg" alt="LiteDaemon waveform preview" class="hero-img" />
           <div class="hero-visual-pill">
             <span class="pill-dot"></span>
-            Listening…
+            Listening… Speak naturally
           </div>
         </div>
       </div>
@@ -104,17 +114,18 @@
   <!-- ═══════════════ FEATURES ═══════════════ -->
   <section class="features" id="features">
     <div class="section-inner">
-      <div class="section-label">Why LiteDaemon</div>
-      <h2 class="section-title">Everything you need.<br/>Nothing you don't.</h2>
+      <div class="section-label">Engineered for Performance</div>
+      <h2 class="section-title">Everything you need.<br/>Zero unnecessary bloat.</h2>
+      <p class="section-subtitle">Designed from the ground up to give power users immediate, frictionless voice-to-text with zero lag.</p>
 
       <div class="features-grid" id="features-grid">
 
         <div class="feature-card" id="feature-ram">
-          <div class="feature-icon" style="background: linear-gradient(135deg, #3D5AFE22, #3D5AFE11);">
+          <div class="feature-icon" style="background: linear-gradient(135deg, rgba(61,90,254,0.15), rgba(61,90,254,0.05));">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3D5AFE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M6 7V5a2 2 0 012-2h8a2 2 0 012 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
           </div>
-          <h3 class="feature-title">Ultra Low RAM</h3>
-          <p class="feature-desc">Uses just ~50MB of RAM. Whispr Flow uses 800MB+. Keep your machine fast while you dictate.</p>
+          <h3 class="feature-title">Ultra Low RAM Footprint</h3>
+          <p class="feature-desc">Runs silently at ~50MB of RAM. Competitors consume 800MB to 1.2GB+. Your computer stays cool and blazing fast.</p>
           <div class="feature-bar-wrap">
             <div class="feature-bar-label"><span>LiteDaemon</span><span class="bar-val blue">50 MB</span></div>
             <div class="feature-bar-track"><div class="feature-bar-fill blue" style="width:6.25%"></div></div>
@@ -124,45 +135,105 @@
         </div>
 
         <div class="feature-card" id="feature-typing">
-          <div class="feature-icon" style="background: linear-gradient(135deg, #6366f122, #6366f111);">
+          <div class="feature-icon" style="background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(99,102,241,0.05));">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
           </div>
-          <h3 class="feature-title">Types Anywhere</h3>
-          <p class="feature-desc">Works in any app — emails, docs, Slack, code editors. Press hotkey, speak, done. Instant paste.</p>
+          <h3 class="feature-title">Types in Any Application</h3>
+          <p class="feature-desc">Works universally across Slack, VS Code, Google Docs, Notion, WhatsApp, and terminal editors via native keyboard emulation.</p>
         </div>
 
         <div class="feature-card" id="feature-ai">
-          <div class="feature-icon" style="background: linear-gradient(135deg, #06b6d422, #06b6d411);">
+          <div class="feature-icon" style="background: linear-gradient(135deg, rgba(6,182,212,0.15), rgba(6,182,212,0.05));">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
           </div>
-          <h3 class="feature-title">AI Polishing</h3>
-          <p class="feature-desc">Raw speech automatically cleaned up. Punctuation, capitalization, filler words removed. Sounds like you wrote it.</p>
+          <h3 class="feature-title">Intelligent AI Polish</h3>
+          <p class="feature-desc">Transforms conversational rambling into crisp, publication-ready text. Removes 'um's and false starts, and auto-formats bulleted lists.</p>
         </div>
 
         <div class="feature-card" id="feature-byok">
-          <div class="feature-icon" style="background: linear-gradient(135deg, #10b98122, #10b98111);">
+          <div class="feature-icon" style="background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(16,185,129,0.05));">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
           </div>
-          <h3 class="feature-title">BYOK Support</h3>
-          <p class="feature-desc">Bring Your Own OpenAI API Key. Your audio never touches our servers. Complete privacy, lower cost.</p>
+          <h3 class="feature-title">Free BYOK Support</h3>
+          <p class="feature-desc">Bring your own key (Groq, OpenAI, Gemini, Claude, Ollama). Your voice data stays 100% private to you with zero middleman fees.</p>
         </div>
 
         <div class="feature-card" id="feature-platforms">
-          <div class="feature-icon" style="background: linear-gradient(135deg, #f59e0b22, #f59e0b11);">
+          <div class="feature-icon" style="background: linear-gradient(135deg, rgba(245,158,11,0.15), rgba(245,158,11,0.05));">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
           </div>
-          <h3 class="feature-title">Windows, Mac & Linux</h3>
-          <p class="feature-desc">Native app across all three platforms. Not a web wrapper. Real performance, real system integration.</p>
+          <h3 class="feature-title">Windows, Mac & Linux Native</h3>
+          <p class="feature-desc">Native binaries compiled with Rust and Tauri 2. No heavy Chromium browser bundled. Instantly starts and never stutters.</p>
         </div>
 
         <div class="feature-card" id="feature-lang">
-          <div class="feature-icon" style="background: linear-gradient(135deg, #ec489922, #ec489911);">
+          <div class="feature-icon" style="background: linear-gradient(135deg, rgba(236,72,153,0.15), rgba(236,72,153,0.05));">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
           </div>
-          <h3 class="feature-title">100+ Languages</h3>
-          <p class="feature-desc">Powered by OpenAI Whisper. Supports over 100 languages including Hindi, Tamil, Telugu, and all major global languages.</p>
+          <h3 class="feature-title">100+ Dictation Languages</h3>
+          <p class="feature-desc">High-precision multi-lingual transcription supporting English, Hindi, Spanish, German, French, Japanese, and seamless code-switching.</p>
         </div>
 
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ COMPARISON ═══════════════ -->
+  <section class="comparison" id="comparison">
+    <div class="section-inner">
+      <div class="section-label">Benchmark</div>
+      <h2 class="section-title">Built for Speed and Efficiency.</h2>
+      <p class="section-subtitle">See how LiteDaemon stacks up against traditional Electron-based voice typing solutions.</p>
+
+      <div class="comparison-card">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th class="col-highlight">LiteDaemon</th>
+              <th>Wispr Flow</th>
+              <th>Traditional Apps</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>RAM Consumption</strong></td>
+              <td class="col-highlight"><span class="badge-green">~50 MB</span></td>
+              <td>~800 MB</td>
+              <td>1,000+ MB</td>
+            </tr>
+            <tr>
+              <td><strong>Architecture</strong></td>
+              <td class="col-highlight">Native Rust (Tauri 2)</td>
+              <td>Electron / Chromium</td>
+              <td>Electron / Web</td>
+            </tr>
+            <tr>
+              <td><strong>BYOK (Free Forever)</strong></td>
+              <td class="col-highlight"><span class="badge-green">✅ Yes ($0)</span></td>
+              <td>❌ No</td>
+              <td>❌ Subscription only</td>
+            </tr>
+            <tr>
+              <td><strong>Managed Cloud Service</strong></td>
+              <td class="col-highlight">✅ Deepgram + GPT-4o-mini</td>
+              <td>✅ Proprietary</td>
+              <td>⚠️ Cloud STT only</td>
+            </tr>
+            <tr>
+              <td><strong>Linux Support</strong></td>
+              <td class="col-highlight">✅ Native AppImage & deb</td>
+              <td>❌ No</td>
+              <td>⚠️ Limited</td>
+            </tr>
+            <tr>
+              <td><strong>Pricing (India / Global)</strong></td>
+              <td class="col-highlight"><strong>Free / ₹400 ($15)</strong></td>
+              <td>$12 – $20 / mo</td>
+              <td>$15 – $30 / mo</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </section>
@@ -171,15 +242,15 @@
   <section class="pricing" id="pricing">
     <div class="pricing-bg-orb"></div>
     <div class="section-inner">
-      <div class="section-label">Simple Pricing</div>
+      <div class="section-label">Transparent Pricing</div>
       <h2 class="section-title">Pick your plan.</h2>
-      <p class="section-subtitle">All plans include a 7-day free trial. No credit card required to try.</p>
+      <p class="section-subtitle">Start 100% free with your own API keys, or upgrade to Cloud Pro for zero-setup managed voice typing.</p>
 
       <!-- Region Toggle -->
       <div class="region-toggle-wrap" id="region-toggle-wrap">
         <div class="region-toggle" id="region-toggle">
-          <button class="region-btn active" id="btn-india" onclick="setRegion('india')">🇮🇳 India</button>
-          <button class="region-btn" id="btn-global" onclick="setRegion('global')">🌍 Global</button>
+          <button class="region-btn active" id="btn-india" onclick="setRegion('india')">🇮🇳 India (₹)</button>
+          <button class="region-btn" id="btn-global" onclick="setRegion('global')">🌍 Global ($)</button>
         </div>
       </div>
 
@@ -190,46 +261,45 @@
           <div class="toggle-thumb" id="toggle-thumb"></div>
         </div>
         <span class="billing-label" id="label-annual">Annual</span>
-        <div class="save-badge" id="save-badge">Save up to 33%</div>
+        <div class="save-badge" id="save-badge">Save 20%</div>
       </div>
 
       <!-- Plans -->
       <div class="plans-grid" id="plans-grid">
 
-        <!-- BYOK Plan -->
+        <!-- BYOK Plan (Free Forever) -->
         <div class="plan-card" id="plan-byok">
           <div class="plan-header">
-            <div class="plan-name">BYOK</div>
+            <div class="plan-name">LiteDaemon BYOK</div>
             <div class="plan-tagline">Bring Your Own API Key</div>
           </div>
           <div class="plan-price-wrap">
             <div class="plan-price" id="byok-price">
-              <span class="price-currency" id="byok-currency">₹</span>
-              <span class="price-amount" id="byok-amount">149</span>
-              <span class="price-period" id="byok-period">/month</span>
+              <span class="price-amount" id="byok-amount">Free</span>
+              <span class="price-period" id="byok-period">forever</span>
             </div>
-            <div class="price-annual-note" id="byok-annual-note" style="display:none"></div>
+            <div class="price-annual-note" id="byok-annual-note">No credit card or payment required</div>
           </div>
           <ul class="plan-features">
-            <li><span class="check">✓</span> Your OpenAI API key</li>
-            <li><span class="check">✓</span> Unlimited voice typing</li>
-            <li><span class="check">✓</span> 100+ languages</li>
-            <li><span class="check">✓</span> AI text polishing</li>
-            <li><span class="check">✓</span> Windows, Mac & Linux</li>
-            <li><span class="check">✓</span> 2 devices per account</li>
+            <li><span class="check">✓</span> Groq, OpenAI, Gemini, Claude, Ollama</li>
+            <li><span class="check">✓</span> Unlimited voice typing dictations</li>
+            <li><span class="check">✓</span> 100% on-device private audio processing</li>
+            <li><span class="check">✓</span> 100+ languages & auto punctuation</li>
+            <li><span class="check">✓</span> Custom vocabulary & scene prompts</li>
+            <li><span class="check">✓</span> Windows, macOS & Linux native app</li>
           </ul>
-          <a class="plan-btn-outline" id="byok-btn" href="#" target="_blank" rel="noopener noreferrer">
-            Get BYOK Plan
+          <a class="plan-btn-outline" id="byok-btn" href="#download">
+            Download Free
           </a>
-          <p class="plan-note">You pay your own OpenAI costs directly</p>
+          <p class="plan-note">Always free · You pay your AI provider at cost</p>
         </div>
 
-        <!-- Cloud Plan -->
+        <!-- Cloud Pro Plan (Managed / Paid) -->
         <div class="plan-card plan-featured" id="plan-cloud">
-          <div class="plan-badge">Most Popular</div>
+          <div class="plan-badge">RECOMMENDED</div>
           <div class="plan-header">
-            <div class="plan-name">Cloud</div>
-            <div class="plan-tagline">We provide the API</div>
+            <div class="plan-name">LiteDaemon Cloud Pro</div>
+            <div class="plan-tagline">Zero setup · We handle the AI</div>
           </div>
           <div class="plan-price-wrap">
             <div class="plan-price" id="cloud-price">
@@ -237,20 +307,21 @@
               <span class="price-amount" id="cloud-amount">400</span>
               <span class="price-period" id="cloud-period">/month</span>
             </div>
-            <div class="price-annual-note" id="cloud-annual-note" style="display:none"></div>
+            <div class="price-annual-note" id="cloud-annual-note">Billed monthly · Cancel anytime</div>
           </div>
           <ul class="plan-features">
-            <li><span class="check-white">✓</span> No API key needed</li>
-            <li><span class="check-white">✓</span> Unlimited voice typing</li>
-            <li><span class="check-white">✓</span> 100+ languages</li>
-            <li><span class="check-white">✓</span> AI text polishing</li>
-            <li><span class="check-white">✓</span> Windows, Mac & Linux</li>
-            <li><span class="check-white">✓</span> 2 devices per account</li>
+            <li><span class="check-white">✓</span> No API keys or setup required</li>
+            <li><span class="check-white">✓</span> Deepgram Nova-3 high-speed STT</li>
+            <li><span class="check-white">✓</span> OpenAI GPT-4o-mini AI grammar & polish</li>
+            <li><span class="check-white">✓</span> Unlimited managed dictation words</li>
+            <li><span class="check-white">✓</span> Multi-lingual dictation across 100+ languages</li>
+            <li><span class="check-white">✓</span> Priority low-latency edge routing</li>
+            <li><span class="check-white">✓</span> Windows, macOS & Linux native app</li>
           </ul>
           <a class="plan-btn-primary" id="cloud-btn" href="#" target="_blank" rel="noopener noreferrer">
-            Get Cloud Plan
+            Upgrade to Cloud Pro →
           </a>
-          <p class="plan-note-white">Everything included, zero setup</p>
+          <p class="plan-note-white">Instant activation · Powered by Dodo Payments</p>
         </div>
 
       </div>
@@ -260,28 +331,30 @@
   <!-- ═══════════════ DOWNLOAD ═══════════════ -->
   <section class="download" id="download">
     <div class="section-inner">
-      <div class="section-label">Download</div>
+      <div class="section-label">Native Downloads</div>
       <h2 class="section-title">Available on all platforms.</h2>
-      <p class="section-subtitle">Native app. No browser, no Electron bloat. Real performance.</p>
+      <p class="section-subtitle">Ultra-lightweight native binary. No web wrapper, no Electron memory hog. Built for real performance.</p>
 
       <div class="download-grid" id="download-grid">
 
+        <!-- Windows -->
         <div class="download-card" id="dl-windows">
           <div class="dl-icon">
             <svg width="36" height="36" viewBox="0 0 24 24" fill="#3D5AFE"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg>
           </div>
           <div class="dl-info">
             <div class="dl-platform">Windows</div>
-            <div class="dl-arch">x64 — Windows 10/11</div>
+            <div class="dl-arch">x64 — Windows 10 & 11</div>
           </div>
-          <a href="https://github.com/adhithyadp/LiteDaemon/releases/download/v1.0.5/LiteDaemon_1.0.5_x64-setup.exe" class="dl-btn" id="dl-windows-btn">
-            Download .exe
+          <a href="https://github.com/adhithyadp/LiteDaemon/releases/download/v1.0.6/LiteDaemon_1.0.6_x64-setup.exe" class="dl-btn" id="dl-windows-btn">
+            Download .exe (v1.0.6)
           </a>
-          <div style="font-size: 12px; margin-top: 8px; text-align: center;">
-            <a href="https://github.com/adhithyadp/LiteDaemon/releases/download/v1.0.5/LiteDaemon_1.0.5_x64_en-US.msi" style="color: var(--gray-500); text-decoration: underline;">Download .msi</a>
+          <div class="dl-sublinks">
+            <a href="https://github.com/adhithyadp/LiteDaemon/releases/download/v1.0.6/LiteDaemon_1.0.6_x64_en-US.msi">Download .msi</a>
           </div>
         </div>
 
+        <!-- macOS -->
         <div class="download-card" id="dl-mac">
           <div class="dl-icon">
             <svg width="36" height="36" viewBox="0 0 24 24" fill="#3D5AFE"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.62-.75 1.04-1.8 0.93-2.85-.9.04-1.98.6-2.61 1.34-.56.64-.99 1.7-.87 2.72 1 .08 2.01-.51 2.55-1.21z"/></svg>
@@ -290,36 +363,36 @@
             <div class="dl-platform">macOS</div>
             <div class="dl-arch">Apple Silicon (M1–M4) + Intel</div>
           </div>
-          <a href="https://github.com/adhithyadp/LiteDaemon/releases/download/v1.0.5/LiteDaemon_1.0.5_aarch64.dmg" class="dl-btn" id="dl-mac-btn">
+          <a href="https://github.com/adhithyadp/LiteDaemon/releases/download/v1.0.6/LiteDaemon_1.0.6_aarch64.dmg" class="dl-btn" id="dl-mac-btn">
             Download .dmg (Apple Silicon)
           </a>
-          <div style="font-size: 12px; margin-top: 8px; text-align: center;">
-            <a href="https://github.com/adhithyadp/LiteDaemon/releases/download/v1.0.5/LiteDaemon_1.0.5_x64.dmg" style="color: var(--gray-500); text-decoration: underline;">Download Intel Mac .dmg</a>
+          <div class="dl-sublinks">
+            <a href="https://github.com/adhithyadp/LiteDaemon/releases/download/v1.0.6/LiteDaemon_1.0.6_x64.dmg">Download Intel Mac .dmg</a>
           </div>
         </div>
 
+        <!-- Linux -->
         <div class="download-card" id="dl-linux">
           <div class="dl-icon">
             <svg width="36" height="36" viewBox="0 0 24 24" fill="#3D5AFE"><path d="M12.504 0c-.155 0-.315.008-.48.021C7.576.185 3.254 2.86 1.005 6.95-.08 8.98-.23 11.297.28 13.48c.515 2.185 1.75 4.13 3.46 5.49.85.677 1.797 1.23 2.808 1.631.505.2 1.02.36 1.543.474-.107.367-.193.74-.26 1.113-.027.15-.046.303-.046.457 0 1.15.935 2.082 2.082 2.082s2.082-.932 2.082-2.082c0-.154-.02-.307-.046-.457-.063-.36-.146-.72-.245-1.074.54-.107 1.072-.26 1.59-.456 1.013-.393 1.96-.938 2.807-1.603 1.726-1.344 2.976-3.274 3.495-5.455.515-2.18.368-4.48-.706-6.506-2.234-4.093-6.536-6.773-11.52-6.933a11.17 11.17 0 00-.42-.003z"/></svg>
           </div>
           <div class="dl-info">
             <div class="dl-platform">Linux</div>
-            <div class="dl-arch">x64 — AppImage / .deb</div>
+            <div class="dl-arch">x64 — AppImage & .deb</div>
           </div>
-          <a href="https://github.com/adhithyadp/LiteDaemon/releases/download/v1.0.5/LiteDaemon_1.0.5_amd64.AppImage" class="dl-btn" id="dl-linux-btn">
-            Download AppImage
+          <a href="https://github.com/adhithyadp/LiteDaemon/releases/download/v1.0.6/LiteDaemon_1.0.6_amd64.AppImage" class="dl-btn" id="dl-linux-btn">
+            Download AppImage (v1.0.6)
           </a>
-          <div style="font-size: 12px; margin-top: 8px; text-align: center;">
-            <a href="https://github.com/adhithyadp/LiteDaemon/releases/download/v1.0.5/LiteDaemon_1.0.5_amd64.deb" style="color: var(--gray-500); text-decoration: underline;">Download .deb</a>
+          <div class="dl-sublinks">
+            <a href="https://github.com/adhithyadp/LiteDaemon/releases/download/v1.0.6/LiteDaemon_1.0.6_amd64.deb">Download .deb package</a>
           </div>
         </div>
 
       </div>
 
       <p class="download-note" id="download-note">
-        All release packages, signatures, and changelog details are available on
-        <a href="https://github.com/adhithyadp/LiteDaemon/releases/tag/v1.0.5" target="_blank" rel="noopener noreferrer">GitHub Releases</a>.
-        Builds for every platform are automated via GitHub Actions.
+        All release artifacts, SHA256 checksums, and version notes are published on
+        <a href="https://github.com/adhithyadp/LiteDaemon/releases/tag/v1.0.6" target="_blank" rel="noopener noreferrer">GitHub Releases</a>.
       </p>
     </div>
   </section>
@@ -340,14 +413,24 @@
           </div>
           <span>LiteDaemon</span>
         </div>
-        <p class="footer-tagline">Lightweight AI voice typing.<br/>Speak. It types. Less RAM. More flow.</p>
+        <p class="footer-tagline">
+          Ultra-lightweight AI voice typing for high-output professionals.<br/>
+          Speak naturally. Clean text appears anywhere. Less RAM, zero friction, maximum flow.
+        </p>
+        <div class="footer-status-pill">
+          <span class="status-indicator"></span>
+          <span>All systems operational · v1.0.6 Live</span>
+        </div>
       </div>
+
       <div class="footer-links">
         <div class="footer-col">
           <div class="footer-col-title">Product</div>
           <a href="#features">Features</a>
-          <a href="#pricing">Pricing</a>
-          <a href="#download">Download</a>
+          <a href="#comparison">Benchmark</a>
+          <a href="#pricing">Pricing Plans</a>
+          <a href="#download">Native Downloads</a>
+          <a href="https://github.com/adhithyadp/LiteDaemon/releases" target="_blank" rel="noopener noreferrer">v1.0.6 Changelog</a>
         </div>
         <div class="footer-col">
           <div class="footer-col-title">Legal</div>
@@ -356,18 +439,24 @@
           <a href="/refunds">Refund Policy</a>
         </div>
         <div class="footer-col">
-          <div class="footer-col-title">Support</div>
-          <a href="/contact">Contact & FAQ</a>
-          <a href="mailto:support@litedaemon.xyz">Email Support</a>
-          <a href="https://github.com/adhithyadp/LiteDaemon/issues" target="_blank">GitHub Issues</a>
+          <div class="footer-col-title">Support & Trust</div>
+          <a href="/contact">Help Center & FAQ</a>
+          <a href="mailto:support@litedaemon.xyz">support@litedaemon.xyz</a>
+          <a href="https://github.com/adhithyadp/LiteDaemon/issues" target="_blank" rel="noopener noreferrer">GitHub Community</a>
         </div>
       </div>
     </div>
+
     <div class="footer-bottom">
-      <span>© 2026 LiteDaemon. Built on <a href="https://github.com/tover0314-w/opentypeless" target="_blank">OpenTypeless</a> (MIT License).</span>
+      <div class="footer-bottom-inner">
+        <span>© 2026 LiteDaemon Inc. All rights reserved.</span>
+        <span class="footer-attribution">
+          Open-source core based on <a href="https://github.com/tover0314-w/opentypeless" target="_blank" rel="noopener noreferrer">OpenTypeless</a> (MIT License).
+        </span>
+      </div>
     </div>
   </footer>
 
-  <script src="script.js?v=1.0.5"></script>
+  <script src="script.js?v=1.0.6"></script>
 </body>
 </html>
