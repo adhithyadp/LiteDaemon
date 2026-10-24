@@ -1,36 +1,30 @@
 /**
- * LiteDaemon — Website JavaScript
- * Handles: pricing toggle, region toggle, nav scroll, scroll reveal animations
+ * LiteDaemon — Commercial SaaS Website JavaScript
+ * Handles: localized geo-pricing, billing frequency toggle, navigation effects, and scroll reveals
  */
 
-// ─── Dodo Payments checkout URLs ─────────────────────────────────────────────
-// Format: https://test.checkout.dodopayments.com/buy/PRODUCT_ID  (test mode)
-// Format: https://checkout.dodopayments.com/buy/PRODUCT_ID       (live mode)
+// ─── Dodo Payments Live Checkout Config ──────────────────────────────────────
 const CHECKOUT_BASE = 'https://checkout.dodopayments.com/buy/'
 
-const PRODUCT_IDS = {
-  byok: {
-    india:  { monthly: 'pdt_0Nq1FwtH5b6kZwUUltVpV', annual: 'pdt_0Nq1GZ0tpiOdOzJV3Ai1Y' },
-    global: { monthly: 'pdt_0Nq1I8tfZuKu3QR4Zd8et', annual: 'pdt_0Nq1IWgNwfCebIPUT5z1s' },
+const CLOUD_PRODUCT_IDS = {
+  india: {
+    monthly: 'pdt_0Nq1H1dHTZzfrQ1tdeYCP',
+    annual:  'pdt_0Nq1Hjj1bZUR5HQ9hgraU',
   },
-  cloud: {
-    india:  { monthly: 'pdt_0Nq1H1dHTZzfrQ1tdeYCP', annual: 'pdt_0Nq1Hjj1bZUR5HQ9hgraU' },
-    global: { monthly: 'pdt_0Nq1IsTBvSZVraoe1aXnz', annual: 'pdt_0Nq1JGEZBp3f6bfs9CnE2' },
+  global: {
+    monthly: 'pdt_0Nq1IsTBvSZVraoe1aXnz',
+    annual:  'pdt_0Nq1JGEZBp3f6bfs9CnE2',
   },
 }
 
-const PRICES = {
-  byok: {
-    india:  { monthly: { symbol: '₹', amount: '149',  period: '/month', annualTotal: '₹1,199/year', annualMonthly: '₹100/mo', saving: '33%' },
-               annual:  { symbol: '₹', amount: '1,199', period: '/year',  annualTotal: '',             annualMonthly: '₹100/mo', saving: '33%' } },
-    global: { monthly: { symbol: '$', amount: '3.99', period: '/month', annualTotal: '$35/year',      annualMonthly: '$2.92/mo', saving: '27%' },
-               annual:  { symbol: '$', amount: '35',   period: '/year',  annualTotal: '',              annualMonthly: '$2.92/mo', saving: '27%' } },
+const CLOUD_PRICES = {
+  india: {
+    monthly: { symbol: '₹', amount: '400', period: '/month', effective: '₹400/mo billed monthly', saving: '20%' },
+    annual:  { symbol: '₹', amount: '3,849', period: '/year', effective: '₹320/mo · Billed annually (Save 20%)', saving: '20%' },
   },
-  cloud: {
-    india:  { monthly: { symbol: '₹', amount: '400',   period: '/month', annualTotal: '₹3,849/year', annualMonthly: '₹320/mo', saving: '20%' },
-               annual:  { symbol: '₹', amount: '3,849', period: '/year',  annualTotal: '',             annualMonthly: '₹320/mo', saving: '20%' } },
-    global: { monthly: { symbol: '$', amount: '15',    period: '/month', annualTotal: '$144/year',    annualMonthly: '$12/mo',  saving: '20%' },
-               annual:  { symbol: '$', amount: '144',   period: '/year',  annualTotal: '',             annualMonthly: '$12/mo',  saving: '20%' } },
+  global: {
+    monthly: { symbol: '$', amount: '15', period: '/month', effective: '$15/mo billed monthly', saving: '20%' },
+    annual:  { symbol: '$', amount: '144', period: '/year', effective: '$12/mo · Billed annually (Save 20%)', saving: '20%' },
   },
 }
 
@@ -49,10 +43,10 @@ function detectRegion() {
   return 'global'
 }
 
-let region  = detectRegion()   // 'india' | 'global'
-let billing = 'monthly' // 'monthly' | 'annual'
+let region  = detectRegion() // 'india' | 'global'
+let billing = 'monthly'      // 'monthly' | 'annual'
 
-// Fast country verification
+// Background fast country lookup (graceful fallback)
 fetch('https://api.country.is/')
   .then(res => res.json())
   .then(data => {
@@ -64,71 +58,68 @@ fetch('https://api.country.is/')
   })
   .catch(() => {})
 
-
-// ─── NAV scroll effect ────────────────────────────────────────────────────────
+// ─── Nav Scroll Effect ────────────────────────────────────────────────────────
 const nav = document.getElementById('nav')
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 30)
-})
+if (nav) {
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 20)
+  })
+}
 
-// ─── Pricing toggles ─────────────────────────────────────────────────────────
+// ─── Pricing Toggles ─────────────────────────────────────────────────────────
 window.setRegion = function (r) {
   region = r
-  document.getElementById('btn-india').classList.toggle('active', r === 'india')
-  document.getElementById('btn-global').classList.toggle('active', r === 'global')
+  const btnIndia = document.getElementById('btn-india')
+  const btnGlobal = document.getElementById('btn-global')
+  if (btnIndia) btnIndia.classList.toggle('active', r === 'india')
+  if (btnGlobal) btnGlobal.classList.toggle('active', r === 'global')
   updatePricing()
 }
 
 window.toggleBilling = function () {
   billing = billing === 'monthly' ? 'annual' : 'monthly'
   const toggle = document.getElementById('billing-toggle')
-  toggle.classList.toggle('on', billing === 'annual')
+  if (toggle) toggle.classList.toggle('on', billing === 'annual')
   updatePricing()
 }
 
 function updatePricing() {
-  const byok  = PRICES.byok[region][billing]
-  const cloud = PRICES.cloud[region][billing]
-  const byokId  = PRODUCT_IDS.byok[region][billing]
-  const cloudId = PRODUCT_IDS.cloud[region][billing]
+  const cloud = CLOUD_PRICES[region][billing]
+  const cloudId = CLOUD_PRODUCT_IDS[region][billing]
 
-  // BYOK price
-  document.getElementById('byok-currency').textContent = byok.symbol
-  document.getElementById('byok-amount').textContent   = byok.amount
-  document.getElementById('byok-period').textContent   = byok.period
+  // Cloud price elements
+  const cloudCurrency = document.getElementById('cloud-currency')
+  const cloudAmount   = document.getElementById('cloud-amount')
+  const cloudPeriod   = document.getElementById('cloud-period')
+  const cloudNote     = document.getElementById('cloud-annual-note')
+  const cloudBtn      = document.getElementById('cloud-btn')
+  const saveBadge     = document.getElementById('save-badge')
 
-  // Cloud price
-  document.getElementById('cloud-currency').textContent = cloud.symbol
-  document.getElementById('cloud-amount').textContent   = cloud.amount
-  document.getElementById('cloud-period').textContent   = cloud.period
+  if (cloudCurrency) cloudCurrency.textContent = cloud.symbol
+  if (cloudAmount)   cloudAmount.textContent   = cloud.amount
+  if (cloudPeriod)   cloudPeriod.textContent   = cloud.period
 
-  // Annual notes
-  const byokNote  = document.getElementById('byok-annual-note')
-  const cloudNote = document.getElementById('cloud-annual-note')
-
-  if (billing === 'annual') {
-    byokNote.style.display  = 'block'
-    cloudNote.style.display = 'block'
-    byokNote.textContent    = `Billed annually · Save ${byok.saving} vs monthly`
-    cloudNote.textContent   = `Billed annually · Save ${cloud.saving} vs monthly`
-    document.getElementById('save-badge').textContent = `Save up to ${byok.saving}`
-  } else {
-    byokNote.style.display  = 'none'
-    cloudNote.style.display = 'none'
-    document.getElementById('save-badge').textContent = 'Save up to 33%'
+  if (cloudNote) {
+    cloudNote.textContent = cloud.effective
+    cloudNote.style.display = billing === 'annual' ? 'block' : 'none'
   }
 
-  // Checkout buttons
-  document.getElementById('byok-btn').href  = CHECKOUT_BASE + byokId
-  document.getElementById('cloud-btn').href = CHECKOUT_BASE + cloudId
+  if (saveBadge) {
+    saveBadge.textContent = 'Save 20%'
+  }
+
+  // Cloud checkout link directly to Dodo Payments
+  if (cloudBtn) {
+    cloudBtn.href = CHECKOUT_BASE + cloudId
+  }
 }
 
-// Init
+// Initial pricing render
 window.setRegion(region)
 
-// ─── Scroll Reveal ────────────────────────────────────────────────────────────
+// ─── Scroll Reveal Animations ────────────────────────────────────────────────
 const revealEls = document.querySelectorAll(
-  '.feature-card, .plan-card, .download-card, .hero-proof, .hero-visual, .section-title, .section-subtitle'
+  '.feature-card, .plan-card, .download-card, .hero-proof, .hero-visual, .section-title, .section-subtitle, .comparison-table'
 )
 revealEls.forEach(el => el.classList.add('reveal'))
 
@@ -136,45 +127,24 @@ const observer = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 80)
+        setTimeout(() => entry.target.classList.add('visible'), i * 60)
         observer.unobserve(entry.target)
       }
     })
   },
-  { threshold: 0.1 }
+  { threshold: 0.08 }
 )
 revealEls.forEach(el => observer.observe(el))
 
-// ─── Animated waveform bars ───────────────────────────────────────────────────
-// Continuously animate the "listening" indicator bar heights
-;(function animateBars() {
+// ─── Waveform Animation ──────────────────────────────────────────────────────
+;(function animatePill() {
   const pill = document.querySelector('.hero-visual-pill')
   if (!pill) return
-  let visible = true
+  let active = true
   setInterval(() => {
-    visible = !visible
-    pill.style.opacity = visible ? '1' : '0.6'
-    pill.style.transition = 'opacity 0.5s'
-  }, 1200)
+    active = !active
+    pill.style.opacity = active ? '1' : '0.75'
+    pill.style.transform = active ? 'translateY(0)' : 'translateY(-2px)'
+    pill.style.transition = 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)'
+  }, 1400)
 })()
-
-// ─── RAM bar animation ────────────────────────────────────────────────────────
-// Animate the RAM comparison bars when they come into view
-const barObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const fills = entry.target.querySelectorAll('.feature-bar-fill')
-        fills.forEach(f => {
-          const target = f.style.width
-          f.style.width = '0%'
-          setTimeout(() => { f.style.width = target }, 200)
-        })
-        barObserver.unobserve(entry.target)
-      }
-    })
-  },
-  { threshold: 0.3 }
-)
-const ramCard = document.getElementById('feature-ram')
-if (ramCard) barObserver.observe(ramCard)

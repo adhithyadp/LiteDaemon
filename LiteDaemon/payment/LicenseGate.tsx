@@ -128,7 +128,7 @@ export function LicenseGate({
             rel="noopener noreferrer"
             style={styles.link}
           >
-            Get one from ₹149/month
+            Upgrade to LiteDaemon Cloud — or use BYOK free forever
           </a>
         </p>
 

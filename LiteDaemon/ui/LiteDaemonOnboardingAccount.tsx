@@ -3,12 +3,13 @@ import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import { Loader2, UserCircle, CheckCircle2, Sparkles, AlertCircle } from 'lucide-react'
 import { useSupabaseAuth } from '../auth/useSupabaseAuth'
+import { useLiteDaemonUsage } from '../cloud/usageStore'
 
 type Tab = 'signin' | 'signup'
 
 export function LiteDaemonOnboardingAccount() {
   const { t } = useTranslation()
-  const { user, profile, loading, error, initialize, signIn, signUp, signInWithGoogle } =
+  const { user, loading, error, initialize, signIn, signUp, signInWithGoogle } =
     useSupabaseAuth()
 
   const [tab, setTab] = useState<Tab>('signin')
@@ -80,7 +81,7 @@ export function LiteDaemonOnboardingAccount() {
 
   // ── Post-login confirmation ──
   if (user) {
-    const isPro = profile?.plan === 'pro' || profile?.plan === 'lifetime'
+    const { isCloudPro: isPro } = useLiteDaemonUsage()
 
     return (
       <div className="max-w-[320px] mx-auto flex flex-col items-center gap-5 py-4 animate-in fade-in duration-300">
@@ -111,7 +112,7 @@ export function LiteDaemonOnboardingAccount() {
             </div>
             <div className="min-w-0">
               <p className="text-[13px] font-semibold text-text-primary flex items-center gap-1.5">
-                <span>{isPro ? 'LiteDaemon Pro' : 'LiteDaemon Free (BYOK)'}</span>
+                <span>{isPro ? 'LiteDaemon Pro' : 'LiteDaemon Free'}</span>
                 {isPro && (
                   <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500 font-medium border border-emerald-500/20">
                     Active
@@ -120,8 +121,8 @@ export function LiteDaemonOnboardingAccount() {
               </p>
               <p className="text-[11px] text-text-secondary mt-0.5 leading-normal">
                 {isPro
-                  ? 'Unlimited voice typing & Cloud Whisper active.'
-                  : 'Bring your own API keys for unlimited private dictation.'}
+                  ? 'Managed speech recognition — no API keys needed.'
+                  : 'Free forever — bring your own API keys.'}
               </p>
             </div>
           </div>

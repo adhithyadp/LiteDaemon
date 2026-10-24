@@ -17,11 +17,11 @@ import {
 import { openUrl } from '@tauri-apps/plugin-opener'
 import { useSupabaseAuth } from '../auth/useSupabaseAuth'
 import { useRoute } from '../../src/lib/router'
+import { useLiteDaemonUsage } from '../cloud/usageStore'
 
 export function LiteDaemonAccount() {
   const {
     user,
-    profile,
     loading,
     error,
     initialize,
@@ -141,7 +141,7 @@ export function LiteDaemonAccount() {
   // LOGGED IN STATE
   // -------------------------------------------------------------
   if (user) {
-    const isPro = profile?.plan === 'pro' || profile?.plan === 'lifetime'
+    const { isCloudPro: isPro } = useLiteDaemonUsage()
     const memberSince = user.created_at
       ? new Date(user.created_at).toLocaleDateString(undefined, {
           year: 'numeric',
@@ -176,10 +176,10 @@ export function LiteDaemonAccount() {
                 {isPro ? (
                   <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-medium text-emerald-500 border border-emerald-500/20">
                     <Sparkles className="h-3 w-3" />
-                    Pro Member
+                    Cloud Pro
                   </span>
                 ) : (
-                  <span className="inline-flex items-center gap-1 rounded-full bg-neutral-500/10 px-2.5 py-0.5 text-[11px] font-medium text-text-secondary border border-border">
+                   <span className="inline-flex items-center gap-1 rounded-full bg-neutral-500/10 px-2.5 py-0.5 text-[11px] font-medium text-text-secondary border border-border">
                     Free (BYOK)
                   </span>
                 )}
@@ -193,7 +193,7 @@ export function LiteDaemonAccount() {
             <div className="flex items-center justify-between text-[13px]">
               <span className="text-text-secondary">Current Plan</span>
               <span className="font-medium text-text-primary">
-                {isPro ? 'LiteDaemon Pro' : 'LiteDaemon Free'}
+                {isPro ? 'LiteDaemon Cloud Pro' : 'LiteDaemon Free (BYOK)'}
               </span>
             </div>
 
@@ -229,10 +229,10 @@ export function LiteDaemonAccount() {
               <div className="rounded-xl border border-accent/20 bg-accent/5 p-4 text-center">
                 <div className="flex items-center justify-center gap-1.5 text-[13px] font-semibold text-accent">
                   <Zap className="h-4 w-4" />
-                  Upgrade to LiteDaemon Pro
+                  Upgrade to LiteDaemon Cloud
                 </div>
                 <p className="mt-1 text-[12px] text-text-secondary">
-                  Unlock managed Whisper voice recognition without needing your own OpenAI keys.
+                  Unlock instant managed speech recognition and AI rewriting without needing your own API keys.
                 </p>
                 <button
                   type="button"

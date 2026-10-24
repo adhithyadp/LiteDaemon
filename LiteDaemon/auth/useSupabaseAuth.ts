@@ -4,6 +4,7 @@ import type { User } from '@supabase/supabase-js'
 import { openUrl } from '@tauri-apps/plugin-opener'
 import { onOpenUrl } from '@tauri-apps/plugin-deep-link'
 import { useAuthStore } from '../../src/stores/authStore'
+import { useLiteDaemonUsage } from '../cloud/usageStore'
 
 interface SupabaseAuthState {
   user: User | null
@@ -54,6 +55,8 @@ export const useSupabaseAuth = create<SupabaseAuthState>((set, get) => ({
         set({ user: session.user })
         syncAuthStoreUser(session.user)
         await get().refreshProfile()
+        // Initialize usage tracking after session restore
+        useLiteDaemonUsage.getState().initialize(session.user.id).catch(console.warn)
       } else {
         syncAuthStoreUser(null)
         set({ user: null, profile: null, loading: false })
@@ -65,9 +68,13 @@ export const useSupabaseAuth = create<SupabaseAuthState>((set, get) => ({
           set({ user: session.user })
           syncAuthStoreUser(session.user)
           await get().refreshProfile()
+          // Re-initialize usage on any new sign-in event
+          useLiteDaemonUsage.getState().initialize(session.user.id).catch(console.warn)
         } else {
           syncAuthStoreUser(null)
           set({ user: null, profile: null, loading: false })
+          // Reset usage on sign-out
+          useLiteDaemonUsage.getState().reset()
         }
       })
 

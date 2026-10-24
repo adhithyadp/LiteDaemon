@@ -24,7 +24,7 @@ User in App / Website
         ├─ Detected Location: India (₹) or Global ($)
         │
         ▼
-Selects Upgrade Plan (BYOK or Cloud)
+Selects Upgrade Plan (Cloud Pro)
         │
         ▼
 Opens Hosted Checkout (checkout.dodopayments.com/buy/{product_id}?email={user_email})
@@ -42,15 +42,14 @@ Supabase Edge Function: dodo-webhook
         ├─ Validates Webhook Payload & Customer Email
         │
         ▼
-Updates public.profiles
-SET plan = 'pro', status = 'active', updated_at = NOW()
-WHERE email = customer_email
+Updates public.profiles & public.user_plans
+SET plan = 'pro', status = 'active', updated_at = NOW() (for Cloud)
         │
         ▼
 LiteDaemon Desktop App
         │
-        ├─ useSupabaseAuth fetches updated profile
-        └─ Displays "Pro Member" Badge ✨ and unlocks Cloud features
+        ├─ useLiteDaemonUsage fetches plan_type = 'cloud'
+        └─ Displays "Cloud Pro" Badge ✨ and unlocks Cloud dictation proxy
 ```
 
 ---
@@ -61,10 +60,13 @@ LiteDaemon Desktop App
 |---|---|
 | `LiteDaemon/auth/supabaseClient.ts` | Supabase JavaScript client with session auto-refresh |
 | `LiteDaemon/auth/useSupabaseAuth.ts` | Zustand store for auth state, session persistence, and deep link callbacks |
-| `LiteDaemon/ui/LiteDaemonUpgrade.tsx` | Upgrade screen with auto geo-pricing, billing toggle (monthly/annual), and Dodo checkout links |
-| `LiteDaemon/ui/LiteDaemonAccount.tsx` | Account management screen: profile, Pro badge, Dodo portal link, sign out |
+| `LiteDaemon/cloud/usageStore.ts` | Zustand store for subscription plan type (`cloud` vs `free`), zero limits |
+| `LiteDaemon/cloud/cloudDictation.ts` | Client for `cloud-proxy` managed Deepgram + OpenAI STT/polish |
+| `LiteDaemon/ui/LiteDaemonUpgrade.tsx` | Upgrade screen: BYOK free forever badge, Cloud pricing, and Dodo checkout links |
+| `LiteDaemon/ui/LiteDaemonAccount.tsx` | Account management screen: profile, Cloud Pro / Free (BYOK) badge, Dodo portal link |
 | `LiteDaemon/ui/LiteDaemonOnboardingAccount.tsx` | First-run onboarding wizard account step powered by Supabase Auth |
-| `supabase/functions/dodo-webhook/index.ts` | Deno edge function listening for Dodo events and updating user entitlements |
+| `supabase/functions/dodo-webhook/index.ts` | Deno edge function provisioning Cloud Pro subscriptions to Supabase |
+| `supabase/functions/cloud-proxy/index.ts` | Deno edge function providing managed STT (Deepgram Nova-3) & Polish (GPT-4o-mini) |
 | `website/auth-callback.html` | Deployed OAuth bridge page for clean Google Sign-In and deep linking |
 | `website/script.js` | Landing page pricing cards with matching auto-detected geo-pricing |
 
@@ -72,18 +74,10 @@ LiteDaemon Desktop App
 
 ## Live Product IDs (Live Mode)
 
-All 8 live products are configured in Dodo Payments Live Mode:
+All Cloud products are configured in Dodo Payments Live Mode:
 
 ```typescript
-export const PRODUCT_ID_TO_PLAN = {
-  // BYOK India
-  'pdt_0Nq1FwtH5b6kZwUUltVpV': { plan: 'byok', region: 'india', cycle: 'monthly', price: '₹149/mo' },
-  'pdt_0Nq1GZ0tpiOdOzJV3Ai1Y': { plan: 'byok', region: 'india', cycle: 'annual', price: '₹1,199/yr' },
-
-  // BYOK Global
-  'pdt_0Nq1I8tfZuKu3QR4Zd8et': { plan: 'byok', region: 'global', cycle: 'monthly', price: '$3.99/mo' },
-  'pdt_0Nq1IWgNwfCebIPUT5z1s': { plan: 'byok', region: 'global', cycle: 'annual', price: '$35/yr' },
-
+export const CLOUD_PRODUCT_IDS = {
   // Cloud India
   'pdt_0Nq1H1dHTZzfrQ1tdeYCP': { plan: 'cloud', region: 'india', cycle: 'monthly', price: '₹400/mo' },
   'pdt_0Nq1Hjj1bZUR5HQ9hgraU': { plan: 'cloud', region: 'india', cycle: 'annual', price: '₹3,849/yr' },
@@ -98,17 +92,17 @@ export const PRODUCT_ID_TO_PLAN = {
 
 ## Pricing Reference Table
 
-| Plan | India Monthly | India Annual | Global Monthly | Global Annual |
-|---|---|---|---|---|
-| **BYOK** | ₹149 (`pdt_0Nq1FwtH5b6kZwUUltVpV`) | ₹1,199 (`pdt_0Nq1GZ0tpiOdOzJV3Ai1Y`) | $3.99 (`pdt_0Nq1I8tfZuKu3QR4Zd8et`) | $35 (`pdt_0Nq1IWgNwfCebIPUT5z1s`) |
-| **Cloud** | ₹400 (`pdt_0Nq1H1dHTZzfrQ1tdeYCP`) | ₹3,849 (`pdt_0Nq1Hjj1bZUR5HQ9hgraU`) | $15 (`pdt_0Nq1IsTBvSZVraoe1aXnz`) | $144 (`pdt_0Nq1JGEZBp3f6bfs9CnE2`) |
+| Plan | India Monthly | India Annual | Global Monthly | Global Annual | Access |
+|---|---|---|---|---|---|
+| **BYOK** | **Free forever** | **Free forever** | **Free forever** | **Free forever** | Instant, no checkout needed |
+| **Cloud Pro** | ₹400 (`pdt_0Nq1H1dHTZzfrQ1tdeYCP`) | ₹3,849 (`pdt_0Nq1Hjj1bZUR5HQ9hgraU`) | $15 (`pdt_0Nq1IsTBvSZVraoe1aXnz`) | $144 (`pdt_0Nq1JGEZBp3f6bfs9CnE2`) | Managed STT + AI Polish |
 
 ---
 
 ## Webhook Lifecycle (`dodo-webhook`)
 
 The Supabase Edge Function listens for the following Dodo Payments webhook events:
-- `payment.succeeded`: Marks profile `plan = 'pro'` and `status = 'active'`.
+- `payment.succeeded`: Marks profile `plan = 'pro'` (for Cloud) and upserts `user_plans` with `plan_type = 'cloud'`.
 - `subscription.active` / `subscription.renewed`: Keeps plan active.
 - `subscription.cancelled` / `subscription.expired`: Downgrades profile `plan = 'free'` and `status = 'cancelled'`.
 

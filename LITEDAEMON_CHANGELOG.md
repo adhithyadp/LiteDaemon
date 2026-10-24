@@ -4,6 +4,65 @@
 
 ---
 
+## [v1.0.6] — 2026-10-24 ☁️
+*Major Update: BYOK Free Forever + Managed Cloud Pro Service Architecture*
+
+### What's New:
+- **Pricing & Business Model Alignment:**
+  - **BYOK is now 100% Free Forever:** Users can bring their own API keys (Groq, OpenAI, Gemini, Claude, Ollama) and dictate without paying LiteDaemon anything. No checkout button, no limits.
+  - **Cloud Pro is Paid-Only:** Managed speech recognition and AI rewriting with zero setup. ₹400/mo (India) / $15/mo (Global), with ~20% off annual plans.
+  - Removed word counter limits and free trial restrictions — Cloud Pro subscribers get unlimited managed dictation.
+
+- **Cloud Service Backend (Supabase):**
+  - Created `user_plans` table — tracks whether user is on `byok` or `cloud` plan type, with RLS.
+  - Created `usage_tracking` table & `upsert_usage()` SQL function for internal telemetry and cost monitoring.
+  - Migration file: `supabase/migrations/001_cloud_service_tables.sql`.
+
+- **Updated `dodo-webhook` Edge Function:**
+  - Configured with live Dodo product IDs.
+  - Only Cloud subscriptions grant `plan: 'pro'` and `plan_type: 'cloud'`.
+  - Legacy or BYOK users are recognized as `plan: 'free'`, ensuring only paying Cloud users are marked as Pro.
+
+- **`cloud-proxy` Supabase Edge Function:**
+  - Validates Supabase JWT on every request.
+  - Restricts access strictly to active Cloud Pro subscribers; returns 403 `subscription_required` for free/BYOK users.
+  - STT: **Deepgram Nova-3** pre-recorded REST API — high-speed, high-accuracy.
+  - Polish: **OpenAI GPT-4o-mini** — clean punctuation, filler cleanup, list formatting, and multi-language support.
+  - Graceful degradation: returns raw transcript if polish fails.
+  - Secrets securely stored in Supabase secrets vault (`DEEPGRAM_API_KEY`, `OPENAI_API_KEY`).
+
+- **`LiteDaemon/cloud/usageStore.ts` & `cloudDictation.ts`:**
+  - Streamlined Zustand store: tracks `isCloudPro` vs `isFree` without word counters.
+  - Client handles managed audio transmission to `cloud-proxy` with timeout and error mapping.
+
+- **UI Updates (`LiteDaemon/ui/`):**
+  - **`LiteDaemonUpgrade.tsx`:** BYOK card shows "Free forever" with "✓ Your current plan — always free". Cloud card shows localized auto-detected pricing (₹400/mo or $15/mo) with "Upgrade to Cloud".
+  - **`LiteDaemonAccount.tsx`:** Updated to show "Cloud Pro" badge for subscribers and "Free (BYOK)" badge for free users, with relevant upgrade CTAs.
+  - **`LiteDaemonOnboardingAccount.tsx`:** Onboarding wizard reflects free BYOK vs active Cloud Pro accounts.
+
+### Architecture Notes:
+- **Zero merge conflicts with upstream** — all new code lives in `LiteDaemon/cloud/` and `LiteDaemon/ui/`.
+- Only minimal wiring touches our own files (`useSupabaseAuth.ts`, `LiteDaemonAccount.tsx`) — not upstream `src/`.
+- Cloud service is **fully live** — Deepgram + OpenAI keys set and smoke tested ✅
+  - Unauthenticated requests → 401 ✅
+  - Invalid JWT → 401 ✅
+  - Valid signed-in users → STT + Polish pipeline active ✅
+
+### Files Changed:
+| File | Change |
+|---|---|
+| `supabase/migrations/001_cloud_service_tables.sql` | Added — DB migration |
+| `supabase/functions/dodo-webhook/index.ts` | Updated — plan_type recording |
+| `supabase/functions/cloud-proxy/index.ts` | Added — cloud STT+Polish proxy |
+| `LiteDaemon/cloud/usageStore.ts` | Added — client usage state |
+| `LiteDaemon/cloud/cloudDictation.ts` | Added — cloud audio client |
+| `LiteDaemon/cloud/PLANNED.md` | Updated — live build status |
+| `LiteDaemon/ui/LiteDaemonUsageBar.tsx` | Added — usage indicator UI |
+| `LiteDaemon/ui/LiteDaemonAccount.tsx` | Updated — usage bar wired in |
+| `LiteDaemon/auth/useSupabaseAuth.ts` | Updated — usage store auto-init |
+
+---
+
 ## [v1.0.5] — 2026-10-23 🚀
 *Major Update: Onboarding Wizard Revamp, Complete Brand Scrub & Whispr Flow Auto-Detected Geo-Pricing*
 

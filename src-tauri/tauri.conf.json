@@ -1,106 +1,108 @@
 {
-  "$schema": "https://schema.tauri.app/config/2",
-  "productName": "LiteDaemon",
-  "version": "1.0.5",
-  "identifier": "xyz.litedaemon.app",
-  "build": {
-    "beforeDevCommand": "npm run dev",
-    "devUrl": "http://localhost:1420",
-    "beforeBuildCommand": "npm run build",
-    "frontendDist": "../dist"
-  },
-  "app": {
-    "macOSPrivateApi": true,
-    "windows": [
-      {
-        "label": "main",
-        "title": "LiteDaemon",
-        "width": 900,
-        "height": 700,
-        "minWidth": 720,
-        "minHeight": 480,
-        "resizable": true,
-        "decorations": true,
-        "transparent": false,
-        "alwaysOnTop": false,
-        "skipTaskbar": false,
-        "center": true,
-        "visible": false
-      },
-      {
-        "label": "capsule",
-        "title": "LiteDaemon Capsule",
-        "width": 80,
-        "height": 80,
-        "resizable": false,
-        "decorations": false,
-        "transparent": true,
-        "shadow": false,
-        "alwaysOnTop": true,
-        "skipTaskbar": true,
-        "focus": false,
-        "focusable": false,
-        "visible": false,
-        "visibleOnAllWorkspaces": true,
-        "url": "index.html#capsule"
-      },
-      {
-        "label": "ask",
-        "title": "LiteDaemon Ask",
-        "width": 400,
-        "height": 220,
-        "minWidth": 360,
-        "minHeight": 180,
-        "resizable": false,
-        "decorations": false,
-        "transparent": true,
-        "shadow": false,
-        "alwaysOnTop": true,
-        "skipTaskbar": true,
-        "center": true,
-        "visible": false,
-        "url": "index.html#ask"
-      }
-    ],
-    "security": {
-      "csp": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://*.supabase.co https://*.litedaemon.xyz https://test.dodopayments.com https://live.dodopayments.com https://accounts.google.com https://github.com"
-    }
-  },
-  "plugins": {
-    "updater": {
-      "endpoints": [
-        "https://github.com/adhithyadp/LiteDaemon/releases/latest/download/latest.json"
-      ],
-      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDUwQzk2RUYwRTVGODBDNkMKUldSc0RQamw4RzdKVUNTTFBpY0hXM1lmVVFSa25nRXJwc24zNTM2elRjeVBFUHVCOWVPMElVUTMK"
-    },
-    "deep-link": {
-      "desktop": {
-        "schemes": ["litedaemon"]
-      }
-    }
-  },
-  "bundle": {
-    "active": true,
-    "targets": "all",
-    "createUpdaterArtifacts": true,
-    "icon": [
-      "icons/32x32.png",
-      "icons/128x128.png",
-      "icons/128x128@2x.png",
-      "icons/icon.icns",
-      "icons/icon.ico"
-    ],
-    "macOS": {
-      "minimumSystemVersion": "10.15",
-      "entitlements": "./Entitlements.plist",
-      "infoPlist": "./Info.plist"
-    },
-    "linux": {
-      "appimage": {
-        "files": {
-          ".DirIcon": "icons/icon.png"
-        }
-      }
-    }
-  }
+    "$schema":  "https://schema.tauri.app/config/2",
+    "productName":  "LiteDaemon",
+    "version":  "1.0.6",
+    "identifier":  "xyz.litedaemon.app",
+    "build":  {
+                  "beforeDevCommand":  "npm run dev",
+                  "devUrl":  "http://localhost:1420",
+                  "beforeBuildCommand":  "npm run build",
+                  "frontendDist":  "../dist"
+              },
+    "app":  {
+                "macOSPrivateApi":  true,
+                "windows":  [
+                                {
+                                    "label":  "main",
+                                    "title":  "LiteDaemon",
+                                    "width":  900,
+                                    "height":  700,
+                                    "minWidth":  720,
+                                    "minHeight":  480,
+                                    "resizable":  true,
+                                    "decorations":  true,
+                                    "transparent":  false,
+                                    "alwaysOnTop":  false,
+                                    "skipTaskbar":  false,
+                                    "center":  true,
+                                    "visible":  false
+                                },
+                                {
+                                    "label":  "capsule",
+                                    "title":  "LiteDaemon Capsule",
+                                    "width":  80,
+                                    "height":  80,
+                                    "resizable":  false,
+                                    "decorations":  false,
+                                    "transparent":  true,
+                                    "shadow":  false,
+                                    "alwaysOnTop":  true,
+                                    "skipTaskbar":  true,
+                                    "focus":  false,
+                                    "focusable":  false,
+                                    "visible":  false,
+                                    "visibleOnAllWorkspaces":  true,
+                                    "url":  "index.html#capsule"
+                                },
+                                {
+                                    "label":  "ask",
+                                    "title":  "LiteDaemon Ask",
+                                    "width":  400,
+                                    "height":  220,
+                                    "minWidth":  360,
+                                    "minHeight":  180,
+                                    "resizable":  false,
+                                    "decorations":  false,
+                                    "transparent":  true,
+                                    "shadow":  false,
+                                    "alwaysOnTop":  true,
+                                    "skipTaskbar":  true,
+                                    "center":  true,
+                                    "visible":  false,
+                                    "url":  "index.html#ask"
+                                }
+                            ],
+                "security":  {
+                                 "csp":  "default-src \u0027self\u0027; script-src \u0027self\u0027; style-src \u0027self\u0027 \u0027unsafe-inline\u0027; img-src \u0027self\u0027 data:; connect-src \u0027self\u0027 https://*.supabase.co https://*.litedaemon.xyz https://test.dodopayments.com https://live.dodopayments.com https://accounts.google.com https://github.com"
+                             }
+            },
+    "plugins":  {
+                    "updater":  {
+                                    "endpoints":  [
+                                                      "https://github.com/adhithyadp/LiteDaemon/releases/latest/download/latest.json"
+                                                  ],
+                                    "pubkey":  "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDUwQzk2RUYwRTVGODBDNkMKUldSc0RQamw4RzdKVUNTTFBpY0hXM1lmVVFSa25nRXJwc24zNTM2elRjeVBFUHVCOWVPMElVUTMK"
+                                },
+                    "deep-link":  {
+                                      "desktop":  {
+                                                      "schemes":  [
+                                                                      "litedaemon"
+                                                                  ]
+                                                  }
+                                  }
+                },
+    "bundle":  {
+                   "active":  true,
+                   "targets":  "all",
+                   "createUpdaterArtifacts":  true,
+                   "icon":  [
+                                "icons/32x32.png",
+                                "icons/128x128.png",
+                                "icons/128x128@2x.png",
+                                "icons/icon.icns",
+                                "icons/icon.ico"
+                            ],
+                   "macOS":  {
+                                 "minimumSystemVersion":  "10.15",
+                                 "entitlements":  "./Entitlements.plist",
+                                 "infoPlist":  "./Info.plist"
+                             },
+                   "linux":  {
+                                 "appimage":  {
+                                                  "files":  {
+                                                                ".DirIcon":  "icons/icon.png"
+                                                            }
+                                              }
+                             }
+               }
 }
