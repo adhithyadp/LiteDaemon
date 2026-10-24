@@ -111,7 +111,7 @@ export function LiteDaemonOnboardingAccount() {
             </div>
             <div className="min-w-0">
               <p className="text-[13px] font-semibold text-text-primary flex items-center gap-1.5">
-                <span>{isPro ? 'LiteDaemon Pro' : 'LiteDaemon Free (BYOK)'}</span>
+                <span>{isPro ? 'LiteDaemon Pro' : 'LiteDaemon Free'}</span>
                 {isPro && (
                   <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500 font-medium border border-emerald-500/20">
                     Active
@@ -120,8 +120,8 @@ export function LiteDaemonOnboardingAccount() {
               </p>
               <p className="text-[11px] text-text-secondary mt-0.5 leading-normal">
                 {isPro
-                  ? 'Unlimited voice typing & Cloud Whisper active.'
-                  : 'Bring your own API keys for unlimited private dictation.'}
+                  ? 'Managed speech recognition — no API keys needed.'
+                  : 'Free forever — bring your own API keys.'}
               </p>
             </div>
           </div>

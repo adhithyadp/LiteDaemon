@@ -128,7 +128,7 @@ export function LicenseGate({
             rel="noopener noreferrer"
             style={styles.link}
           >
-            Get one from ₹149/month
+            Get one from ₹149/month — or use BYOK free
           </a>
         </p>
 
