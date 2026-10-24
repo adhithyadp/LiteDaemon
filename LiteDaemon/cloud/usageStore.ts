@@ -82,20 +82,16 @@ export const useLiteDaemonUsage = create<UsageState>((set) => ({
         profileRes.data?.plan === 'pro' && profileRes.data?.status === 'active'
       const rawPlanType: string = planRes.data?.plan_type || 'byok'
 
-      let planType: LiteDaemonPlanType
-      if (!isPro) {
-        planType = 'free'
-      } else if (rawPlanType === 'cloud') {
-        planType = 'cloud'
-      } else {
-        planType = 'byok'
-      }
+      // Cloud Pro is only for active Pro users on the 'cloud' plan.
+      // BYOK is free forever, so anyone not on cloud is Free (BYOK).
+      const isCloudPro = isPro && rawPlanType === 'cloud'
+      const planType: LiteDaemonPlanType = isCloudPro ? 'cloud' : 'free'
 
       set({
         planType,
-        isCloudPro: planType === 'cloud',
-        isByokPro: planType === 'byok',
-        isFree: planType === 'free',
+        isCloudPro,
+        isByokPro: false,
+        isFree: !isCloudPro,
         loading: false,
         initialized: true,
       })

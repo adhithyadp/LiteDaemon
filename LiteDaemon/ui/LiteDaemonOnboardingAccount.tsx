@@ -3,12 +3,13 @@ import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import { Loader2, UserCircle, CheckCircle2, Sparkles, AlertCircle } from 'lucide-react'
 import { useSupabaseAuth } from '../auth/useSupabaseAuth'
+import { useLiteDaemonUsage } from '../cloud/usageStore'
 
 type Tab = 'signin' | 'signup'
 
 export function LiteDaemonOnboardingAccount() {
   const { t } = useTranslation()
-  const { user, profile, loading, error, initialize, signIn, signUp, signInWithGoogle } =
+  const { user, loading, error, initialize, signIn, signUp, signInWithGoogle } =
     useSupabaseAuth()
 
   const [tab, setTab] = useState<Tab>('signin')
@@ -80,7 +81,7 @@ export function LiteDaemonOnboardingAccount() {
 
   // ── Post-login confirmation ──
   if (user) {
-    const isPro = profile?.plan === 'pro' || profile?.plan === 'lifetime'
+    const { isCloudPro: isPro } = useLiteDaemonUsage()
 
     return (
       <div className="max-w-[320px] mx-auto flex flex-col items-center gap-5 py-4 animate-in fade-in duration-300">

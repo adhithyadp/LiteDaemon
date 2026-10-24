@@ -13,6 +13,7 @@ import {
 } from 'lucide-react'
 import { spring } from '../../src/lib/animations'
 import { useSupabaseAuth } from '../auth/useSupabaseAuth'
+import { useLiteDaemonUsage } from '../cloud/usageStore'
 
 type Region = 'india' | 'global'
 type Cycle = 'monthly' | 'annual'
@@ -65,7 +66,7 @@ function detectInitialRegion(): Region {
 }
 
 export function LiteDaemonUpgrade() {
-  const { user, profile, initialize } = useSupabaseAuth()
+  const { user, initialize } = useSupabaseAuth()
   const [region, setRegion] = useState<Region>(detectInitialRegion)
   const [cycle, setCycle] = useState<Cycle>('monthly')
 
@@ -95,7 +96,7 @@ export function LiteDaemonUpgrade() {
     return () => clearTimeout(timer)
   }, [])
 
-  const isPro = profile?.plan === 'pro' || profile?.plan === 'lifetime'
+  const { isCloudPro: isPro } = useLiteDaemonUsage()
 
   const handleOpenUrl = (url: string) => {
     openUrl(url).catch((err) => console.error('Failed to open URL:', err))

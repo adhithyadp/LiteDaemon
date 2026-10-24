@@ -306,7 +306,16 @@
 - Migrated `SUPABASE_ANON_KEY` to Supabase modern publishable key (`sb_publishable_XU1Zdv6f9QbpYDn6XNJj8Q_OrytlJmk`).
 - Verified client auth and user sessions continue functioning with 100% operational status on active ES256 asymmetric signing keys.
 **Why:** Modernizes API credential management, completely neutralizes leaked credentials, and transitions app to zero-downtime key rotation architecture.
-**Phase:** 7 — Security Hardening & Key Modernization
+#### `LiteDaemon/cloud/` & `supabase/functions/` — PHASE 8: CLOUD ARCHITECTURE & BYOK FREE MODEL
+**What:**
+- Transitioned product pricing model to Wispr Flow parity:
+  * **BYOK Free Forever:** Free tier users have full unlimited on-device dictation using their own API keys (Groq, OpenAI, Gemini, Claude, Ollama) with zero subscription fees ($0 / ₹0).
+  * **LiteDaemon Cloud Pro:** Managed speech recognition and AI rewriting powered by Deepgram Nova-3 and OpenAI GPT-4o-mini via a secure Supabase Edge Function (`cloud-proxy`).
+  * Removed word limits and weekly counters in favor of clean unlimited access for Cloud Pro subscribers.
+- Created `user_plans` table and `dodo-webhook` logic to strictly grant Pro entitlement (`plan = 'pro'`) only to active Cloud subscribers.
+- Updated `LiteDaemonUpgrade.tsx`, `LiteDaemonAccount.tsx`, and `LiteDaemonOnboardingAccount.tsx` to clearly present Free (BYOK) vs Cloud Pro statuses.
+**Why:** Maximizes user adoption with zero friction for BYOK users while monetizing zero-setup users with high-margin managed cloud dictation.
+**Phase:** 8 — Cloud Architecture & Free BYOK Model
 
 ---
 

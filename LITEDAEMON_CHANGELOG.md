@@ -5,52 +5,40 @@
 ---
 
 ## [v1.0.6] — 2026-10-24 ☁️
-*Major Update: Cloud Service Infrastructure — Free Tier + Pro Cloud Dictation*
+*Major Update: BYOK Free Forever + Managed Cloud Pro Service Architecture*
 
 ### What's New:
+- **Pricing & Business Model Alignment:**
+  - **BYOK is now 100% Free Forever:** Users can bring their own API keys (Groq, OpenAI, Gemini, Claude, Ollama) and dictate without paying LiteDaemon anything. No checkout button, no limits.
+  - **Cloud Pro is Paid-Only:** Managed speech recognition and AI rewriting with zero setup. ₹400/mo (India) / $15/mo (Global), with ~20% off annual plans.
+  - Removed word counter limits and free trial restrictions — Cloud Pro subscribers get unlimited managed dictation.
+
 - **Cloud Service Backend (Supabase):**
-  - Created `user_plans` table — tracks whether each Pro user is on `byok` or `cloud` plan type, with RLS.
-  - Created `usage_tracking` table — tracks weekly word usage per user (resets every Monday UTC), with RLS.
-  - Added `upsert_usage()` SQL function — atomically increments usage count after each dictation, returns new week total.
+  - Created `user_plans` table — tracks whether user is on `byok` or `cloud` plan type, with RLS.
+  - Created `usage_tracking` table & `upsert_usage()` SQL function for internal telemetry and cost monitoring.
   - Migration file: `supabase/migrations/001_cloud_service_tables.sql`.
 
 - **Updated `dodo-webhook` Edge Function:**
-  - All 8 Dodo product IDs now mapped to `byok` or `cloud` plan type.
-  - On every payment event: updates `profiles` table (existing) **and** upserts `user_plans` (new).
-  - Future subscribers automatically get the correct cloud experience from day one.
+  - Configured with live Dodo product IDs.
+  - Only Cloud subscriptions grant `plan: 'pro'` and `plan_type: 'cloud'`.
+  - Legacy or BYOK users are recognized as `plan: 'free'`, ensuring only paying Cloud users are marked as Pro.
 
-- **New `cloud-proxy` Supabase Edge Function:**
-  - Validates Supabase JWT on every request — no unauthenticated access possible.
-  - Free users: enforced 1,000 words/week limit (checked before and after STT to prevent overrun).
-  - Cloud Pro users: unlimited dictation, no rate limit.
-  - STT: **Deepgram Nova-3** pre-recorded REST API — same model as BYOK users, best-in-class accuracy.
-  - Polish: **OpenAI GPT-4o-mini** — fast, affordable, Wispr Flow-quality output.
-  - Uses the same system prompt style as the upstream LLM polish (fidelity, cleanup, list formatting, multi-language).
-  - Graceful degradation: if polish fails, returns raw transcript rather than erroring.
-  - Usage tracked via `upsert_usage()` after every successful request.
+- **`cloud-proxy` Supabase Edge Function:**
+  - Validates Supabase JWT on every request.
+  - Restricts access strictly to active Cloud Pro subscribers; returns 403 `subscription_required` for free/BYOK users.
+  - STT: **Deepgram Nova-3** pre-recorded REST API — high-speed, high-accuracy.
+  - Polish: **OpenAI GPT-4o-mini** — clean punctuation, filler cleanup, list formatting, and multi-language support.
+  - Graceful degradation: returns raw transcript if polish fails.
+  - Secrets securely stored in Supabase secrets vault (`DEEPGRAM_API_KEY`, `OPENAI_API_KEY`).
 
-- **`LiteDaemon/cloud/usageStore.ts` — Client-Side Usage Store:**
-  - Zustand store that fetches plan type + weekly usage from Supabase on sign-in.
-  - Exposes: `planType`, `wordsUsedThisWeek`, `weeklyLimit`, `isLimitReached`, `usagePercent`, `isCloudPro`, `isByokPro`, `isFree`.
-  - `recordUsage()` — optimistic local update after each dictation (from proxy response).
-  - Free tier: **1,000 words/week** (resets every Monday UTC).
-  - Auto-initializes after sign-in, resets on sign-out — wired into `useSupabaseAuth`.
+- **`LiteDaemon/cloud/usageStore.ts` & `cloudDictation.ts`:**
+  - Streamlined Zustand store: tracks `isCloudPro` vs `isFree` without word counters.
+  - Client handles managed audio transmission to `cloud-proxy` with timeout and error mapping.
 
-- **`LiteDaemon/cloud/cloudDictation.ts` — Cloud Dictation Client:**
-  - `runCloudDictation(req)` — accepts WAV audio `Uint8Array`, returns `{ transcript, polished, words_used, week_total }`.
-  - Audio sent as raw HTTP body; metadata (language, polish style, selected text, sample rate) sent as headers.
-  - JWT retrieved automatically from active Supabase session — no manual token handling.
-  - Pre-flight local usage check before any network call (fast path for limit-hit users).
-  - Full error handling: 60s timeout, network failure, free tier limit, auth expiry — all typed as `CloudDictationError`.
-  - `getCloudDictationAvailability()` — pre-flight check returning `'cloud_pro' | 'free_available' | 'free_limit' | 'byok' | 'signed_out'`.
-
-- **`LiteDaemon/ui/LiteDaemonUsageBar.tsx` — Usage Indicator UI:**
-  - `<LiteDaemonUsageBarCompact />` — inline animated fill bar: "847 / 1,000 words used this week".
-    - Blue 0–74%, amber warning at 75%+, red at 100%.
-    - "Upgrade →" CTA appears at 75%+. "Resets [date]" always visible.
-  - `<LiteDaemonLimitBanner />` — full glassmorphic red card shown when limit is hit, with "Upgrade to Pro" button.
-  - `<LiteDaemonUsageBar />` — smart wrapper: shows compact or banner automatically. Renders nothing for Pro users.
-  - Wired into `LiteDaemonAccount.tsx` — visible in the Account tab below subscription info.
+- **UI Updates (`LiteDaemon/ui/`):**
+  - **`LiteDaemonUpgrade.tsx`:** BYOK card shows "Free forever" with "✓ Your current plan — always free". Cloud card shows localized auto-detected pricing (₹400/mo or $15/mo) with "Upgrade to Cloud".
+  - **`LiteDaemonAccount.tsx`:** Updated to show "Cloud Pro" badge for subscribers and "Free (BYOK)" badge for free users, with relevant upgrade CTAs.
+  - **`LiteDaemonOnboardingAccount.tsx`:** Onboarding wizard reflects free BYOK vs active Cloud Pro accounts.
 
 ### Architecture Notes:
 - **Zero merge conflicts with upstream** — all new code lives in `LiteDaemon/cloud/` and `LiteDaemon/ui/`.

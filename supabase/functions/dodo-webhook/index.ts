@@ -73,8 +73,12 @@ Deno.serve(async (req) => {
       data.status === "active" ||
       data.status === "succeeded"
 
-    const plan = isPro ? "pro" : "free"
+    // Only Cloud subscriptions grant Pro status. BYOK is free forever.
+    const planType = productId ? getPlanType(productId) : null
+    const isCloudPro = isPro && planType === "cloud"
+    const plan = isCloudPro ? "pro" : "free"
     const status = isPro ? "active" : (data.status || "inactive")
+
 
     // -------------------------------------------------------------------------
     // Step 1 (existing): Update `profiles` table with plan + status
